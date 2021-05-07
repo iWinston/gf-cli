@@ -1,9 +1,9 @@
 package proxy
 
 import (
-	"github.com/gogf/gf-cli/library/mlog"
 	"github.com/gogf/gf/net/ghttp"
 	"github.com/gogf/gf/os/genv"
+	"github.com/iWinston/gf-cli/library/mlog"
 	"time"
 )
 

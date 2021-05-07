@@ -1,13 +1,13 @@
 package initialize
 
 import (
-	"github.com/gogf/gf-cli/library/allyes"
-	"github.com/gogf/gf-cli/library/mlog"
 	"github.com/gogf/gf/encoding/gcompress"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gcmd"
 	"github.com/gogf/gf/os/gfile"
 	"github.com/gogf/gf/text/gstr"
+	"github.com/iWinston/gf-cli/library/allyes"
+	"github.com/iWinston/gf-cli/library/mlog"
 	"strings"
 )
 

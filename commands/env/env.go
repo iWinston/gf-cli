@@ -2,10 +2,10 @@ package env
 
 import (
 	"bytes"
-	"github.com/gogf/gf-cli/library/mlog"
 	"github.com/gogf/gf/os/gproc"
 	"github.com/gogf/gf/text/gregex"
 	"github.com/gogf/gf/text/gstr"
+	"github.com/iWinston/gf-cli/library/mlog"
 	"github.com/olekukonko/tablewriter"
 )
 

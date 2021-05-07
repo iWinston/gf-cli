@@ -1,4 +1,4 @@
-module github.com/gogf/gf-cli
+module github.com/iWinston/gf-cli
 
 go 1.11
 

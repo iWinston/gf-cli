@@ -2,11 +2,11 @@ package update
 
 import (
 	"fmt"
-	"github.com/gogf/gf-cli/library/mlog"
 	"github.com/gogf/gf/crypto/gmd5"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/net/ghttp"
 	"github.com/gogf/gf/os/gfile"
+	"github.com/iWinston/gf-cli/library/mlog"
 	"runtime"
 )
 

@@ -3,8 +3,6 @@ package gen
 import (
 	"bytes"
 	"fmt"
-	"github.com/gogf/gf-cli/library/mlog"
-	"github.com/gogf/gf-cli/library/utils"
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gcmd"
@@ -12,6 +10,8 @@ import (
 	"github.com/gogf/gf/os/gtime"
 	"github.com/gogf/gf/text/gregex"
 	"github.com/gogf/gf/text/gstr"
+	"github.com/iWinston/gf-cli/library/mlog"
+	"github.com/iWinston/gf-cli/library/utils"
 	"github.com/olekukonko/tablewriter"
 	"strings"
 

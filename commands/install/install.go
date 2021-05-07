@@ -1,8 +1,6 @@
 package install
 
 import (
-	"github.com/gogf/gf-cli/library/allyes"
-	"github.com/gogf/gf-cli/library/mlog"
 	"github.com/gogf/gf/container/garray"
 	"github.com/gogf/gf/container/gset"
 	"github.com/gogf/gf/frame/g"
@@ -11,6 +9,8 @@ import (
 	"github.com/gogf/gf/os/gfile"
 	"github.com/gogf/gf/text/gstr"
 	"github.com/gogf/gf/util/gconv"
+	"github.com/iWinston/gf-cli/library/allyes"
+	"github.com/iWinston/gf-cli/library/mlog"
 	"runtime"
 	"strings"
 )
