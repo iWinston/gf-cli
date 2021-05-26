@@ -58,5 +58,23 @@ func Run() {
 
 	case "pbentity":
 		doGenPbEntity()
+
+	case "api":
+		doGenApi()
+
+	case "service":
+		doGenService()
+
+	case "define":
+		doGenDefine()
+
+	case "rest":
+		doGenModel()
+		doGenDefine()
+		doGenService()
+		doGenApi()
+
+		// case "router":
+		// 	doGenRouter()
 	}
 }
