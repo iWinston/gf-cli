@@ -31,6 +31,7 @@ TYPE
                of command "gf gen dao".
     pb         parse proto files and generate protobuf go files.
     pbentity   generate entity message files in protobuf3 format.
+    rest       generate restful files.
 
 DESCRIPTION
     The "gen" command is designed for multiple generating purposes. 

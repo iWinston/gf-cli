@@ -4,6 +4,7 @@ import (
 	"strings"
 
 	"github.com/gogf/gf/frame/g"
+	"github.com/gogf/gf/os/gcmd"
 	"github.com/gogf/gf/os/gfile"
 	"github.com/gogf/gf/text/gstr"
 	"github.com/iWinston/gf-cli/library/mlog"
@@ -56,4 +57,25 @@ func genFileForce(template string, folder string, fileName string, name string, 
 		mlog.Print("generated:", path)
 	}
 
+}
+
+func getNameAndDescription() (name string, description string) {
+	name = gcmd.GetArg(3)
+	if name == "" {
+		mlog.Fatalf("Command arguments are not enough")
+	}
+
+	parser, err := gcmd.Parse(g.MapStrBool{
+		"d,description": true,
+	})
+	if err != nil {
+		mlog.Fatal(err)
+	}
+	//name := parser.GetOpt("name")
+	description = parser.GetOpt("description")
+
+	if description == "" {
+		mlog.Fatalf(`The description option is needed, please use "-d" for description`)
+	}
+	return
 }
