@@ -30,7 +30,7 @@ func genFile(template string, folder string, fileName string, name string, descr
 	if !gfile.Exists(path) {
 		indexContent := gstr.ReplaceByMap(onlyOnceHeader+template, g.MapStrStr{
 			"{TplName}":        name,
-			"{TplUpperName}":   strings.ToTitle(name),
+			"{TplUpperName}":   strings.ToUpper(name[:1]) + name[1:],
 			"{TplDescription}": description,
 		})
 		if err := gfile.PutContents(path, strings.TrimSpace(indexContent)); err != nil {

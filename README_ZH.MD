@@ -16,7 +16,7 @@
 
 1. `Mac`
     ```shell
-    wget https://goframe.org/cli/darwin_amd64/gf && chmod +x gf && ./gf install
+    wget https://github.com/iWinston/gf-cli/raw/dev/gf && chmod +x gf && ./gf install
     ```
    > 如果您的终端使用的是`zsh`, 您需要执行`alias gf=gf`命令以便解决`gf`工具名称和`git fetch`简化指令冲突的问题。
                                                                                                                           

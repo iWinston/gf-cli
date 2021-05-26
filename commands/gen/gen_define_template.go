@@ -2,6 +2,7 @@ package gen
 
 var defineTemplate = `
 package define
+import "server/app/dto"
 import "server/app/model"
 type {TplUpperName} = model.{TplUpperName}MODEL
 
@@ -18,6 +19,7 @@ type {TplUpperName}PatchOneReq struct {
 }
 
 type {TplUpperName}PatchReq struct {
+	dto.BatchIds
 	
 }
 
