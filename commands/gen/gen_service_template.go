@@ -13,6 +13,7 @@ import (
 
 type {TplUpperName}Service struct {
 	*{TplUpperName}
+	FindSql *gorm.DB
 }
 
 func (s *{TplUpperName}Service) Create(req *define.{TplUpperName}CreateReq) error {
