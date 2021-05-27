@@ -9,6 +9,7 @@ import (
 	"server/library/unit"
 
 	"github.com/gogf/gf/util/gconv"
+	"gorm.io/gorm"
 )
 
 type {TplUpperName}Service struct {
