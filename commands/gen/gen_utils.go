@@ -27,7 +27,8 @@ func genFile(template string, folder string, fileName string, name string, descr
 		mlog.Fatalf("mkdir for generating path '%s' failed: %v", folder, err)
 	}
 	path := gfile.Join(folder, fileName)
-	if !gfile.Exists(path) {
+
+	if gcmd.ContainsOpt("f") || !gfile.Exists(path) {
 		indexContent := gstr.ReplaceByMap(onlyOnceHeader+template, g.MapStrStr{
 			"{TplName}":        name,
 			"{TplUpperName}":   strings.ToUpper(name[:1]) + name[1:],
@@ -48,7 +49,7 @@ func genFileForce(template string, folder string, fileName string, name string, 
 	path := gfile.Join(folder, fileName)
 	indexContent := gstr.ReplaceByMap(header+template, g.MapStrStr{
 		"{TplName}":        name,
-		"{TplUpperName}":   strings.ToTitle(name),
+		"{TplUpperName}":   strings.ToUpper(name[:1]) + name[1:],
 		"{TplDescription}": description,
 	})
 	if err := gfile.PutContents(path, strings.TrimSpace(indexContent)); err != nil {

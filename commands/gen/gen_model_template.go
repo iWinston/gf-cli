@@ -3,9 +3,10 @@ package gen
 var modelTemplate = `
 package model
 
-var {TplUpperName} = new({TplUpperName}MODEL)
+var {TplUpperName} = new({TplUpperName}Model)
 
-type {TplUpperName}MODEL struct {
+type {TplUpperName}Model struct {
+	Model
 
 }
 `

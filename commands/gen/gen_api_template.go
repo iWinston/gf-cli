@@ -16,7 +16,7 @@ type {TplUpperName}Api struct {
 // @produce  json
 // @security ApiKeyAuth
 // @param   entity  body define.{TplUpperName}CreateReq true "新增{TplDescription}"
-// @router  / [POST]
+// @router  /{TplName} [POST]
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplUpperName}Api) Post(r *ghttp.Request) {
 	req := a.{TplUpperName}.CreateReq(r)
@@ -28,7 +28,7 @@ func (a *{TplUpperName}Api) Post(r *ghttp.Request) {
 // @produce  json
 // @security ApiKeyAuth
 // @param entity query define.{TplUpperName}GetReq true "分页"
-// @router  / [GET]
+// @router  /{TplName} [GET]
 // @success 200 {object} response.JsonResponseWithTotal "执行结果"
 func (a *{TplUpperName}Api) Get(r *ghttp.Request) {
 	req := a.{TplUpperName}.CetReq(r)
@@ -39,7 +39,7 @@ func (a *{TplUpperName}Api) Get(r *ghttp.Request) {
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
-// @router  /{id} [GET]
+// @router  /{TplName}/{id} [GET]
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} define.{TplUpperName}GetOneRes "执行结果"
 func (a *{TplUpperName}Api) GetOne(r *ghttp.Request) {
@@ -52,7 +52,7 @@ func (a *{TplUpperName}Api) GetOne(r *ghttp.Request) {
 // @produce  json
 // @security ApiKeyAuth
 // @param entity body define.{TplUpperName}PatchOneReq true "修改内容"
-// @router  /{id} [Patch]
+// @router  /{TplName}/{id} [Patch]
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplUpperName}Api) PatchOne(r *ghttp.Request) {
@@ -65,7 +65,7 @@ package api
 
 import (
 	"server/app/system/admin/define"
-	"server/app/system/{TplName}/service"
+	"server/app/system/admin/service"
 	"server/library/response"
 
 	"github.com/gogf/gf/net/ghttp"

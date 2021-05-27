@@ -22,11 +22,11 @@ func (s *{TplUpperName}Service) Create(req *define.{TplUpperName}CreateReq) erro
 }
 
 func (s *{TplUpperName}Service) GetOne(id uint) (*define.{TplUpperName}GetOneRes, error) {
-	return s.{TplUpperName}.GetOne(id, model.DB.Model(&define.{TplUpperName}{}))
+	return s.{TplUpperName}.GetOne(id, model.DB)
 }
 
 func (s *{TplUpperName}Service) Get(req *define.{TplUpperName}GetReq) (*[]define.{TplUpperName}GetRes, int64, error) {
-	return s.{TplUpperName}.Get(req, model.DB.Model(&define.{TplUpperName}{}))
+	return s.{TplUpperName}.Get(req, model.DB)
 }
 
 func (s *{TplUpperName}Service) PatchOne(id uint, req *define.{TplUpperName}PatchOneReq) error {
@@ -60,7 +60,7 @@ func (s *{TplUpperName}) Create({TplName} *define.{TplUpperName}) error {
 
 func (s *{TplUpperName}) GetOne(id uint, tx *gorm.DB) (*define.{TplUpperName}GetOneRes, error) {
 	var {TplName} define.{TplUpperName}GetOneRes
-	if result := tx.Take(&{TplName}, id); result.Error != nil {
+	if result := tx.Model(&define.{TplUpperName}{}).Take(&{TplName}, id); result.Error != nil {
 		return nil, result.Error
 	} else {
 		return &{TplName}, nil
@@ -71,6 +71,7 @@ func (s *{TplUpperName}) Get(req *define.{TplUpperName}GetReq, tx *gorm.DB) (*[]
 	var {TplName}s []define.{TplUpperName}GetRes
 	var total int64
 	if result := tx.
+		Model(&define.{TplUpperName}{}).
 		Count(&total).
 		Scopes(model.Paginate(req)).
 		Find(&{TplName}s); result.Error != nil {
