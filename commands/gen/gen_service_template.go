@@ -9,12 +9,10 @@ import (
 	"server/library/unit"
 
 	"github.com/gogf/gf/util/gconv"
-	"gorm.io/gorm"
 )
 
 type {TplUpperName}Service struct {
 	*{TplUpperName}
-	FindSql *gorm.DB
 }
 
 func (s *{TplUpperName}Service) Create(req *define.{TplUpperName}CreateReq) error {
@@ -24,11 +22,13 @@ func (s *{TplUpperName}Service) Create(req *define.{TplUpperName}CreateReq) erro
 }
 
 func (s *{TplUpperName}Service) GetOne(id uint) (*define.{TplUpperName}GetOneRes, error) {
-	return s.{TplUpperName}.GetOne(id, model.DB)
+	sql := model.GenSqlByRes("{TplName}", &define.{TplUpperName}GetOneRes{})
+	return s.{TplUpperName}.GetOne(id, sql)
 }
 
 func (s *{TplUpperName}Service) Get(req *define.{TplUpperName}GetReq) (*[]define.{TplUpperName}GetRes, int64, error) {
-	return s.{TplUpperName}.Get(req, model.DB)
+	sql := model.GenSqlByRes("{TplName}", &define.{TplUpperName}GetRes{})
+	return s.{TplUpperName}.Get(req, model.DB, sql)
 }
 
 func (s *{TplUpperName}Service) PatchOne(id uint, req *define.{TplUpperName}PatchOneReq) error {
@@ -37,6 +37,10 @@ func (s *{TplUpperName}Service) PatchOne(id uint, req *define.{TplUpperName}Patc
 
 func (s *{TplUpperName}Service) Patch(req *define.{TplUpperName}PatchReq) error {
 	return s.{TplUpperName}.Patch(req, unit.StructToMap(req))
+}
+
+func (s *{TplUpperName}Service) DeleteOne(id uint) error {
+	return s.{TplUpperName}.DeleteOne(id)
 }
 `
 
@@ -69,18 +73,24 @@ func (s *{TplUpperName}) GetOne(id uint, tx *gorm.DB) (*define.{TplUpperName}Get
 	}
 }
 
-func (s *{TplUpperName}) Get(req *define.{TplUpperName}GetReq, tx *gorm.DB) (*[]define.{TplUpperName}GetRes, int64, error) {
-	var {TplName}s []define.{TplUpperName}GetRes
+func (s *{TplUpperName}) Get(req *define.{TplUpperName}GetReq, countTx *gorm.DB, findTx *gorm.DB) (*[]define.{TplUpperName}GetRes, int64, error) {
 	var total int64
-	if result := tx.
+	if result := countTx.
 		Model(&define.{TplUpperName}{}).
-		Count(&total).
+		Count(&total); result.Error != nil {
+		return nil, 0, result.Error
+	}
+
+	var res []define.{TplUpperName}GetRes
+	if result := findTx.
+		Model(&define.{TplUpperName}{}).
 		Scopes(model.Paginate(req)).
-		Find(&{TplName}s); result.Error != nil {
+		Find(&res); result.Error != nil {
 		return nil, 0, result.Error
 	} else {
-		return &{TplName}s, total, nil
+		return &res, total, nil
 	}
+
 }
 
 func (s *{TplUpperName}) PatchOne(id uint, req *define.{TplUpperName}PatchOneReq, toUpdate interface{}) error {
@@ -95,6 +105,14 @@ func (s *{TplUpperName}) Patch(req *define.{TplUpperName}PatchReq, toUpdate inte
 		return result.Error
 	}
 	return nil
+}
+
+func (s *{TplUpperName}) DeleteOne(id uint) error {
+	if result := model.DB.Delete(&define.{TplUpperName}{},id); result.Error != nil {
+		return result.Error
+	} else {
+		return nil
+	}
 }
 `
 

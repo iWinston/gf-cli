@@ -11,7 +11,7 @@ type {TplUpperName}CreateReq struct {
 }
 
 type {TplUpperName}GetReq struct {
-	
+	dto.Page
 }
 
 type {TplUpperName}PatchOneReq struct {
@@ -24,10 +24,10 @@ type {TplUpperName}PatchReq struct {
 }
 
 type {TplUpperName}GetOneRes struct {
-	dto.Id
+
 }
 
 type {TplUpperName}GetRes struct {
-	dto.Id
+
 }
 `

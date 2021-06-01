@@ -58,7 +58,20 @@ func (a *{TplUpperName}Api) GetOne(r *ghttp.Request) {
 func (a *{TplUpperName}Api) PatchOne(r *ghttp.Request) {
 	id, req := a.{TplUpperName}.PatchOneReq(r)
 	a.{TplUpperName}.PatchOne(r, id, req)
-}`
+}
+
+// @summary {TplDescription}删除接口
+// @tags    {TplDescription}管理
+// @produce  json
+// @security ApiKeyAuth
+// @router  /{TplName}/{id} [Delete]
+// @Param id path int true "{TplUpperName} ID"
+// @success 200 {object} response.JsonResponse "执行结果"
+func (a *{TplUpperName}Api) DeleteOne(r *ghttp.Request) {
+	id := a.{TplUpperName}.DeleteOneReq(r)
+	a.{TplUpperName}.DeleteOne(r, id)
+}
+`
 
 var apiCoreTemplate = `
 package api
@@ -133,7 +146,23 @@ func (a *{TplUpperName}) PatchOneReq(r *ghttp.Request) (id uint, req *define.{Tp
 		response.JsonExit(r, 1, err.Error())
 	}
 	return
-}`
+}
+
+func (a *{TplUpperName}) DeleteOne(r *ghttp.Request, id uint) {
+	if err := service.{TplUpperName}.DeleteOne(id); err != nil {
+		response.JsonExit(r, 1, err.Error())
+	} else {
+		response.JsonExit(r, 0, "ok")
+	}
+}
+
+func (a *{TplUpperName}) DeleteOneReq(r *ghttp.Request) (id uint) {
+	if id = r.GetUint("id"); id == 0 {
+		response.JsonExit(r, 1, "未获得id参数")
+	}
+	return
+}
+`
 
 var apiIndexTemplate = `
 package api

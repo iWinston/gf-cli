@@ -6,7 +6,7 @@ package model
 var {TplUpperName} = new({TplUpperName}Model)
 
 type {TplUpperName}Model struct {
-	Model
+	Base
 
 }
 `
