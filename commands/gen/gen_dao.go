@@ -3,6 +3,8 @@ package gen
 import (
 	"bytes"
 	"fmt"
+	"strings"
+
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gcmd"
@@ -13,7 +15,6 @@ import (
 	"github.com/iWinston/gf-cli/library/mlog"
 	"github.com/iWinston/gf-cli/library/utils"
 	"github.com/olekukonko/tablewriter"
-	"strings"
 
 	_ "github.com/denisenkom/go-mssqldb"
 	_ "github.com/lib/pq"
@@ -21,8 +22,8 @@ import (
 	//_ "github.com/mattn/go-sqlite3"
 )
 
-// generateDaoReq is the input parameter for generating dao.
-type generateDaoReq struct {
+// generateDaoDto is the input parameter for generating dao.
+type generateDaoDto struct {
 	TableName            string // TableName specifies the table name of the table.
 	NewTableName         string // NewTableName specifies the prefix-stripped name of the table.
 	PrefixName           string // PrefixName specifies the custom prefix name for generated dao and model struct.
@@ -226,7 +227,7 @@ func doGenDaoForArray(index int, parser *gcmd.Parser) {
 		for _, v := range removePrefixArray {
 			newTableName = gstr.TrimLeftStr(newTableName, v, 1)
 		}
-		req := &generateDaoReq{
+		req := &generateDaoDto{
 			TableName:            tableName,
 			NewTableName:         newTableName,
 			PrefixName:           prefixName,
@@ -244,7 +245,7 @@ func doGenDaoForArray(index int, parser *gcmd.Parser) {
 }
 
 // generateDaoAndModelContentFile generates the dao and model content of given table.
-func generateDaoAndModelContentFile(db gdb.DB, req *generateDaoReq) {
+func generateDaoAndModelContentFile(db gdb.DB, req *generateDaoDto) {
 	fieldMap, err := db.TableFields(req.TableName)
 	if err != nil {
 		mlog.Fatalf("fetching tables fields failed for table '%s':\n%v", req.TableName, err)
@@ -352,7 +353,7 @@ import (
 }
 
 // generateStructDefinitionForDao generates and returns the struct definition for specified table.
-func generateStructDefinitionForDao(structName string, fieldMap map[string]*gdb.TableField, req *generateDaoReq) string {
+func generateStructDefinitionForDao(structName string, fieldMap map[string]*gdb.TableField, req *generateDaoDto) string {
 	buffer := bytes.NewBuffer(nil)
 	array := make([][]string, len(fieldMap))
 	names := sortFieldKeyForDao(fieldMap)
@@ -378,7 +379,7 @@ func generateStructDefinitionForDao(structName string, fieldMap map[string]*gdb.
 }
 
 // generateStructFieldForDao generates and returns the attribute definition for specified field.
-func generateStructFieldForDao(field *gdb.TableField, req *generateDaoReq) []string {
+func generateStructFieldForDao(field *gdb.TableField, req *generateDaoDto) []string {
 	var typeName, ormTag, jsonTag, comment string
 	t, _ := gregex.ReplaceString(`\(.+\)`, "", field.Type)
 	t = gstr.Split(gstr.Trim(t), " ")[0]

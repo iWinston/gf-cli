@@ -15,11 +15,11 @@ type {TplUpperName}Api struct {
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param   entity  body define.{TplUpperName}CreateReq true "新增{TplDescription}"
+// @param   entity  body define.{TplUpperName}CreateDto true "新增{TplDescription}"
 // @router  /{TplName} [POST]
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplUpperName}Api) Post(r *ghttp.Request) {
-	req := a.{TplUpperName}.CreateReq(r)
+	req := a.{TplUpperName}.CreateDto(r)
 	a.{TplUpperName}.Post(r, req)
 }
 
@@ -27,11 +27,11 @@ func (a *{TplUpperName}Api) Post(r *ghttp.Request) {
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param entity query define.{TplUpperName}GetReq true "分页"
+// @param entity query define.{TplUpperName}GetDto true "分页"
 // @router  /{TplName} [GET]
 // @success 200 {object} response.JsonResponseWithTotal "执行结果"
 func (a *{TplUpperName}Api) Get(r *ghttp.Request) {
-	req := a.{TplUpperName}.CetReq(r)
+	req := a.{TplUpperName}.CetDto(r)
 	a.{TplUpperName}.Get(r, req)
 }
 
@@ -43,7 +43,7 @@ func (a *{TplUpperName}Api) Get(r *ghttp.Request) {
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} define.{TplUpperName}GetOneRes "执行结果"
 func (a *{TplUpperName}Api) GetOne(r *ghttp.Request) {
-	id := a.{TplUpperName}.CetOneReq(r)
+	id := a.{TplUpperName}.CetOneDto(r)
 	a.{TplUpperName}.GetOne(r, id)
 }
 
@@ -51,12 +51,12 @@ func (a *{TplUpperName}Api) GetOne(r *ghttp.Request) {
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param entity body define.{TplUpperName}PatchOneReq true "修改内容"
+// @param entity body define.{TplUpperName}PatchOneDto true "修改内容"
 // @router  /{TplName}/{id} [Patch]
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplUpperName}Api) PatchOne(r *ghttp.Request) {
-	id, req := a.{TplUpperName}.PatchOneReq(r)
+	id, req := a.{TplUpperName}.PatchOneDto(r)
 	a.{TplUpperName}.PatchOne(r, id, req)
 }
 
@@ -68,7 +68,7 @@ func (a *{TplUpperName}Api) PatchOne(r *ghttp.Request) {
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplUpperName}Api) DeleteOne(r *ghttp.Request) {
-	id := a.{TplUpperName}.DeleteOneReq(r)
+	id := a.{TplUpperName}.DeleteOneDto(r)
 	a.{TplUpperName}.DeleteOne(r, id)
 }
 `
@@ -86,7 +86,7 @@ import (
 
 type {TplUpperName} struct{}
 
-func (a *{TplUpperName}) Post(r *ghttp.Request, req *define.{TplUpperName}CreateReq) {
+func (a *{TplUpperName}) Post(r *ghttp.Request, req *define.{TplUpperName}CreateDto) {
 	if err := service.{TplUpperName}.Create(req); err != nil {
 		response.JsonExit(r, 1, err.Error())
 	} else {
@@ -94,14 +94,14 @@ func (a *{TplUpperName}) Post(r *ghttp.Request, req *define.{TplUpperName}Create
 	}
 }
 
-func (a *{TplUpperName}) CreateReq(r *ghttp.Request) (req *define.{TplUpperName}CreateReq) {
+func (a *{TplUpperName}) CreateDto(r *ghttp.Request) (req *define.{TplUpperName}CreateDto) {
 	if err := r.ParseForm(&req); err != nil {
 		response.JsonExit(r, 1, err.Error())
 	}
 	return
 }
 
-func (a *{TplUpperName}) Get(r *ghttp.Request, req *define.{TplUpperName}GetReq) {
+func (a *{TplUpperName}) Get(r *ghttp.Request, req *define.{TplUpperName}GetDto) {
 	if list, total, err := service.{TplUpperName}.Get(req); err != nil {
 		response.JsonExit(r, 1, err.Error())
 	} else {
@@ -109,7 +109,7 @@ func (a *{TplUpperName}) Get(r *ghttp.Request, req *define.{TplUpperName}GetReq)
 	}
 }
 
-func (a *{TplUpperName}) CetReq(r *ghttp.Request) (req *define.{TplUpperName}GetReq) {
+func (a *{TplUpperName}) CetDto(r *ghttp.Request) (req *define.{TplUpperName}GetDto) {
 	if err := r.ParseQuery(&req); err != nil {
 		response.JsonExit(r, 1, err.Error())
 	}
@@ -123,14 +123,14 @@ func (a *{TplUpperName}) GetOne(r *ghttp.Request, id uint) {
 		response.JsonExit(r, 0, "ok", {TplName})
 	}
 }
-func (a *{TplUpperName}) CetOneReq(r *ghttp.Request) (id uint) {
+func (a *{TplUpperName}) CetOneDto(r *ghttp.Request) (id uint) {
 	if id = r.GetUint("id"); id == 0 {
 		response.JsonExit(r, 1, "未获得id参数")
 	}
 	return
 }
 
-func (a *{TplUpperName}) PatchOne(r *ghttp.Request, id uint, req *define.{TplUpperName}PatchOneReq) {
+func (a *{TplUpperName}) PatchOne(r *ghttp.Request, id uint, req *define.{TplUpperName}PatchOneDto) {
 	if err := service.{TplUpperName}.PatchOne(id, req); err != nil {
 		response.JsonExit(r, 1, err.Error())
 	} else {
@@ -138,7 +138,7 @@ func (a *{TplUpperName}) PatchOne(r *ghttp.Request, id uint, req *define.{TplUpp
 	}
 }
 
-func (a *{TplUpperName}) PatchOneReq(r *ghttp.Request) (id uint, req *define.{TplUpperName}PatchOneReq) {
+func (a *{TplUpperName}) PatchOneDto(r *ghttp.Request) (id uint, req *define.{TplUpperName}PatchOneDto) {
 	if id = r.GetUint("id"); id == 0 {
 		response.JsonExit(r, 1, "未获得id参数")
 	}
@@ -156,7 +156,7 @@ func (a *{TplUpperName}) DeleteOne(r *ghttp.Request, id uint) {
 	}
 }
 
-func (a *{TplUpperName}) DeleteOneReq(r *ghttp.Request) (id uint) {
+func (a *{TplUpperName}) DeleteOneDto(r *ghttp.Request) (id uint) {
 	if id = r.GetUint("id"); id == 0 {
 		response.JsonExit(r, 1, "未获得id参数")
 	}

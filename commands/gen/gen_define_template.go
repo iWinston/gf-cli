@@ -6,19 +6,19 @@ import "server/app/dto"
 import "server/app/model"
 type {TplUpperName} = model.{TplUpperName}Model
 
-type {TplUpperName}CreateReq struct {
+type {TplUpperName}CreateDto struct {
 	
 }
 
-type {TplUpperName}GetReq struct {
+type {TplUpperName}GetDto struct {
 	dto.Page
 }
 
-type {TplUpperName}PatchOneReq struct {
+type {TplUpperName}PatchOneDto struct {
 	
 }
 
-type {TplUpperName}PatchReq struct {
+type {TplUpperName}PatchDto struct {
 	dto.BatchIds
 
 }

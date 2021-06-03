@@ -15,7 +15,7 @@ type {TplUpperName}Service struct {
 	*{TplUpperName}
 }
 
-func (s *{TplUpperName}Service) Create(req *define.{TplUpperName}CreateReq) error {
+func (s *{TplUpperName}Service) Create(req *define.{TplUpperName}CreateDto) error {
 	var {TplName} *define.{TplUpperName}
 	gconv.Struct(req, &{TplName})
 	return s.{TplUpperName}.Create({TplName})
@@ -26,16 +26,16 @@ func (s *{TplUpperName}Service) GetOne(id uint) (*define.{TplUpperName}GetOneRes
 	return s.{TplUpperName}.GetOne(id, sql)
 }
 
-func (s *{TplUpperName}Service) Get(req *define.{TplUpperName}GetReq) (*[]define.{TplUpperName}GetRes, int64, error) {
+func (s *{TplUpperName}Service) Get(req *define.{TplUpperName}GetDto) (*[]define.{TplUpperName}GetRes, int64, error) {
 	sql := model.GenSqlByRes("{TplName}", &define.{TplUpperName}GetRes{})
 	return s.{TplUpperName}.Get(req, model.DB, sql)
 }
 
-func (s *{TplUpperName}Service) PatchOne(id uint, req *define.{TplUpperName}PatchOneReq) error {
+func (s *{TplUpperName}Service) PatchOne(id uint, req *define.{TplUpperName}PatchOneDto) error {
 	return s.{TplUpperName}.PatchOne(id, req, unit.StructToMap(req))
 }
 
-func (s *{TplUpperName}Service) Patch(req *define.{TplUpperName}PatchReq) error {
+func (s *{TplUpperName}Service) Patch(req *define.{TplUpperName}PatchDto) error {
 	return s.{TplUpperName}.Patch(req, unit.StructToMap(req))
 }
 
@@ -73,7 +73,7 @@ func (s *{TplUpperName}) GetOne(id uint, tx *gorm.DB) (*define.{TplUpperName}Get
 	}
 }
 
-func (s *{TplUpperName}) Get(req *define.{TplUpperName}GetReq, countTx *gorm.DB, findTx *gorm.DB) (*[]define.{TplUpperName}GetRes, int64, error) {
+func (s *{TplUpperName}) Get(req *define.{TplUpperName}GetDto, countTx *gorm.DB, findTx *gorm.DB) (*[]define.{TplUpperName}GetRes, int64, error) {
 	var total int64
 	if result := countTx.
 		Model(&define.{TplUpperName}{}).
@@ -93,14 +93,14 @@ func (s *{TplUpperName}) Get(req *define.{TplUpperName}GetReq, countTx *gorm.DB,
 
 }
 
-func (s *{TplUpperName}) PatchOne(id uint, req *define.{TplUpperName}PatchOneReq, toUpdate interface{}) error {
+func (s *{TplUpperName}) PatchOne(id uint, req *define.{TplUpperName}PatchOneDto, toUpdate interface{}) error {
 	if result := model.DB.Model(&define.{TplUpperName}{}).Where("id = ?", id).Updates(toUpdate); result.Error != nil {
 		return result.Error
 	}
 	return nil
 }
 
-func (s *{TplUpperName}) Patch(req *define.{TplUpperName}PatchReq, toUpdate interface{}) error {
+func (s *{TplUpperName}) Patch(req *define.{TplUpperName}PatchDto, toUpdate interface{}) error {
 	if result := model.DB.Model(&define.{TplUpperName}{}).Where("id In ?", req.GetIdSlice()).Updates(toUpdate); result.Error != nil {
 		return result.Error
 	}

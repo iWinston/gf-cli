@@ -3,6 +3,7 @@ package gen
 import (
 	"bytes"
 	"fmt"
+
 	_ "github.com/denisenkom/go-mssqldb"
 	"github.com/gogf/gf/database/gdb"
 	"github.com/gogf/gf/frame/g"
@@ -14,14 +15,16 @@ import (
 	"github.com/gogf/gf/util/gconv"
 	"github.com/iWinston/gf-cli/library/mlog"
 	_ "github.com/lib/pq"
+
 	//_ "github.com/mattn/go-oci8"
 	//_ "github.com/mattn/go-sqlite3"
-	"github.com/olekukonko/tablewriter"
 	"strings"
+
+	"github.com/olekukonko/tablewriter"
 )
 
-// generatePbEntityReq is the input parameter for generating entity protobuf files.
-type generatePbEntityReq struct {
+// generatePbEntityDto is the input parameter for generating entity protobuf files.
+type generatePbEntityDto struct {
 	TableName     string // TableName specifies the table name of the table.
 	NewTableName  string // NewTableName specifies the prefix-stripped name of the table.
 	PrefixName    string // PrefixName specifies the custom prefix name for generated protobuf entity.
@@ -208,7 +211,7 @@ func doGenPbEntityForArray(index int, parser *gcmd.Parser) {
 		for _, v := range removePrefixArray {
 			newTableName = gstr.TrimLeftStr(newTableName, v, 1)
 		}
-		req := &generatePbEntityReq{
+		req := &generatePbEntityDto{
 			TableName:     tableName,
 			NewTableName:  newTableName,
 			PrefixName:    prefixName,
@@ -225,7 +228,7 @@ func doGenPbEntityForArray(index int, parser *gcmd.Parser) {
 }
 
 // generatePbEntityContentFile generates the protobuf files for given table.
-func generatePbEntityContentFile(db gdb.DB, req *generatePbEntityReq) {
+func generatePbEntityContentFile(db gdb.DB, req *generatePbEntityDto) {
 	fieldMap, err := db.TableFields(req.TableName)
 	if err != nil {
 		mlog.Fatalf("fetching tables fields failed for table '%s':\n%v", req.TableName, err)
@@ -252,7 +255,7 @@ func generatePbEntityContentFile(db gdb.DB, req *generatePbEntityReq) {
 }
 
 // generateEntityMessageDefinition generates and returns the message definition for specified table.
-func generateEntityMessageDefinition(name string, fieldMap map[string]*gdb.TableField, req *generatePbEntityReq) string {
+func generateEntityMessageDefinition(name string, fieldMap map[string]*gdb.TableField, req *generatePbEntityDto) string {
 	var (
 		buffer = bytes.NewBuffer(nil)
 		array  = make([][]string, len(fieldMap))
@@ -279,7 +282,7 @@ func generateEntityMessageDefinition(name string, fieldMap map[string]*gdb.Table
 }
 
 // generateMessageFieldForPbEntity generates and returns the message definition for specified field.
-func generateMessageFieldForPbEntity(index int, field *gdb.TableField, req *generatePbEntityReq) []string {
+func generateMessageFieldForPbEntity(index int, field *gdb.TableField, req *generatePbEntityDto) []string {
 	var (
 		typeName   string
 		comment    string
