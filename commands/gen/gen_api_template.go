@@ -31,7 +31,7 @@ func (a *{TplUpperName}Api) Post(r *ghttp.Request) {
 // @router  /{TplName} [GET]
 // @success 200 {object} response.JsonResponseWithTotal "执行结果"
 func (a *{TplUpperName}Api) Get(r *ghttp.Request) {
-	req := a.{TplUpperName}.CetDto(r)
+	req := a.{TplUpperName}.GetDto(r)
 	a.{TplUpperName}.Get(r, req)
 }
 
@@ -43,7 +43,7 @@ func (a *{TplUpperName}Api) Get(r *ghttp.Request) {
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} define.{TplUpperName}GetOneRes "执行结果"
 func (a *{TplUpperName}Api) GetOne(r *ghttp.Request) {
-	id := a.{TplUpperName}.CetOneDto(r)
+	id := a.{TplUpperName}.GetOneDto(r)
 	a.{TplUpperName}.GetOne(r, id)
 }
 
@@ -109,7 +109,7 @@ func (a *{TplUpperName}) Get(r *ghttp.Request, req *define.{TplUpperName}GetDto)
 	}
 }
 
-func (a *{TplUpperName}) CetDto(r *ghttp.Request) (req *define.{TplUpperName}GetDto) {
+func (a *{TplUpperName}) GetDto(r *ghttp.Request) (req *define.{TplUpperName}GetDto) {
 	if err := r.ParseQuery(&req); err != nil {
 		response.JsonExit(r, 1, err.Error())
 	}
@@ -123,7 +123,7 @@ func (a *{TplUpperName}) GetOne(r *ghttp.Request, id uint) {
 		response.JsonExit(r, 0, "ok", {TplName})
 	}
 }
-func (a *{TplUpperName}) CetOneDto(r *ghttp.Request) (id uint) {
+func (a *{TplUpperName}) GetOneDto(r *ghttp.Request) (id uint) {
 	if id = r.GetUint("id"); id == 0 {
 		response.JsonExit(r, 1, "未获得id参数")
 	}

@@ -32,7 +32,9 @@ func (s *{TplUpperName}Service) Get(req *define.{TplUpperName}GetDto) (*[]define
 }
 
 func (s *{TplUpperName}Service) PatchOne(id uint, req *define.{TplUpperName}PatchOneDto) error {
-	return s.{TplUpperName}.PatchOne(id, req, unit.StructToMap(req))
+	var {TplName} *define.{TplUpperName}
+	gconv.Struct(req, &{TplName})
+	return s.{TplUpperName}.PatchOne(id, {TplName})
 }
 
 func (s *{TplUpperName}Service) Patch(req *define.{TplUpperName}PatchDto) error {
@@ -93,8 +95,8 @@ func (s *{TplUpperName}) Get(req *define.{TplUpperName}GetDto, countTx *gorm.DB,
 
 }
 
-func (s *{TplUpperName}) PatchOne(id uint, req *define.{TplUpperName}PatchOneDto, toUpdate interface{}) error {
-	if result := model.DB.Model(&define.{TplUpperName}{}).Where("id = ?", id).Updates(toUpdate); result.Error != nil {
+func (s *{TplUpperName}) PatchOne(id uint, {TplName} *define.{TplUpperName}) error {
+	if result := model.DB.Model(&define.{TplUpperName}{}).Where("id = ?", id).Updates({TplName}); result.Error != nil {
 		return result.Error
 	}
 	return nil
