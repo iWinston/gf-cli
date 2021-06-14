@@ -3,31 +3,33 @@ package gen
 var defineTemplate = `
 package define
 import "server/app/dto"
-import "server/app/model"
-type {TplUpperName} = model.{TplUpperName}Model
 
-type {TplUpperName}CreateDto struct {
+type {TplUpperName}CreateParam struct {
 	
 }
 
-type {TplUpperName}GetDto struct {
+type {TplUpperName}FindParam struct {
 	dto.Page
 }
 
-type {TplUpperName}PatchOneDto struct {
+type {TplUpperName}FindOneParam struct {
 	
 }
 
-type {TplUpperName}PatchDto struct {
+type {TplUpperName}PatchOneParam struct {
+	
+}
+
+type {TplUpperName}DeleteOneParam struct {
 	dto.BatchIds
 
 }
 
-type {TplUpperName}GetOneRes struct {
+type {TplUpperName}FindRes struct {
 
 }
 
-type {TplUpperName}GetRes struct {
+type {TplUpperName}FindOneRes struct {
 
 }
 `

@@ -16,9 +16,9 @@
 
 1. `Mac`
     ```shell
-    wget https://github.com/iWinston/gf-cli/raw/dev/gf && chmod +x gf && ./gf install
+    wget https://github.com/iWinston/gf-cli/raw/dev/qk && chmod +x qk && ./qk install
     ```
-   > 如果您的终端使用的是`zsh`, 您需要执行`alias gf=gf`命令以便解决`gf`工具名称和`git fetch`简化指令冲突的问题。
+   > 如果您的终端使用的是`zsh`, 您需要执行`alias qk=qk`命令以便解决`qk`工具名称和`git fetch`简化指令冲突的问题。
                                                                                                                           
 1. `Linux` 
     ```shell

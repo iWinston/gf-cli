@@ -8,8 +8,7 @@ import (
 func doGenService() {
 	name, description := getNameAndDescription()
 
-	genFileForce(serviceTemplateMap["default"], "./gen/service", name+"_service.go", name, description)
-	genFileForce(serviceTemplateMap["core"], "./gen/service", name+".go", name, description)
+	genFileForce(serviceTemplateMap["default"], "./app/system/admin/service/internal", name+"_service.go", name, description)
 	genFile(serviceTemplateMap["index"], "./app/system/admin/service", name+"_service.go", name, description)
 
 	mlog.Print("gen service done!")
