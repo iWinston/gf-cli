@@ -4,9 +4,9 @@ var apiIndexTemplate = `
 package api
 
 import (
-	"server/app/shared/utils"
 	"server/app/system/admin/define"
 	"server/app/system/admin/service"
+	"server/library/restful"
 
 	"github.com/gogf/gf/net/ghttp"
 )
@@ -25,9 +25,9 @@ type {TplName}Api struct{}
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplName}Api) Post(r *ghttp.Request) {
 	param := &define.{TplUpperName}CreateParam{}
-	utils.AssignParamFormReq(r, param)
+	restful.AssignParamFormReq(r, param)
 	err := service.{TplUpperName}.Create(param)
-	utils.Response(r, err)
+	restful.Response(r, err)
 }
 
 // @summary {TplDescription}详情接口
@@ -38,11 +38,11 @@ func (a *{TplName}Api) Post(r *ghttp.Request) {
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} define.{TplUpperName}FindOneRes "执行结果"
 func (a *{TplName}Api) GetOne(r *ghttp.Request) {
-	id := utils.GetIdFormReq(r)
+	id := restful.GetIdFormReq(r)
 	param := &define.{TplUpperName}FindOneParam{}
-	utils.AssignParamFormReq(r, param)
+	restful.AssignParamFormReq(r, param)
 	res, err := service.{TplUpperName}.FindOne(id, param)
-	utils.ResponseWithData(r, err, res)
+	restful.ResponseWithData(r, err, res)
 }
 
 // @summary {TplDescription}列表接口
@@ -54,9 +54,9 @@ func (a *{TplName}Api) GetOne(r *ghttp.Request) {
 // @success 200 {object} response.JsonResponseWithTotal "执行结果"
 func (a *{TplName}Api) Get(r *ghttp.Request) {
 	param := &define.{TplUpperName}FindParam{}
-	utils.AssignParamFormReq(r, param)
+	restful.AssignParamFormReq(r, param)
 	res, total, err := service.{TplUpperName}.Find(param)
-	utils.ResponseWithTotal(r, err, res, total)
+	restful.ResponseWithTotal(r, err, res, total)
 }
 
 // @summary {TplDescription}修改接口
@@ -68,11 +68,11 @@ func (a *{TplName}Api) Get(r *ghttp.Request) {
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplName}Api) PatchOne(r *ghttp.Request) {
-	id := utils.GetIdFormReq(r)
+	id := restful.GetIdFormReq(r)
 	param := &define.{TplUpperName}PatchOneParam{}
-	utils.AssignParamFormReq(r, param)
+	restful.AssignParamFormReq(r, param)
 	err := service.{TplUpperName}.PatchOne(id, param)
-	utils.Response(r, err)
+	restful.Response(r, err)
 }
 
 // @summary {TplDescription}删除接口
@@ -83,11 +83,11 @@ func (a *{TplName}Api) PatchOne(r *ghttp.Request) {
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} response.JsonResponse "执行结果"
 func (a *{TplName}Api) DeleteOne(r *ghttp.Request) {
-	id := utils.GetIdFormReq(r)
+	id := restful.GetIdFormReq(r)
 	param := &define.{TplUpperName}DeleteOneParam{}
-	utils.AssignParamFormReq(r, param)
+	restful.AssignParamFormReq(r, param)
 	err := service.{TplUpperName}.DeleteOne(id, param)
-	utils.Response(r, err)
+	restful.Response(r, err)
 }
 `
 

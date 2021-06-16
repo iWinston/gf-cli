@@ -2,14 +2,14 @@ package gen
 
 var defineTemplate = `
 package define
-import "server/app/dto"
+import "server/library/restful"
 
 type {TplUpperName}CreateParam struct {
 	
 }
 
 type {TplUpperName}FindParam struct {
-	dto.Page
+	restful.Page
 }
 
 type {TplUpperName}FindOneParam struct {
@@ -21,7 +21,6 @@ type {TplUpperName}PatchOneParam struct {
 }
 
 type {TplUpperName}DeleteOneParam struct {
-	dto.BatchIds
 
 }
 

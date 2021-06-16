@@ -5,8 +5,8 @@ package internal
 
 import (
 	"server/app/model"
-	"server/app/shared/utils"
 	"server/app/system/admin/define"
+	"server/library/restful"
 
 	"github.com/gogf/gf/util/gconv"
 )
@@ -17,42 +17,46 @@ func (s *{TplUpperName}Service) Create(param *define.{TplUpperName}CreateParam) 
 	var {TplName} *model.{TplUpperName}
 	gconv.Struct(param, &{TplName})
 	sql := model.DB.Model(&model.{TplUpperName}{})
-	return utils.CreateOne(sql, {TplName})
+	return restful.CreateOne(sql, {TplName})
 }
 
 func (s *{TplUpperName}Service) FindOne(id uint, param *define.{TplUpperName}FindOneParam) (*define.{TplUpperName}FindOneRes, error) {
 	res := &define.{TplUpperName}FindOneRes{}
-	sql := utils.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
-	sql = utils.GenSqlByRes(sql, res)
-	err := utils.TakeOne(sql, id, res)
+	sql := restful.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
+	sql = restful.GenSqlByRes(sql, res)
+	err := restful.TakeOne(sql, id, res)
 	return res, err
 }
 
 func (s *{TplUpperName}Service) Find(param *define.{TplUpperName}FindParam) (*[]define.{TplUpperName}FindRes, int64, error) {
-	countSql := utils.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
+	countSql := restful.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
 	var total int64
 	if result := countSql.Count(&total); result.Error != nil {
 		return nil, 0, result.Error
 	}
 
 	res := &[]define.{TplUpperName}FindRes{}
-	sql := utils.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
-	sql = utils.GenSqlByRes(sql, &define.{TplUpperName}FindRes{})
-	err := utils.Find(sql, param, res)
+	sql := restful.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
+	sql = restful.GenSqlByRes(sql, &define.{TplUpperName}FindRes{})
+	err := restful.Find(sql, param, res)
 	return res, total, err
 }
 
 func (s *{TplUpperName}Service) PatchOne(id uint, param *define.{TplUpperName}PatchOneParam) error {
 	var {TplName} *model.{TplUpperName}
 	gconv.Struct(param, &{TplName})
-	sql := utils.GenSqlByParam(model.DB.Debug().Model(&model.{TplUpperName}{}), param)
-	return utils.PatchOne(sql, id, {TplName})
+	sql := restful.GenSqlByParam(model.DB.Debug().Model(&model.{TplUpperName}{}), param)
+	return restful.PatchOne(sql, id, {TplName})
 }
 
 func (s *{TplUpperName}Service) DeleteOne(id uint, param *define.{TplUpperName}DeleteOneParam) error {
 	{TplName} := &model.{TplUpperName}{}
-	sql := utils.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
-	return utils.DeleteOne(sql, id, {TplName})
+	sql := restful.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
+	err := restful.TakeOne(sql, id, {TplName})
+	if err != nil {
+		return err
+	}
+	return restful.DeleteOne(sql, id, {TplName})
 }
 `
 
