@@ -2,14 +2,14 @@ package gen
 
 var defineTemplate = `
 package define
-import "server/library/restful"
+"github.com/iWinston/qk-library/frame/q"
 
 type {TplUpperName}CreateParam struct {
 	
 }
 
 type {TplUpperName}FindParam struct {
-	restful.Page
+	q.Page
 }
 
 type {TplUpperName}FindOneParam struct {
