@@ -2,7 +2,7 @@ package gen
 
 var defineTemplate = `
 package define
-"github.com/iWinston/qk-library/frame/q"
+import "github.com/iWinston/qk-library/frame/q"
 
 type {TplUpperName}CreateParam struct {
 	

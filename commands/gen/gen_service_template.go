@@ -7,56 +7,41 @@ import (
 	"server/app/model"
 	"server/app/system/admin/define"
 
-	"github.com/gogf/gf/util/gconv"
 	"github.com/iWinston/qk-library/frame/q"
 )
 
 type {TplUpperName}Service struct{}
 
 func (s *{TplUpperName}Service) Create(param *define.{TplUpperName}CreateParam) error {
-	var {TplName} *model.{TplUpperName}
-	gconv.Struct(param, &{TplName})
-	sql := model.DB.Model(&model.{TplUpperName}{})
-	return q.CreateOne(sql, {TplName})
+	{TplName} := &model.{TplUpperName}{}
+	return q.CreateOne(model.DB, {TplName}, param)
 }
 
 func (s *{TplUpperName}Service) FindOne(id uint, param *define.{TplUpperName}FindOneParam) (*define.{TplUpperName}FindOneRes, error) {
 	res := &define.{TplUpperName}FindOneRes{}
-	sql := q.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
-	sql = q.GenSqlByRes(sql, res)
-	err := q.TakeOne(sql, id, res)
+	tx := model.DB.Model(&model.{TplUpperName}{}).Where(id)
+	err := q.FindOne(tx, param, res)
 	return res, err
 }
 
 func (s *{TplUpperName}Service) Find(param *define.{TplUpperName}FindParam) (*[]define.{TplUpperName}FindRes, int64, error) {
-	countSql := q.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
-	var total int64
-	if result := countSql.Count(&total); result.Error != nil {
-		return nil, 0, result.Error
-	}
-
 	res := &[]define.{TplUpperName}FindRes{}
-	sql := q.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
-	sql = q.GenSqlByRes(sql, &define.{TplUpperName}FindRes{})
-	err := q.Find(sql, param, res)
+	tx := model.DB.Model(&model.{TplUpperName}{})
+	var total int64
+	err := q.Find(tx, param, res, &total)
 	return res, total, err
 }
 
 func (s *{TplUpperName}Service) PatchOne(id uint, param *define.{TplUpperName}PatchOneParam) error {
-	var {TplName} *model.{TplUpperName}
-	gconv.Struct(param, &{TplName})
-	sql := q.GenSqlByParam(model.DB.Debug().Model(&model.{TplUpperName}{}), param)
-	return q.PatchOne(sql, id, {TplName})
+	{TplName} := &model.{TplUpperName}{}
+	tx := model.DB.Model({TplName}).Where(id)
+	return q.PatchOne(tx, {TplName}, param)
 }
 
 func (s *{TplUpperName}Service) DeleteOne(id uint, param *define.{TplUpperName}DeleteOneParam) error {
 	{TplName} := &model.{TplUpperName}{}
-	sql := q.GenSqlByParam(model.DB.Model(&model.{TplUpperName}{}), param)
-	err := q.TakeOne(sql, id, {TplName})
-	if err != nil {
-		return err
-	}
-	return q.DeleteOne(sql, id, {TplName})
+	tx := model.DB.Model({TplName}).Where(id)
+	return q.DeleteOne(tx, {TplName}, param)
 }
 `
 
