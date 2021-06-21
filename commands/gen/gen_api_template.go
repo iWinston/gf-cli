@@ -51,7 +51,7 @@ func (a *{TplName}Api) GetOne(r *ghttp.Request) {
 // @security ApiKeyAuth
 // @param entity query define.{TplUpperName}FindParam true "分页"
 // @router  /{TplName} [GET]
-// @success 200 {object} define.{TplUpperName}FindRes "执行结果"
+// @success 200 {object} []define.{TplUpperName}FindRes "执行结果"
 func (a *{TplName}Api) Get(r *ghttp.Request) {
 	param := &define.{TplUpperName}FindParam{}
 	q.AssignParamFormReq(r, param)
