@@ -6,9 +6,9 @@ import (
 
 // doGenModel implements the "gen model" command.
 func doGenModel() {
-	name, description := getNameAndDescription()
+	name, description, systemName := getArgs()
 
-	genFile(modelTemplate, "./app/model", name+"_model.go", name, description)
+	genFile(modelTemplate, "./app/model", name+"_model.go", name, description, systemName)
 
 	mlog.Print("gen model done!")
 }

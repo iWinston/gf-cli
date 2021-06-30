@@ -5,7 +5,7 @@ package internal
 
 import (
 	"server/app/model"
-	"server/app/system/admin/define"
+	"server/app/system/{TplSystemName}/define"
 
 	"github.com/iWinston/qk-library/frame/q"
 )
@@ -48,7 +48,7 @@ func (s *{TplUpperName}Service) DeleteOne(id uint, param *define.{TplUpperName}D
 var serviceIndexTemplate = `
 package service
 
-import "server/app/system/admin/service/internal"
+import "server/app/system/{TplSystemName}/service/internal"
 
 var {TplUpperName} = &{TplName}Service{}
 

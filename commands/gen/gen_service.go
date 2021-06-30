@@ -6,10 +6,10 @@ import (
 
 // doGenService implements the "gen service" command.
 func doGenService() {
-	name, description := getNameAndDescription()
+	name, description, systemName := getArgs()
 
-	genFileForce(serviceTemplateMap["default"], "./app/system/admin/service/internal", name+"_service.go", name, description)
-	genFile(serviceTemplateMap["index"], "./app/system/admin/service", name+"_service.go", name, description)
+	genFileForce(serviceTemplateMap["default"], "./app/system/admin/service/internal", name+"_service.go", name, description, systemName)
+	genFile(serviceTemplateMap["index"], "./app/system/admin/service", name+"_service.go", name, description, systemName)
 
 	mlog.Print("gen service done!")
 }

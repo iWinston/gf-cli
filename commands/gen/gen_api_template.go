@@ -4,8 +4,8 @@ var apiIndexTemplate = `
 package api
 
 import (
-	"server/app/system/admin/define"
-	"server/app/system/admin/service"
+	"server/app/system/{TplSystemName}/define"
+	"server/app/system/{TplSystemName}/service"
 
 	"github.com/gogf/gf/net/ghttp"
 	"github.com/iWinston/qk-library/frame/q"

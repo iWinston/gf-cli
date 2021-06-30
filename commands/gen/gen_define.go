@@ -6,9 +6,9 @@ import (
 
 // doGenDefine implements the "gen define" command.
 func doGenDefine() {
-	name, description := getNameAndDescription()
+	name, description, systemName := getArgs()
 
-	genFile(defineTemplate, "./app/system/admin/define", name+"_define.go", name, description)
+	genFile(defineTemplate, "./app/system/"+systemName+"/define", name+"_define.go", name, description, systemName)
 
 	mlog.Print("gen define done!")
 }

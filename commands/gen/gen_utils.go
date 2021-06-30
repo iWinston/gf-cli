@@ -22,7 +22,7 @@ const onlyOnceHeader = `
 // =================================================================================
 `
 
-func genFile(template string, folder string, fileName string, name string, description string) {
+func genFile(template string, folder string, fileName string, name string, description string, systemName string) {
 	fileName = snakeString(fileName)
 	if err := gfile.Mkdir(folder); err != nil {
 		mlog.Fatalf("mkdir for generating path '%s' failed: %v", folder, err)
@@ -34,6 +34,7 @@ func genFile(template string, folder string, fileName string, name string, descr
 			"{TplName}":        name,
 			"{TplUpperName}":   strings.ToUpper(name[:1]) + name[1:],
 			"{TplDescription}": description,
+			"{TplSystemName}":  systemName,
 		})
 		if err := gfile.PutContents(path, strings.TrimSpace(indexContent)); err != nil {
 			mlog.Fatalf("writing content to '%s' failed: %v", path, err)
@@ -43,7 +44,7 @@ func genFile(template string, folder string, fileName string, name string, descr
 	}
 }
 
-func genFileForce(template string, folder string, fileName string, name string, description string) {
+func genFileForce(template string, folder string, fileName string, name string, description string, systemName string) {
 	fileName = snakeString(fileName)
 	if err := gfile.Mkdir(folder); err != nil {
 		mlog.Fatalf("mkdir for generating path '%s' failed: %v", folder, err)
@@ -53,6 +54,7 @@ func genFileForce(template string, folder string, fileName string, name string, 
 		"{TplName}":        name,
 		"{TplUpperName}":   strings.ToUpper(name[:1]) + name[1:],
 		"{TplDescription}": description,
+		"{TplSystemName}":  systemName,
 	})
 	if err := gfile.PutContents(path, strings.TrimSpace(indexContent)); err != nil {
 		mlog.Fatalf("writing content to '%s' failed: %v", path, err)
@@ -62,23 +64,26 @@ func genFileForce(template string, folder string, fileName string, name string, 
 
 }
 
-func getNameAndDescription() (name string, description string) {
+func getArgs() (name string, description string, systemName string) {
 	name = gcmd.GetArg(3)
 	if name == "" {
 		mlog.Fatalf("Command arguments are not enough")
 	}
-
-	// parser, err := gcmd.Parse(g.MapStrBool{
-	// 	"d,description": true,
-	// })
-	// if err != nil {
-	// 	mlog.Fatal(err)
-	// }
-	//name := parser.GetOpt("name")
 	description = gcmd.GetArg(4)
 
 	if description == "" {
 		mlog.Fatalf(`Command arguments are not enough, The description argument is needed`)
+	}
+
+	parser, err := gcmd.Parse(g.MapStrBool{
+		"s,systemName": true,
+	})
+	if err != nil {
+		mlog.Fatal(err)
+	}
+	systemName = parser.GetOpt("systemName")
+	if systemName == "" {
+		systemName = "admin"
 	}
 	return
 }
