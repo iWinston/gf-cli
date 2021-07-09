@@ -8,17 +8,9 @@ import (
 
 func Help() {
 	switch gcmd.GetArg(2) {
-	case "dao":
-		HelpDao()
-
-	case "model":
-		HelpModel()
 
 	case "pb":
 		HelpPb()
-
-	case "pbentity":
-		HelpPbEntity()
 
 	default:
 		mlog.Print(gstr.TrimLeft(`
@@ -48,17 +40,12 @@ func Run() {
 		return
 	}
 	switch genType {
-	case "dao":
-		doGenDao()
 
 	case "model":
 		doGenModel()
 
 	case "pb":
 		doGenPb()
-
-	case "pbentity":
-		doGenPbEntity()
 
 	case "api":
 		doGenApi()

@@ -2,10 +2,12 @@ package main
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/iWinston/gf-cli/commands/env"
 	"github.com/iWinston/gf-cli/commands/mod"
-	"strings"
+	"github.com/iWinston/gf-cli/commands/sync"
 
 	"github.com/gogf/gf/os/gbuild"
 	"github.com/gogf/gf/os/gcmd"
@@ -119,6 +121,8 @@ func main() {
 		build.Run()
 	case "run":
 		run.Run()
+	case "sync":
+		sync.Run()
 	default:
 		for k := range gcmd.GetOptAll() {
 			switch k {
