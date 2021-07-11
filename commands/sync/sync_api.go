@@ -54,9 +54,9 @@ func genApiFiles(apiSystem *apifox.ApiItem) {
 func genApiFile(systemName string, apiFolder *apifox.ApiItem) {
 	var fileInfo ApiFileInfo
 	fileInfo.System = utils.SnakeString(systemName)
-	fileInfo.FileName = utils.FolderName(apiFolder.Name)
-	fileInfo.StructName = apiFolder.Name
-	fileInfo.Name = strings.ToLower(apiFolder.Name)
+	fileInfo.StructName = utils.GetStructName(apiFolder.Name)
+	fileInfo.FileName = utils.GetFileName(apiFolder.Name)
+	fileInfo.Name = strings.ToLower(fileInfo.StructName)
 	for _, apiItem := range apiFolder.Items {
 		fileInfo.ApiInfos = append(fileInfo.ApiInfos, getApi(&apiItem))
 	}

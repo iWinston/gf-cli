@@ -28,7 +28,7 @@ func genModels(schemaFolder *apifox.SchemaItem) (modelFolderInfo ModelFolderInfo
 }
 
 func genModel(schemaItem *apifox.SchemaItem) (modelInfo ModelInfo) {
-	modelInfo.Name = utils.FolderName(schemaItem.Name)
+	modelInfo.Name = utils.GetFileName(schemaItem.Name)
 	for k, v := range schemaItem.Schema.JSONSchema.Properties {
 		modelInfo.FieldInfos = append(modelInfo.FieldInfos, getModelFields(k, &v, schemaItem.Schema.JSONSchema.Required))
 	}
@@ -40,15 +40,28 @@ func getModelFields(key string, field *apifox.Field, required []string) (fm Fiel
 	fm.Name = strings.Title(key)
 	fm.Type = getTypeTag(field.Type, field.Items, field.Ref)
 	isRequired := arrays.Contains(required, fm.Name) != -1
-	fm.Tag = getJsonTag(key) + " " + getOrmTag(field, isRequired) + field.Description
+	fm.Tag = getJsonTag(key) + " " + getOrmTag(field, isRequired)
 	return
 }
 
 func getOrmTag(field *apifox.Field, required bool) string {
+	var arr []string
 	if required {
-		return "gorm:not null;"
+		arr = append(arr, "not null")
 	}
-	return "gorm:"
+	if field.Default != "" {
+		arr = append(arr, "default:"+field.Default)
+	}
+	if field.Title != "" {
+		arr = append(arr, "comment:"+field.Title)
+	}
+	if field.MaxLength != 0 {
+		arr = append(arr, "length:"+field.Title)
+	}
+	if len(arr) == 0 {
+		return ""
+	}
+	return "gorm:" + strings.Join(arr, ";")
 }
 
 type ModelFolderInfo struct {

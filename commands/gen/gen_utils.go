@@ -52,6 +52,25 @@ func genFileForce(template string, folder string, fileName string, name string, 
 	}
 }
 
+func genFileWithoutHeader(template string, folder string, fileName string, name string, description string, systemName string) {
+	fileName = utils.SnakeString(fileName)
+	if err := gfile.Mkdir(folder); err != nil {
+		mlog.Fatalf("mkdir for generating path '%s' failed: %v", folder, err)
+	}
+	path := gfile.Join(folder, fileName)
+	indexContent := gstr.ReplaceByMap(template, g.MapStrStr{
+		"{TplName}":        name,
+		"{TplUpperName}":   strings.ToUpper(name[:1]) + name[1:],
+		"{TplDescription}": description,
+		"{TplSystemName}":  systemName,
+	})
+	if err := gfile.PutContents(path, strings.TrimSpace(indexContent)); err != nil {
+		mlog.Fatalf("writing content to '%s' failed: %v", path, err)
+	} else {
+		mlog.Print("generated:", path)
+	}
+}
+
 func getArgs() (name string, description string, systemName string) {
 	name = gcmd.GetArg(3)
 	if name == "" {

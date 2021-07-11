@@ -15,7 +15,7 @@ func HelpDefine() {
 
 func doSyncDefine(schemaCollection *[]apifox.SchemaItem) {
 	for _, schemaSystem := range *schemaCollection {
-		if schemaSystem.Name == "Model" || schemaSystem.Name == "Schemas" || schemaSystem.Name == "Q" {
+		if schemaSystem.Name == "Model" || schemaSystem.Name == "Schemas" || strings.HasPrefix(schemaSystem.Name, "q") {
 			continue
 		}
 		genDefineFiles(&schemaSystem)
@@ -29,7 +29,7 @@ func genDefineFiles(schemaSystem *apifox.SchemaItem) {
 }
 
 func genDefineFile(schemaFolder *apifox.SchemaItem, systemName string) (defineFileInfo DefineFileInfo) {
-	defineFileInfo.Name = utils.FolderName(schemaFolder.Name) + ".define.go"
+	defineFileInfo.Name = utils.GetFileName(schemaFolder.Name) + ".define.go"
 	for _, schemaItem := range schemaFolder.Items {
 		defineFileInfo.DefineInfos = append(defineFileInfo.DefineInfos, getDefine(&schemaItem, systemName))
 	}

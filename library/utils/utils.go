@@ -19,9 +19,13 @@ func GoFmt(path string) {
 	}
 }
 
-func FolderName(s string) string {
-	index := strings.Index(s, "#")
-	return SnakeString(s[index+1:])
+func GetStructName(folderName string) string {
+	index := strings.Index(folderName, "#")
+	return folderName[index+1:]
+}
+
+func GetFileName(folderName string) string {
+	return SnakeString(GetStructName(folderName))
 }
 
 /**

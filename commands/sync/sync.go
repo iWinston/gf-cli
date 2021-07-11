@@ -42,7 +42,7 @@ func Run() {
 		return
 	}
 	apifox := load()
-	projectName = apifox.Info.Name
+	projectName = apifox.Info.Description
 	refs = getRefs(&(apifox.SchemaCollection))
 
 	switch syncType {

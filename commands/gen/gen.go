@@ -9,8 +9,8 @@ import (
 func Help() {
 	switch gcmd.GetArg(2) {
 
-	case "pb":
-		HelpPb()
+	case "apifox":
+		HelpApifox()
 
 	default:
 		mlog.Print(gstr.TrimLeft(`
@@ -44,8 +44,8 @@ func Run() {
 	case "model":
 		doGenModel()
 
-	case "pb":
-		doGenPb()
+	case "apifox":
+		doGenApifox()
 
 	case "api":
 		doGenApi()

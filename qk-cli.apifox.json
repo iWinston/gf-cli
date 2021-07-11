@@ -1,0 +1,84 @@
+{
+  "apifoxProject": "1.0.0",
+  "apiCollection": [{ "name": "Admin", "items": [] }],
+  "socketCollection": [],
+  "schemaCollection": [
+    { "name": "Model", "items": [] },
+    {
+      "name": "qfield",
+      "items": [
+        {
+          "name": "Ids",
+          "id": "#/definitions/929267",
+          "schema": {
+            "jsonSchema": { "type": "array", "items": { "type": "integer" } }
+          }
+        },
+        {
+          "name": "Strings",
+          "id": "#/definitions/929278",
+          "schema": {
+            "jsonSchema": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        {
+          "name": "Pic",
+          "id": "#/definitions/929282",
+          "schema": { "jsonSchema": { "type": "string" } }
+        },
+        {
+          "name": "Pics",
+          "id": "#/definitions/929283",
+          "schema": {
+            "jsonSchema": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ]
+    },
+    {
+      "name": "q",
+      "items": [
+        {
+          "name": "Resp",
+          "id": "#/definitions/920704",
+          "schema": {
+            "jsonSchema": {
+              "type": "object",
+              "properties": {
+                "code": { "type": "string", "mock": { "mock": "0" } },
+                "msg": { "type": "string" }
+              },
+              "required": ["code", "msg"]
+            }
+          }
+        },
+        {
+          "name": "Meta",
+          "id": "#/definitions/922386",
+          "schema": {
+            "jsonSchema": {
+              "type": "object",
+              "properties": {
+                "current": { "type": "integer" },
+                "size": { "type": "integer" }
+              },
+              "required": ["current", "size"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "qtime",
+      "items": [
+        {
+          "name": "Time",
+          "id": "#/definitions/930349",
+          "schema": {
+            "jsonSchema": { "type": "string", "format": "date-time" }
+          }
+        }
+      ]
+    }
+  ]
+}
