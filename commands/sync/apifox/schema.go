@@ -15,7 +15,7 @@ type SchemaItem struct {
 }
 type Field struct {
 	Properties  map[string]Field
-	Type        string
+	Type        interface{}
 	Items       FieldItems
 	Title       string
 	Description string

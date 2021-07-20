@@ -31,9 +31,9 @@ func genFile(template string, folder string, fileName string, args g.MapStrStr, 
 func getReplaceMap(args g.MapStrStr) g.MapStrStr {
 	return g.MapStrStr{
 		"{TplName}":        args["name"],
-		"{TplUpperName}":   strings.ToUpper(args["name"][:1]) + args["name"][1:],
+		"{TplUpperName}":   strings.Title(args["name"]),
 		"{TplDescription}": args["description"],
-		"{TplSystemName}":  args["systemName"],
+		"{TplSystemName}":  strings.Title(args["systemName"]),
 		"{TplFuncName}":    args["systemName"],
 	}
 }

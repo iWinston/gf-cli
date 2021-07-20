@@ -154,7 +154,7 @@ const apifoxTemplate = `
 			  "jsonSchema": {
 				"type": "object",
 				"properties": {
-				  "Name": { "type": "string" }
+				  "name": { "type": "string" }
 				}
 			  }
 			}
@@ -175,40 +175,129 @@ const apifoxTemplate = `
 			  {
 				"name": "{TplUpperName}GetParam",
 				"id": "#/definitions/920500",
-				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
+				"schema": {
+					"jsonSchema": {
+						"type": "object",
+						"properties": {
+							"id": {
+							"type": "integer"
+							}
+						},
+						"required": ["id"]
+					}
+				}
 			  },
 			  {
 				"name": "{TplUpperName}ListParam",
 				"id": "#/definitions/920501",
 				"schema": {
 				  "jsonSchema": {
-					"type": "object",
-					"properties": { "meta": { "$ref": "#/definitions/922386" } },
-					"required": ["meta"]
-				  }
+					"allOf": [
+						{
+							"$ref": "#/definitions/960836"
+						},
+						{
+							"type": "object",
+							"properties": {}
+						}
+					]
+				}
 				}
 			  },
 			  {
 				"name": "{TplUpperName}PatchParam",
 				"id": "#/definitions/928917",
-				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
+				"schema": {
+					"jsonSchema": {
+						"type": "object",
+						"properties": {
+							"id": {
+							"type": "integer"
+							}
+						},
+						"required": ["id"]
+					}
+				}
 			  },
 			  {
 				"name": "{TplUpperName}DeleteParam",
 				"id": "#/definitions/928921",
-				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
+				"schema": {
+					"jsonSchema": {
+						"type": "object",
+						"properties": {
+							"id": {
+							"type": "integer"
+							}
+						},
+						"required": ["id"]
+					}
+				}
 			  },
 			  {
 				"name": "{TplUpperName}GetRes",
 				"id": "#/definitions/922387",
-				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
+				"schema": {
+					"jsonSchema": {
+						"type": "object",
+						"properties": {
+							"id": {
+							"type": "integer"
+							}
+						},
+						"required": ["id"]
+					}
+				}
 			  },
 			  {
 				"name": "{TplUpperName}ListRes",
 				"id": "#/definitions/922388",
-				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
-			  }
+				"schema": {
+					"jsonSchema": {
+						"type": "object",
+						"properties": {
+							"id": {
+							"type": "integer"
+							}
+						},
+						"required": ["id"]
+					}
+				}
+            }
 			]
+		  }
+		]
+	  },
+	  {
+		"name": "Q",
+		"items": [
+		  {
+			"name": "q.Resp",
+			"id": "#/definitions/920704",
+			"schema": {
+			  "jsonSchema": {
+				"type": "object",
+				"properties": {
+				  "code": { "type": "string", "mock": { "mock": "0" } },
+				  "msg": { "type": "string" }
+				},
+				"required": ["code", "msg"]
+			  }
+			}
+		  },
+		  {
+			"name": "q.Meta",
+			"id": "#/definitions/960836",
+			"schema": {
+			  "jsonSchema": {
+				"type": "object",
+				"properties": {
+				  "current": { "type": "integer", "minimum": 1 },
+				  "pageSize": { "type": "integer", "minimum": 1, "maximum": 30 }
+				},
+				"required": ["current", "pageSize"]
+			  }
+			}
 		  }
 		]
 	  }

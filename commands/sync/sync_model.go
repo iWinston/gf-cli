@@ -5,7 +5,6 @@ import (
 
 	"github.com/iWinston/gf-cli/commands/sync/apifox"
 	"github.com/iWinston/gf-cli/library/utils"
-	"github.com/wxnacy/wgo/arrays"
 )
 
 func HelpModel() {
@@ -29,6 +28,7 @@ func genModels(schemaFolder *apifox.SchemaItem) (modelFolderInfo ModelFolderInfo
 
 func genModel(schemaItem *apifox.SchemaItem) (modelInfo ModelInfo) {
 	modelInfo.Name = utils.GetFileName(schemaItem.Name)
+	modelInfo.StructName = strings.Title(modelInfo.Name)
 	for k, v := range schemaItem.Schema.JSONSchema.Properties {
 		modelInfo.FieldInfos = append(modelInfo.FieldInfos, getModelFields(k, &v, schemaItem.Schema.JSONSchema.Required))
 	}
@@ -39,15 +39,14 @@ func genModel(schemaItem *apifox.SchemaItem) (modelInfo ModelInfo) {
 func getModelFields(key string, field *apifox.Field, required []string) (fm FieldInfo) {
 	fm.Name = strings.Title(key)
 	fm.Type = getTypeTag(field)
-	isRequired := arrays.Contains(required, fm.Name) != -1
-	tagArr := []string{getJsonTag(key), getOrmTag(field, isRequired)}
+	tagArr := []string{getJsonTag(key), getOrmTag(field)}
 	fm.Tag = strings.Join(tagArr, " ")
 	return
 }
 
-func getOrmTag(field *apifox.Field, required bool) string {
+func getOrmTag(field *apifox.Field) string {
 	var arr []string
-	if required {
+	if _, ok := field.Type.(string); ok {
 		arr = append(arr, "not null")
 	}
 	if field.Default != "" {
@@ -58,6 +57,9 @@ func getOrmTag(field *apifox.Field, required bool) string {
 	}
 	if field.MaxLength != 0 {
 		arr = append(arr, "length:"+field.Title)
+	}
+	if field.Description != "" {
+		arr = append(arr, field.Description)
 	}
 	if len(arr) == 0 {
 		return ""
@@ -71,5 +73,6 @@ type ModelFolderInfo struct {
 
 type ModelInfo struct {
 	Name       string
+	StructName string
 	FieldInfos []FieldInfo
 }

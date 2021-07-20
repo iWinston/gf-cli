@@ -81,13 +81,16 @@ func getApi(apiItem *apifox.ApiItem) (apiInfo ApiInfo) {
 
 func getFuncName(path string, method string) string {
 	arr := strings.Split(path, "/")
-	if len(arr) == 1 {
+	if len(arr) == 2 {
 		return strings.Title(method)
 	}
-	if len(arr) == 2 {
-		return strings.Title(arr[1])
+	var str string
+	for i, v := range arr {
+		if i > 1 {
+			str += strings.Title(v)
+		}
 	}
-	return ""
+	return str
 }
 
 func getParamRef(requestBody apifox.RequestBody) string {

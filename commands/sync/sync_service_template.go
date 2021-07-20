@@ -43,7 +43,7 @@ func (s *{{$.Data.StructName}}Service) {{$api.FuncName}}(param *define.{{$api.Pa
 	{{else if eq $api.FuncName "Delete"}}
 	var (
 		m = &model.{{$.Data.StructName}}{}
-		tx = model.DB.Model(m).Where(id)
+		tx = model.DB.Model(m)
 		err = q.Delete(tx, m, param)
 	)
 	{{else if eq $api.FuncName "List"}}

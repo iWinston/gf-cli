@@ -76,8 +76,15 @@ func getTypeTag(field *apifox.Field) string {
 	if field.Ref != "" {
 		return getRef(field.Ref)
 	}
+	if fieldType, ok := field.Type.(string); ok {
+		return getFieldType(field, fieldType)
+	} else {
+		return getFieldType(field, field.Type.([]interface{})[0].(string))
+	}
+}
 
-	switch field.Type {
+func getFieldType(field *apifox.Field, fieldType string) string {
+	switch fieldType {
 	case "string":
 		if field.Format == "date" || field.Format == "date-time" {
 			return "*time.Time"
@@ -98,7 +105,7 @@ func getTypeTag(field *apifox.Field) string {
 		return "interface{}"
 	case "object":
 		//TODO 递归
-		return "*" + field.Type
+		return "*" + fieldType
 	default:
 		return "interface{}"
 	}
@@ -140,25 +147,25 @@ func getValidateTag(field *apifox.Field, required bool) string {
 		msgs = append(msgs, field.Title+"最大长度为:"+strconv.Itoa(field.MaxLength))
 	}
 	if field.Minimum != 0 {
-		rules = append(rules, "min:"+strconv.Itoa(field.MinLength))
-		msgs = append(msgs, field.Title+"最小为:"+strconv.Itoa(field.MinLength))
+		rules = append(rules, "min:"+strconv.Itoa(field.Minimum))
+		msgs = append(msgs, field.Title+"最小为:"+strconv.Itoa(field.Minimum))
 	}
 	if field.Maximum != 0 {
-		rules = append(rules, "max:"+strconv.Itoa(field.MaxLength))
-		msgs = append(msgs, field.Title+"最大为:"+strconv.Itoa(field.MaxLength))
+		rules = append(rules, "max:"+strconv.Itoa(field.Maximum))
+		msgs = append(msgs, field.Title+"最大为:"+strconv.Itoa(field.Maximum))
 	}
 	if field.Type == "number" {
 		rules = append(rules, "float")
 		msgs = append(msgs, field.Title+"必须为浮点数")
 	}
 	if arrays.Contains([]string{"integer", "string", "boolean"}, field.Type) != -1 {
-		rules = append(rules, field.Type)
+		rules = append(rules, field.Type.(string))
 		msgs = append(msgs, field.Title+"不符合类型规则")
 	}
 	if len(rules) == 0 || len(msgs) == 0 {
 		return ""
 	}
-	return strings.Join(rules, "|") + "#" + strings.Join(msgs, "|")
+	return `v:"` + strings.Join(rules, "|") + "#" + strings.Join(msgs, "|") + `"`
 }
 
 type DefineFileInfo struct {
