@@ -114,7 +114,7 @@ func getRespMode(resRef string, paramRefId string) (mode string) {
 		return
 	}
 	for _, field := range refs[paramRefId].FieldInfos {
-		if field.Name == "q.Meta" {
+		if field.Name == "q.Page" {
 			mode = "meta"
 			return
 		}
@@ -144,7 +144,7 @@ func getService(funcName string, respMode string, res string) (apiService ApiSer
 		return
 	case "meta":
 		apiService.Return = "res, total, err"
-		apiService.ReturnType = "*define." + res + ", int64, error"
+		apiService.ReturnType = "*[]define." + res + ", int64, error"
 		return
 	default:
 		apiService.Return = "res, err"

@@ -286,7 +286,7 @@ const apifoxTemplate = `
 			}
 		  },
 		  {
-			"name": "q.Meta",
+			"name": "q.Page",
 			"id": "#/definitions/960836",
 			"schema": {
 			  "jsonSchema": {

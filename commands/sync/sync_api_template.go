@@ -18,12 +18,10 @@ import (
 	"github.com/iWinston/qk-library/frame/q"
 )
 
-var {{.Data.StructName}} = &{{.Data.Name}}Api{}
-
-type {{.Data.Name}}Api struct{}
+type {{.Data.StructName}}Api struct{}
 {{range $api := .Data.ApiInfos}}
 // {{$api.FuncName}} {{$api.Name}}
-func (a *{{$.Data.Name}}Api) {{$api.FuncName}}(r *ghttp.Request) {
+func (a *{{$.Data.StructName}}Api) {{$api.FuncName}}(r *ghttp.Request) {
 	param := &define.{{$api.ParamRef}}{}
 	q.AssignParamFormReq(r, param)
 	{{$api.Service.Return}} := service.{{$.Data.StructName}}.{{$api.FuncName}}(param)
