@@ -102,10 +102,7 @@ type parseParam struct {
 func getRef(refId string) string {
 	refInfo := refs[refId]
 	if strings.HasPrefix(refInfo.System, "q") {
-		if refInfo.System == "qtime" {
-			return "time." + refInfo.Name
-		}
-		return refInfo.System + "." + refInfo.Name
+		return refInfo.Name
 	}
 	return refInfo.Name
 }

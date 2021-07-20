@@ -27,31 +27,31 @@ func (s *{{$.Data.StructName}}Service) {{$api.FuncName}}(param *define.{{$api.Pa
 	var (
 		res = &define.{{$api.ResRef}}{}
 		tx = model.DB.Model(&model.{{$.Data.StructName}}{})
-		err = q.FindOne(tx, param, res)
+		err = q.Get(tx, param, res)
 	)
 	{{else if eq $api.FuncName "Post"}}
 	var (
 		m = &model.{{$.Data.StructName}}{}
-		err = q.CreateOne(model.DB, m, param)
+		err = q.Post(model.DB, m, param)
 	)
 	{{else if eq $api.FuncName "Patch"}}
 	var (
 		m = &model.{{$.Data.StructName}}{}
 		tx = model.DB.Model(m)
-		err = q.PatchOne(tx, m, param)
+		err = q.Patch(tx, m, param)
 	)
 	{{else if eq $api.FuncName "Delete"}}
 	var (
 		m = &model.{{$.Data.StructName}}{}
 		tx = model.DB.Model(m).Where(id)
-		err = q.DeleteOne(tx, m, param)
+		err = q.Delete(tx, m, param)
 	)
 	{{else if eq $api.FuncName "List"}}
 	var (
 		total int64
 		res   = &[]define.{{$api.ResRef}}{}
 		tx    = model.DB.Model(&model.{{$.Data.StructName}}{})
-		err   = q.Find(tx, param, res, &total)
+		err   = q.List(tx, param, res, &total)
 	)
 	{{else if eq $api.RespMode "resp"}}
 		var err error

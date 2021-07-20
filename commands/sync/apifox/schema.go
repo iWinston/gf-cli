@@ -9,19 +9,23 @@ type SchemaItem struct {
 			Properties map[string]Field
 			Required   []string
 			Type       string
+			AllOf      []Field
 		}
 	}
 }
-
 type Field struct {
+	Properties  map[string]Field
 	Type        string
 	Items       FieldItems
 	Title       string
 	Description string
 	Default     string
+	Minimum     int
+	Maximum     int
 	MinLength   int
 	MaxLength   int
 	Pattern     string
+	Format      string
 	Enum        []string
 	Ref         string `json:"$ref"`
 }

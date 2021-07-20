@@ -38,9 +38,10 @@ func genModel(schemaItem *apifox.SchemaItem) (modelInfo ModelInfo) {
 
 func getModelFields(key string, field *apifox.Field, required []string) (fm FieldInfo) {
 	fm.Name = strings.Title(key)
-	fm.Type = getTypeTag(field.Type, field.Items, field.Ref)
+	fm.Type = getTypeTag(field)
 	isRequired := arrays.Contains(required, fm.Name) != -1
-	fm.Tag = getJsonTag(key) + " " + getOrmTag(field, isRequired)
+	tagArr := []string{getJsonTag(key), getOrmTag(field, isRequired)}
+	fm.Tag = strings.Join(tagArr, " ")
 	return
 }
 

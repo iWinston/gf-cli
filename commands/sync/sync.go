@@ -62,7 +62,7 @@ func Run() {
 	case "define":
 		doSyncDefine(&(apifox.SchemaCollection))
 
-	case "rest":
+	case "all":
 		doSyncModel(&(apifox.SchemaCollection))
 		doSyncDefine(&(apifox.SchemaCollection))
 		doSyncApi(&(apifox.ApiCollection))

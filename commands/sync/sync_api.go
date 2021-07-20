@@ -111,7 +111,7 @@ func getRespMode(resRef string, paramRefId string) (mode string) {
 		return
 	}
 	for _, field := range refs[paramRefId].FieldInfos {
-		if field.Name == "Meta" {
+		if field.Name == "PageSize" {
 			mode = "meta"
 			return
 		}

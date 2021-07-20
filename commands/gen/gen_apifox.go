@@ -15,9 +15,17 @@ USAGE
 
 // doGenApifox implements the "gen service" command.
 func doGenApifox() {
-	name, description, systemName := getArgs()
+	var (
+		args       = getArgs()
+		name       = args["name"]
+		systemName = args["systemName"]
+	)
 
-	genFileWithoutHeader(apifoxTemplate, "./apifox/", name+".apifox.json", name, description, systemName)
+	if args["funcName"] == "" {
+		genFile(apifoxTemplate, "./apifox/"+systemName, name+".apifox.json", getReplaceMap(args), "force", "")
+	} else {
+		genFile(apifoxTemplate, "./apifox/"+systemName, name+"."+args["funcName"]+".apifox.json", getReplaceMap(args), "force", "")
+	}
 
 	mlog.Print("gen apifox done!")
 }

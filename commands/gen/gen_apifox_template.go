@@ -14,11 +14,9 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036881",
 				  "method": "get",
-				  "path": "{TplName}",
+				  "path": "/{TplName}",
 				  "parameters": {
-					"query": [
-					  { "required": false, "description": "", "name": "" }
-					],
+					"query": [],
 					"path": []
 				  },
 				  "responses": [
@@ -44,7 +42,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036910",
 				  "method": "get",
-				  "path": "{TplName}/list",
+				  "path": "/{TplName}/list",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -69,7 +67,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036916",
 				  "method": "post",
-				  "path": "{TplName}",
+				  "path": "/{TplName}",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -94,7 +92,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5096880",
 				  "method": "patch",
-				  "path": "{TplName}",
+				  "path": "/{TplName}",
 				  "parameters": [],
 				  "responses": [
 					{
@@ -119,7 +117,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5096882",
 				  "method": "delete",
-				  "path": "{TplName}",
+				  "path": "/{TplName}",
 				  "parameters": [],
 				  "responses": [
 					{
@@ -213,52 +211,6 @@ const apifoxTemplate = `
 			]
 		  }
 		]
-	  },
-	  {
-		"name": "Q",
-		"items": [
-		  {
-			"name": "Resp",
-			"id": "#/definitions/920704",
-			"schema": {
-			  "jsonSchema": {
-				"type": "object",
-				"properties": {
-				  "code": { "type": "string", "mock": { "mock": "0" } },
-				  "msg": { "type": "string" }
-				},
-				"required": ["code", "msg"]
-			  }
-			}
-		  },
-		  {
-			"name": "Meta",
-			"id": "#/definitions/922386",
-			"schema": {
-			  "jsonSchema": {
-				"type": "object",
-				"properties": {
-				  "current": { "type": "integer" },
-				  "size": { "type": "integer" }
-				},
-				"required": ["current", "size"]
-			  }
-			}
-		  }
-		]
 	  }
-	],
-	"responseCollection": [
-	  {
-		"id": "3580188",
-		"name": "SuccResp",
-		"code": 200,
-		"jsonSchema": {
-		  "type": "object",
-		  "properties": { "code": { "type": "string", "mock": { "mock": "0" } } },
-		  "required": ["code"]
-		}
-	  }
-	],
-	"apiTestCaseCollection": [{ "name": "默认分类", "children": [], "items": [] }]
+	]
   }`
