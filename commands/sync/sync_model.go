@@ -40,7 +40,7 @@ func getModelFields(key string, field *apifox.Field, required []string) (fm Fiel
 	fm.Name = strings.Title(key)
 	fm.Type = getTypeTag(field)
 	tagArr := []string{getJsonTag(key), getOrmTag(field)}
-	fm.Tag = strings.Join(tagArr, " ")
+	fm.Tag = joinNotEmpty(tagArr, " ")
 	return
 }
 

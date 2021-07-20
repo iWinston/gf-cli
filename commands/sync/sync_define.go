@@ -64,7 +64,7 @@ func getFields(key string, field *apifox.Field, required []string) (fm FieldInfo
 	fm.Type = getTypeTag(field)
 	isRequired := arrays.Contains(required, fm.Name) != -1
 	tagArr := []string{getJsonTag(key), field.Description, getValidateTag(field, isRequired)}
-	fm.Tag = strings.Join(tagArr, " ")
+	fm.Tag = joinNotEmpty(tagArr, " ")
 	return
 }
 

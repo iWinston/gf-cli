@@ -3,6 +3,7 @@ package sync
 import (
 	"encoding/json"
 	"io/ioutil"
+	"strings"
 
 	"github.com/alecthomas/template"
 	"github.com/gogf/gf/os/gcmd"
@@ -122,4 +123,14 @@ func getMapFromItem(defineInfoMap *map[string]DefineInfo, schema *apifox.SchemaI
 		(*defineInfoMap)[item.Id] = getDefine(&item, systemName)
 		getMapFromItem(defineInfoMap, &item, systemName)
 	}
+}
+
+func joinNotEmpty(strArr []string, sep string) string {
+	newArr := []string{}
+	for _, str := range strArr {
+		if str != "" {
+			newArr = append(newArr, str)
+		}
+	}
+	return strings.Join(newArr, sep)
 }
