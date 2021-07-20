@@ -56,7 +56,7 @@ func (a *{TplName}Api) Get(r *ghttp.Request) {
 	param := &define.{TplUpperName}FindParam{}
 	q.AssignParamFormReq(r, param)
 	res, total, err := service.{TplUpperName}.Find(param)
-	q.ResponseWithTotal(r, err, res, total)
+	q.ResponseWithMeta(r, err, res, total)
 }
 
 // @summary {TplDescription}修改接口

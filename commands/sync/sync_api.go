@@ -114,7 +114,7 @@ func getRespMode(resRef string, paramRefId string) (mode string) {
 		return
 	}
 	for _, field := range refs[paramRefId].FieldInfos {
-		if field.Name == "PageSize" {
+		if field.Name == "q.Meta" {
 			mode = "meta"
 			return
 		}
@@ -128,7 +128,7 @@ func getRespFunc(respMode string) string {
 	case "resp":
 		return "q.Response(r, err)"
 	case "meta":
-		return "q.ResponseWithTotal(r, err, res, total)"
+		return "q.ResponseWithMeta(r, err, res, total)"
 	case "data":
 		return "q.ResponseWithData(r, err, res)"
 	default:

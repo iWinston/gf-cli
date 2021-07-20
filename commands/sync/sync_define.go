@@ -1,6 +1,7 @@
 package sync
 
 import (
+	"fmt"
 	"strconv"
 	"strings"
 
@@ -56,6 +57,7 @@ func getDefine(schemaItem *apifox.SchemaItem, systemName string) (defineInfo Def
 			defineInfo.FieldInfos = append(defineInfo.FieldInfos, getFields(k, &v, schemaItem.Schema.JSONSchema.Required))
 		}
 	}
+	fmt.Println(defineInfo.Name)
 	return
 }
 
