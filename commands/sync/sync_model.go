@@ -64,7 +64,7 @@ func getOrmTag(field *apifox.Field) string {
 	if len(arr) == 0 {
 		return ""
 	}
-	return "gorm:" + strings.Join(arr, ";")
+	return `gorm:"` + strings.Join(arr, ";") + `"`
 }
 
 type ModelFolderInfo struct {
