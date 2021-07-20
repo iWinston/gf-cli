@@ -3,7 +3,6 @@ package sync
 import (
 	"encoding/json"
 	"io/ioutil"
-	"strings"
 
 	"github.com/alecthomas/template"
 	"github.com/gogf/gf/os/gcmd"
@@ -101,8 +100,8 @@ type parseParam struct {
 
 func getRef(refId string) string {
 	refInfo := refs[refId]
-	if strings.HasPrefix(refInfo.System, "q") {
-		return refInfo.Name
+	if refInfo.Name == "time.Date" {
+		return "time.Time"
 	}
 	return refInfo.Name
 }
