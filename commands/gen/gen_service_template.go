@@ -12,7 +12,7 @@ import (
 
 type {TplUpperName}Service struct{}
 
-func (s *{TplUpperName}Service) Create(param *define.{TplUpperName}CreateParam) error {
+func (s *{TplUpperName}Service) Create(param *define.{TplUpperName}PostParam) error {
 	{TplName} := &model.{TplUpperName}{}
 	return q.CreateOne(model.DB, {TplName}, param)
 }

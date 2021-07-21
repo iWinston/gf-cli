@@ -4,7 +4,7 @@ var defineTemplate = `
 package define
 import "github.com/iWinston/qk-library/frame/q"
 
-type {TplUpperName}CreateParam struct {
+type {TplUpperName}PostParam struct {
 	
 }
 

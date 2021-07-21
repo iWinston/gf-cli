@@ -168,7 +168,7 @@ const apifoxTemplate = `
 			"name": "{TplDescription}#{TplUpperName}",
 			"items": [
 			  {
-				"name": "{TplUpperName}CreateParam",
+				"name": "{TplUpperName}PostParam",
 				"id": "#/definitions/902166",
 				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
 			  },

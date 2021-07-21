@@ -20,11 +20,11 @@ type {TplName}Api struct{}
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param   entity  body define.{TplUpperName}CreateParam true "新增{TplDescription}"
+// @param   entity  body define.{TplUpperName}PostParam true "新增{TplDescription}"
 // @router  /{TplName} [POST]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{TplName}Api) Post(r *ghttp.Request) {
-	param := &define.{TplUpperName}CreateParam{}
+	param := &define.{TplUpperName}PostParam{}
 	q.AssignParamFormReq(r, param)
 	err := service.{TplUpperName}.Create(param)
 	q.Response(r, err)
