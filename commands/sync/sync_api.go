@@ -62,8 +62,8 @@ func genApiFile(systemName string, apiFolder *apifox.ApiItem) {
 	}
 	syncFile("app/system/"+fileInfo.System+"/api", fileInfo.FileName+".api.go", apiTemplate, fileInfo)
 	syncFileForce("app/system/"+fileInfo.System+"/api/internal", fileInfo.FileName+".api.go", apiInternalTemplate, fileInfo)
-	syncFile("app/system/"+fileInfo.System+"/service/internal", fileInfo.FileName+".service.go", serviceInternalTemplate, fileInfo)
-	syncFileForce("app/system/"+fileInfo.System+"/service", fileInfo.FileName+".service.go", serviceTemplate, fileInfo)
+	syncFile("app/system/"+fileInfo.System+"/service", fileInfo.FileName+".service.go", serviceTemplate, fileInfo)
+	syncFileForce("app/system/"+fileInfo.System+"/service/internal", fileInfo.FileName+".service.go", serviceInternalTemplate, fileInfo)
 }
 
 func getApi(apiItem *apifox.ApiItem) (apiInfo ApiInfo) {
