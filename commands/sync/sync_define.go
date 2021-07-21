@@ -158,9 +158,13 @@ func getValidateTag(field *apifox.Field, required bool) string {
 		rules = append(rules, "float")
 		msgs = append(msgs, field.Title+"必须为浮点数")
 	}
-	if arrays.Contains([]string{"integer", "string", "boolean"}, field.Type) != -1 {
+	if field.Type == "integer" {
 		rules = append(rules, field.Type.(string))
-		msgs = append(msgs, field.Title+"不符合类型规则")
+		msgs = append(msgs, field.Title+"必须为整数")
+	}
+	if field.Type == "boolean" {
+		rules = append(rules, field.Type.(string))
+		msgs = append(msgs, field.Title+"必须为布尔值")
 	}
 	if len(rules) == 0 || len(msgs) == 0 {
 		return ""
