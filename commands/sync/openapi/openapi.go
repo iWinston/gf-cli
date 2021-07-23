@@ -5,11 +5,13 @@ type OpenApi struct {
 		Title       string
 		Description string
 	}
-	Tags []struct {
-		Name string
-	}
+	Tags       []Tag
 	Paths      map[string]map[string]Api
 	Components struct {
-		Schemas interface{}
+		Schemas map[string]Schemas
 	}
+}
+
+type Tag struct {
+	Name string
 }

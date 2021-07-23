@@ -1,6 +1,6 @@
 package sync
 
-var serviceTemplate = `package service
+var ServiceTemplate = `package service
 import "{{.ProjectName}}/app/system/{{.Data.System}}/service/internal"
 
 var {{.Data.StructName}} = &{{.Data.Name}}Service{}
@@ -10,7 +10,7 @@ type {{.Data.Name}}Service struct {
 }
 `
 
-var serviceInternalTemplate = `package internal
+var ServiceInternalTemplate = `package internal
 
 import (
 	"{{.ProjectName}}/app/model"
@@ -21,11 +21,11 @@ import (
 
 type {{.Data.StructName}}Service struct{}
 {{range $api := .Data.ApiInfos}}
-// {{$api.FuncName}} {{$api.Name}}
-func (s *{{$.Data.StructName}}Service) {{$api.FuncName}}(param *define.{{$api.ParamRef}}) ({{$api.Service.ReturnType}}) {
+// {{$api.FuncName}} {{$api.Summary}}
+func (s *{{$.Data.StructName}}Service) {{$api.FuncName}}(param *define.{{$api.ParamRefName}}) ({{$api.Service.ReturnType}}) {
 	{{if eq $api.FuncName "Get"}}
 	var (
-		res = &define.{{$api.ResRef}}{}
+		res = &define.{{$api.ResRefName}}{}
 		tx = model.DB.Model(&model.{{$.Data.StructName}}{})
 		err = q.Get(tx, param, res)
 	)
@@ -49,7 +49,7 @@ func (s *{{$.Data.StructName}}Service) {{$api.FuncName}}(param *define.{{$api.Pa
 	{{else if eq $api.FuncName "List"}}
 	var (
 		total int64
-		res   = &[]define.{{$api.ResRef}}{}
+		res   = &[]define.{{$api.ResRefName}}{}
 		tx    = model.DB.Model(&model.{{$.Data.StructName}}{})
 		err   = q.List(tx, param, res, &total)
 	)
@@ -57,17 +57,16 @@ func (s *{{$.Data.StructName}}Service) {{$api.FuncName}}(param *define.{{$api.Pa
 		var err error
 	{{else if eq $api.RespMode "data"}}
 	var (
-		res = &define.{{$api.ResRef}}{}
+		res = &define.{{$api.ResRefName}}{}
 		err error
 	)
 	{{else if eq $api.RespMode "meta"}}
 	var (
 		total int64
-		res   = &[]define.{{$api.ResRef}}{}
+		res   = &[]define.{{$api.ResRefName}}{}
 		err   error
 	)
 	{{end}}
 	return {{$api.Service.Return}}
 }
-{{end}}
-`
+{{end}}`

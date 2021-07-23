@@ -28,6 +28,16 @@ func GetFileName(folderName string) string {
 	return SnakeString(GetStructName(folderName))
 }
 
+func JoinNotEmptyStr(strArr []string, sep string) string {
+	newArr := []string{}
+	for _, str := range strArr {
+		if str != "" {
+			newArr = append(newArr, str)
+		}
+	}
+	return strings.Join(newArr, sep)
+}
+
 /**
  * 驼峰转蛇形 snake string
  * @description XxYy to xx_yy , XxYY to xx_y_y

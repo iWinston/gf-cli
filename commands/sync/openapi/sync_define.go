@@ -1,65 +1,61 @@
-package sync
+package openapi
 
 import (
 	"strconv"
 	"strings"
 
-	"github.com/iWinston/gf-cli/commands/sync/apifox"
 	"github.com/iWinston/gf-cli/library/utils"
 	"github.com/wxnacy/wgo/arrays"
 )
 
-func HelpDefine() {
-
+type DefineFileInfo struct {
+	System      string
+	Name        string
+	DefineInfos []DefineInfo
 }
 
-func doSyncDefine(schemaCollection *[]apifox.SchemaItem) {
-	for _, schemaSystem := range *schemaCollection {
-		if schemaSystem.Name == "Model" || schemaSystem.Name == "Schemas" || schemaSystem.Name == "Q" {
-			continue
-		}
-		genDefineFiles(&schemaSystem)
+type DefineInfo struct {
+	System     string
+	Name       string
+	FieldInfos []FieldInfo
+}
+
+type FieldInfo struct {
+	Name string
+	Type string
+	Tag  string
+}
+
+func getRefsBySchemas(refs *map[string]DefineInfo, schemas *map[string]Schemas) {
+	for k, v := range *schemas {
+		(*refs)["#/components/schemas/"+k] = getDefineInfo(k, &v)
 	}
 }
 
-func genDefineFiles(schemaSystem *apifox.SchemaItem) {
-	for _, schemaFolder := range schemaSystem.Items {
-		genDefineFile(&schemaFolder, utils.SnakeString(schemaSystem.Name))
-	}
-}
-
-func genDefineFile(schemaFolder *apifox.SchemaItem, systemName string) (defineFileInfo DefineFileInfo) {
-	defineFileInfo.Name = utils.GetFileName(schemaFolder.Name) + ".define.go"
-	for _, schemaItem := range schemaFolder.Items {
-		defineFileInfo.DefineInfos = append(defineFileInfo.DefineInfos, getDefine(&schemaItem, systemName))
-	}
-	SyncFileForce("app/system/"+systemName+"/define", defineFileInfo.Name, DefineTemplate, defineFileInfo.DefineInfos)
-	return
-}
-
-func getDefine(schemaItem *apifox.SchemaItem, systemName string) (defineInfo DefineInfo) {
-	defineInfo.System = systemName
-	defineInfo.Name = schemaItem.Name
-	if schemaItem.Schema.JSONSchema.AllOf != nil {
+func getDefineInfo(key string, schema *Schemas) (defineInfo DefineInfo) {
+	// keyArr := strings.Split(key, ".")
+	// defineInfo.System = keyArr[0]
+	defineInfo.Name = key
+	if schema.AllOf != nil {
 		// 特殊处理继承的情况
-		for _, v := range schemaItem.Schema.JSONSchema.AllOf {
+		for _, v := range schema.AllOf {
 			if v.Ref != "" {
-				defineInfo.FieldInfos = append(defineInfo.FieldInfos, FieldInfo{Name: getRef(v.Ref), Tag: v.Description})
+				defineInfo.FieldInfos = append(defineInfo.FieldInfos, FieldInfo{Name: getRefName(v.Ref), Tag: v.Description})
 			} else {
 				for k, v := range v.Properties {
-					defineInfo.FieldInfos = append(defineInfo.FieldInfos, getFields(k, &v, schemaItem.Schema.JSONSchema.Required))
+					defineInfo.FieldInfos = append(defineInfo.FieldInfos, getFields(k, &v, schema.Required))
 				}
 			}
 		}
 	} else {
-		for k, v := range schemaItem.Schema.JSONSchema.Properties {
-			defineInfo.FieldInfos = append(defineInfo.FieldInfos, getFields(k, &v, schemaItem.Schema.JSONSchema.Required))
+		for k, v := range schema.Properties {
+			defineInfo.FieldInfos = append(defineInfo.FieldInfos, getFields(k, &v, schema.Required))
 		}
 	}
 	return
 }
 
-func getFields(key string, field *apifox.Field, required []string) (fm FieldInfo) {
+func getFields(key string, field *Schemas, required []string) (fm FieldInfo) {
 	fm.Name = strings.Title(key)
 	fm.Type = getTypeTag(field)
 	isRequired := arrays.Contains(required, fm.Name) != -1
@@ -72,9 +68,9 @@ func getJsonTag(name string) string {
 	return `json:"` + name + `"`
 }
 
-func getTypeTag(field *apifox.Field) string {
+func getTypeTag(field *Schemas) string {
 	if field.Ref != "" {
-		return getRef(field.Ref)
+		return getRefName(field.Ref)
 	}
 	if fieldType, ok := field.Type.(string); ok {
 		return getFieldType(field, fieldType)
@@ -83,7 +79,16 @@ func getTypeTag(field *apifox.Field) string {
 	}
 }
 
-func getFieldType(field *apifox.Field, fieldType string) string {
+func getRefName(ref string) string {
+	keyArr := strings.Split(ref, "/")
+	name := keyArr[len(keyArr)-1]
+	if name == "time.Date" {
+		return "time.Time"
+	}
+	return name
+}
+
+func getFieldType(field *Schemas, fieldType string) string {
 	switch fieldType {
 	case "string":
 		if field.Format == "date" || field.Format == "date-time" {
@@ -96,7 +101,7 @@ func getFieldType(field *apifox.Field, fieldType string) string {
 		return "*bool"
 	case "array":
 		if field.Items.Ref != "" {
-			return "[]" + getRef(field.Items.Ref)
+			return "[]" + getRefName(field.Items.Ref)
 		}
 		return "[]" + field.Items.Type
 	case "number":
@@ -111,7 +116,7 @@ func getFieldType(field *apifox.Field, fieldType string) string {
 	}
 }
 
-func getValidateTag(field *apifox.Field, required bool) string {
+func getValidateTag(field *Schemas, required bool) string {
 	var (
 		rules, msgs []string
 	)
@@ -172,19 +177,24 @@ func getValidateTag(field *apifox.Field, required bool) string {
 	return `v:"` + strings.Join(rules, "|") + "#" + strings.Join(msgs, "|") + `"`
 }
 
-type DefineFileInfo struct {
-	System      string
-	Name        string
-	DefineInfos []DefineInfo
-}
+// func getRefsByPathes(refs *map[string]DefineInfo, pathes *map[string]map[string]Api) {
+// 	for path, apis := range *pathes {
+// 		for method, api := range apis {
+// 			if len(api.Parameters) > 0 {
+// 				var defineInfo DefineInfo
+// 				tagName := api.Tags[0]
+// 				refName := getFuncName(path, method) + tagName + "Param"
+// 				defineInfo.Name = refName
+// 				ref := getFieldsByParameters(api.Parameters)
+// 			}
 
-type DefineInfo struct {
-	System     string
-	Name       string
-	FieldInfos []FieldInfo
-}
-type FieldInfo struct {
-	Name string
-	Type string
-	Tag  string
-}
+// 		}
+// 	}
+// }
+
+// func getFieldsByParameters(parameters []Parameter) (fieldInfos []FieldInfo) {
+// 	for _, parameter := range parameters {
+// 		var field FieldInfo
+// 		field.Name = strings.Title(parameter.Name)
+// 	}
+// }

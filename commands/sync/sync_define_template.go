@@ -1,6 +1,6 @@
 package sync
 
-var defineTemplate = `package define
+var DefineTemplate = `package define
 import "github.com/iWinston/qk-library/frame/q"
 
 {{range $d := .Data}}

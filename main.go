@@ -7,7 +7,7 @@ import (
 	"github.com/gogf/gf/errors/gerror"
 	"github.com/iWinston/gf-cli/commands/env"
 	"github.com/iWinston/gf-cli/commands/mod"
-	"github.com/iWinston/gf-cli/commands/sync"
+	"github.com/iWinston/gf-cli/commands/sync/openapi"
 
 	"github.com/gogf/gf/os/gbuild"
 	"github.com/gogf/gf/os/gcmd"
@@ -122,7 +122,7 @@ func main() {
 	case "run":
 		run.Run()
 	case "sync":
-		sync.Run()
+		openapi.Run()
 	default:
 		for k := range gcmd.GetOptAll() {
 			switch k {

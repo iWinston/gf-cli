@@ -4,17 +4,30 @@ type Api struct {
 	Summary     string
 	Description string
 	Tags        []string
-	Parameters  []interface{}
-	RequestBody struct {
-		Content struct {
-			ApplicationJSON struct {
-				Schema struct {
-					Ref string `json:"$ref"`
-				}
-			}
-		}
+	Parameters  []Parameter
+	RequestBody RequestBody
+	Responses   map[int]Response
+}
+
+type Parameter struct {
+	Name        string
+	In          string
+	Description string
+	Required    bool
+	Example     string
+	Schema      struct {
+		Type string
 	}
-	Responses map[int]Response
+}
+
+type RequestBody struct {
+	Content struct {
+		ApplicationJSON struct {
+			Schema struct {
+				Ref string `json:"$ref"`
+			}
+		} `json:"application/json"`
+	}
 }
 
 type Response struct {
@@ -26,6 +39,6 @@ type Response struct {
 			}
 			Examples struct {
 			}
-		}
+		} `json:"application/json"`
 	}
 }

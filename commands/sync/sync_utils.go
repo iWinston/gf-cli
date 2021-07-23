@@ -15,16 +15,13 @@ import (
 	"github.com/iWinston/gf-cli/library/utils"
 )
 
-func load() *apifox.Apifox {
-	url := "https://apifox-api.apipark.cn/api/v1/export-data?__xAuthorization=Bearer%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MzY3NjgzLCJ0cyI6IjkwZjdhZTliNzU3NGU5ODgiLCJpYXQiOjE2MTU3OTIxNzM3NzN9.sRlRlPt0A9qqcUZoo14L0LVKWwqXlaeIgRbAWLhPrCc&__xProjectId="
+func Load(v interface{}) {
+	url := "http://127.0.0.1:4523/export/openapi?projectId="
 	projectId := gcmd.GetArg(3)
 	JsonParse := NewJsonStruct()
 
 	//下面使用的是相对路径，config.json文件和main.go文件处于同一目录下
-	v := apifox.Apifox{}
 	JsonParse.Load(url+projectId, &v)
-
-	return &v
 }
 
 type JsonStruct struct {
@@ -53,7 +50,7 @@ func (jst *JsonStruct) Load(url string, v interface{}) (err error) {
 	return
 }
 
-func syncFileForce(folder string, fileName string, temp string, data interface{}) {
+func SyncFileForce(folder string, fileName string, temp string, data interface{}) {
 	fileName = utils.SnakeString(fileName)
 	if err := gfile.Mkdir(folder); err != nil {
 		mlog.Fatalf("mkdir for generating path '%s' failed: %v", folder, err)
@@ -76,7 +73,7 @@ func syncFileForce(folder string, fileName string, temp string, data interface{}
 	}
 }
 
-func syncFile(folder string, fileName string, temp string, data interface{}) {
+func SyncFile(folder string, fileName string, temp string, data interface{}) {
 	fileName = utils.SnakeString(fileName)
 	if err := gfile.Mkdir(folder); err != nil {
 		mlog.Fatalf("mkdir for generating path '%s' failed: %v", folder, err)
@@ -131,16 +128,6 @@ func getMapFromItem(defineInfoMap *map[string]DefineInfo, schema *apifox.SchemaI
 		(*defineInfoMap)[item.Id] = getDefine(&item, systemName)
 		getMapFromItem(defineInfoMap, &item, systemName)
 	}
-}
-
-func joinNotEmpty(strArr []string, sep string) string {
-	newArr := []string{}
-	for _, str := range strArr {
-		if str != "" {
-			newArr = append(newArr, str)
-		}
-	}
-	return strings.Join(newArr, sep)
 }
 
 // getJSON fetches the contents of the given URL

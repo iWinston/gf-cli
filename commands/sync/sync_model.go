@@ -32,7 +32,7 @@ func genModel(schemaItem *apifox.SchemaItem) (modelInfo ModelInfo) {
 	for k, v := range schemaItem.Schema.JSONSchema.Properties {
 		modelInfo.FieldInfos = append(modelInfo.FieldInfos, getModelFields(k, &v, schemaItem.Schema.JSONSchema.Required))
 	}
-	syncFileForce("app/model", utils.SnakeString(modelInfo.Name)+".model.go", modelTemplate, modelInfo)
+	SyncFileForce("app/model", utils.SnakeString(modelInfo.Name)+".model.go", modelTemplate, modelInfo)
 	return
 }
 
@@ -40,7 +40,7 @@ func getModelFields(key string, field *apifox.Field, required []string) (fm Fiel
 	fm.Name = strings.Title(key)
 	fm.Type = getTypeTag(field)
 	tagArr := []string{getJsonTag(key), getOrmTag(field)}
-	fm.Tag = joinNotEmpty(tagArr, " ")
+	fm.Tag = utils.JoinNotEmptyStr(tagArr, " ")
 	return
 }
 
