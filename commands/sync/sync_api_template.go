@@ -25,6 +25,7 @@ func (a *{{$.Data.StructName}}Api) {{$api.FuncName}}(r *ghttp.Request) {
 	param := &define.{{$api.ParamRefName}}{}
 	q.AssignParamFormReq(r, param)
 	{{$api.Service.Return}} := service.{{$.Data.StructName}}.{{$api.FuncName}}(param)
+	err = q.OptimizeDbErr(err)
 	{{$api.RespFunc}}
 }
 {{end}}
