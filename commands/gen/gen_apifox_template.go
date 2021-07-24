@@ -4,7 +4,7 @@ const apifoxTemplate = `
 {
 	"apiCollection": [
 	  {
-		"name": "{TplSystemName}",
+		"name": "{TplUpperSystemName}",
 		"items": [
 		  {
 			"name": "{TplDescription}#{TplUpperName}",
@@ -14,7 +14,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036881",
 				  "method": "get",
-				  "path": "/{TplName}",
+				  "path": "{TplSystemName}/{TplName}",
 				  "parameters": {
 					"query": [],
 					"path": []
@@ -42,7 +42,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036910",
 				  "method": "get",
-				  "path": "/{TplName}/list",
+				  "path": "{TplSystemName}/{TplName}/list",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -67,7 +67,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036916",
 				  "method": "post",
-				  "path": "/{TplName}",
+				  "path": "{TplSystemName}/{TplName}",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -92,7 +92,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5096880",
 				  "method": "patch",
-				  "path": "/{TplName}",
+				  "path": "{TplSystemName}/{TplName}",
 				  "parameters": [],
 				  "responses": [
 					{
@@ -117,7 +117,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5096882",
 				  "method": "delete",
-				  "path": "/{TplName}",
+				  "path": "{TplSystemName}/{TplName}",
 				  "parameters": [],
 				  "responses": [
 					{
@@ -148,7 +148,7 @@ const apifoxTemplate = `
 		"name": "Model",
 		"items": [
 		  {
-			"name": "{TplUpperName}",
+			"name": "model.{TplUpperName}",
 			"id": "#/definitions/906753",
 			"schema": {
 			  "jsonSchema": {
