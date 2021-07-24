@@ -34,7 +34,7 @@ DESCRIPTION
 }
 
 var refs map[string]DefineInfo
-var projectName string
+var projectName string = "server"
 
 func Run() {
 	syncType := gcmd.GetArg(2)
@@ -58,9 +58,6 @@ func Run() {
 
 	case "api":
 		doSyncApi(&(apifox.ApiCollection))
-
-	// case "service":
-	// 	doSyncService()
 
 	case "define":
 		doSyncDefine(&(apifox.SchemaCollection))

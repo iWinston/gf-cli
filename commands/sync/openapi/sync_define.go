@@ -89,30 +89,36 @@ func getRefName(ref string) string {
 }
 
 func getFieldType(field *Schemas, fieldType string) string {
-	switch fieldType {
-	case "string":
-		if field.Format == "date" || field.Format == "date-time" {
-			return "*time.Time"
-		}
-		return "*string"
-	case "integer":
-		return "*int"
-	case "boolean":
-		return "*bool"
-	case "array":
+	if fieldType == "any" {
+		return "interface{}"
+	}
+	if fieldType == "array" {
 		if field.Items.Ref != "" {
 			return "[]" + getRefName(field.Items.Ref)
 		}
-		return "[]" + field.Items.Type
+		return "[]" + getBaseType(field, field.Items.Type)
+	}
+	return "*" + getBaseType(field, fieldType)
+}
+
+func getBaseType(field *Schemas, fieldType string) string {
+	switch fieldType {
+	case "string":
+		if field.Format == "date" || field.Format == "date-time" {
+			return "time.Time"
+		}
+		return "string"
+	case "integer":
+		return "int"
+	case "boolean":
+		return "bool"
 	case "number":
-		return "*float"
-	case "any":
-		return "interface{}"
+		return "float"
 	case "object":
 		//TODO 递归
-		return "*" + fieldType
+		return fieldType
 	default:
-		return "interface{}"
+		return ""
 	}
 }
 

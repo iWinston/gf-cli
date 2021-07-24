@@ -54,14 +54,15 @@ func doSyncApi(tags []Tag, paths *map[string]map[string]Api) {
 	for path, apis := range *paths {
 		for method, api := range apis {
 			tagName := api.Tags[0]
-			apiInfo := getApiInfo(apiFileInfo[tagName].StructName, api, path, method)
+			structName := apiFileInfo[tagName].StructName
+			apiInfo := getApiInfo(structName, api, path, method)
 			apiFileInfo[tagName].ApiInfos = append(apiFileInfo[tagName].ApiInfos, apiInfo)
 
-			if apiInfo.ParamRef != "" {
+			if apiInfo.ParamRef != "" && strings.Contains(apiInfo.ParamRef, structName) {
 				paramDefineInfo := refs[apiInfo.ParamRef]
 				defineFileInfo[tagName].DefineInfos = append(defineFileInfo[tagName].DefineInfos, paramDefineInfo)
 			}
-			if apiInfo.ResRef != "" {
+			if apiInfo.ResRef != "" && strings.Contains(apiInfo.ResRef, structName) {
 				resDefineInfo := refs[apiInfo.ResRef]
 				defineFileInfo[tagName].DefineInfos = append(defineFileInfo[tagName].DefineInfos, resDefineInfo)
 			}
@@ -88,7 +89,7 @@ func syncApiFiles(fileInfos *map[string]*ApiFileInfo) {
 
 func getApiFileInfo(info *ApiFileInfo, tagName string) {
 	system := strings.Split(tagName, "/")[0]
-	info.System = strings.Title(system)
+	info.System = utils.SnakeString(system)
 	arr := strings.Split(tagName, "#")
 	name := arr[len(arr)-1]
 	info.Name = strings.ToLower(name[:1]) + name[1:]
@@ -111,13 +112,14 @@ func getApiInfo(name string, api Api, path string, method string) (apiInfo ApiIn
 }
 
 func getFuncName(path string, method string) string {
+	// openapi格式默认有斜杠
 	arr := strings.Split(path, "/")
-	if len(arr) == 2 {
+	if len(arr) == 3 {
 		return strings.Title(method)
 	}
 	var str string
 	for i, v := range arr {
-		if i > 1 {
+		if i > 2 {
 			str += strings.Title(v)
 		}
 	}

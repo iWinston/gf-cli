@@ -14,12 +14,13 @@ func Help() {
 	default:
 		mlog.Print(gstr.TrimLeft(`
 USAGE 
-    gf sync TYPE [OPTION]
+    gf sync TYPE projectId [OPTION]
 
 TYPE
     model      sync model files
-    api        sync api, service and define files
-    all        sync model, api, service and define files
+	server	   sync api, service and define files
+    client     sync client files
+    all        sync server and client
 
 DESCRIPTION
     The "sync" command is designed for multiple generating purposes. 
@@ -40,21 +41,21 @@ func Run() {
 	openApi := &OpenApi{}
 	sync.Load(openApi)
 	projectName = openApi.Info.Description
-	refs = make(map[string]DefineInfo)
-	getRefsBySchemas(&refs, &(openApi.Components.Schemas))
+
 	switch syncType {
 
-	// case "model":
-	// doSyncModel(&(apifox.SchemaCollection))
+	case "client":
+		doSyncClient(openApi.Tags, &(openApi.Paths))
 
-	//case "router":
-	// doSyncRouter(&(apifox.ApiCollection))
-
-	case "api":
+	case "server":
+		refs = make(map[string]DefineInfo)
+		getRefsBySchemas(&refs, &(openApi.Components.Schemas))
 		doSyncApi(openApi.Tags, &(openApi.Paths))
 
 	case "all":
-		// doSyncModel(&(apifox.SchemaCollection))
+		refs = make(map[string]DefineInfo)
+		getRefsBySchemas(&refs, &(openApi.Components.Schemas))
+		doSyncClient(openApi.Tags, &(openApi.Paths))
 		doSyncApi(openApi.Tags, &(openApi.Paths))
 	}
 }
