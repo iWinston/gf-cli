@@ -35,6 +35,7 @@ func syncDefineFile(fileInfos *map[string]*DefineFileInfo) {
 			"model":  "server/app/model",
 			"q":      "github.com/iWinston/qk-library/frame/q",
 			"qfield": "github.com/iWinston/qk-library/frame/qfield",
+			"g":      "github.com/gogf/gf/frame/g",
 		}
 		for _, defineInfo := range fileInfo.DefineInfos {
 			for _, fieldInfo := range defineInfo.FieldInfos {
@@ -75,8 +76,6 @@ func getRefsBySchemas(refs *map[string]DefineInfo, schemas *map[string]Schemas) 
 }
 
 func getDefineInfo(key string, schema *Schemas) (defineInfo DefineInfo) {
-	// keyArr := strings.Split(key, ".")
-	// defineInfo.System = keyArr[0]
 	defineInfo.Name = key
 	if schema.AllOf != nil {
 		// 特殊处理继承的情况
@@ -237,12 +236,5 @@ func getValidateTag(field *Schemas, required bool) string {
 // 			}
 
 // 		}
-// 	}
-// }
-
-// func getFieldsByParameters(parameters []Parameter) (fieldInfos []FieldInfo) {
-// 	for _, parameter := range parameters {
-// 		var field FieldInfo
-// 		field.Name = strings.Title(parameter.Name)
 // 	}
 // }
