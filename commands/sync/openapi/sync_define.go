@@ -100,7 +100,7 @@ func getFields(key string, field *Schemas, required []string) (fm FieldInfo) {
 	isRequired := arrays.Contains(required, key) != -1
 	fm.Name = strings.Title(key)
 	fm.Type = getTypeTag(field)
-	tagArr := []string{getJsonTag(key), field.Description, getValidateTag(field, isRequired)}
+	tagArr := []string{getJsonTag(key), field.Description, getValidateTag(field, isRequired, key)}
 	fm.Tag = utils.JoinNotEmptyStr(tagArr, " ")
 	return
 }
@@ -163,7 +163,10 @@ func getBaseType(field *Schemas, fieldType string) string {
 	}
 }
 
-func getValidateTag(field *Schemas, required bool) string {
+func getValidateTag(field *Schemas, required bool, key string) string {
+	if field.Title == "" {
+		field.Title = key
+	}
 	var (
 		rules, msgs []string
 	)

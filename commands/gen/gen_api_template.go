@@ -37,7 +37,7 @@ func (a *{TplName}Api) Post(r *ghttp.Request) {
 // @router  /{TplName}/{id} [GET]
 // @Param id path int true "{TplUpperName} ID"
 // @success 200 {object} define.{TplUpperName}FindOneRes "执行结果"
-func (a *{TplName}Api) GetOne(r *ghttp.Request) {
+func (a *{TplName}Api) Get(r *ghttp.Request) {
 	id := q.GetIdFormReq(r)
 	param := &define.{TplUpperName}FindOneParam{}
 	q.AssignParamFormReq(r, param)
