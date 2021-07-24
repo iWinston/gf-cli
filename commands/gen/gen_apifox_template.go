@@ -14,7 +14,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036881",
 				  "method": "get",
-				  "path": "{TplSystemName}/{TplName}",
+				  "path": "/{TplSystemName}/{TplName}",
 				  "parameters": {
 					"query": [],
 					"path": []
@@ -42,7 +42,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036910",
 				  "method": "get",
-				  "path": "{TplSystemName}/{TplName}/list",
+				  "path": "/{TplSystemName}/{TplName}/list",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -67,7 +67,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5036916",
 				  "method": "post",
-				  "path": "{TplSystemName}/{TplName}",
+				  "path": "/{TplSystemName}/{TplName}",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -92,7 +92,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5096880",
 				  "method": "patch",
-				  "path": "{TplSystemName}/{TplName}",
+				  "path": "/{TplSystemName}/{TplName}",
 				  "parameters": [],
 				  "responses": [
 					{
@@ -117,7 +117,7 @@ const apifoxTemplate = `
 				"api": {
 				  "id": "5096882",
 				  "method": "delete",
-				  "path": "{TplSystemName}/{TplName}",
+				  "path": "/{TplSystemName}/{TplName}",
 				  "parameters": [],
 				  "responses": [
 					{

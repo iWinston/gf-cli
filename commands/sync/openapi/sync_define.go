@@ -20,14 +20,12 @@ type DefineInfo struct {
 	System     string
 	Name       string
 	FieldInfos []FieldInfo
-	Imports    []string
 }
 
 type FieldInfo struct {
-	Name    string
-	Type    string
-	Tag     string
-	Imports []string
+	Name string
+	Type string
+	Tag  string
 }
 
 func syncDefineFile(fileInfos *map[string]*DefineFileInfo) {
@@ -100,9 +98,9 @@ func getDefineInfo(key string, schema *Schemas) (defineInfo DefineInfo) {
 }
 
 func getFields(key string, field *Schemas, required []string) (fm FieldInfo) {
+	isRequired := arrays.Contains(required, key) != -1
 	fm.Name = strings.Title(key)
 	fm.Type = getTypeTag(field)
-	isRequired := arrays.Contains(required, fm.Name) != -1
 	tagArr := []string{getJsonTag(key), field.Description, getValidateTag(field, isRequired)}
 	fm.Tag = utils.JoinNotEmptyStr(tagArr, " ")
 	return

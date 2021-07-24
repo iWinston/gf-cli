@@ -5,6 +5,7 @@ import (
 
 	"github.com/iWinston/gf-cli/commands/sync"
 	"github.com/iWinston/gf-cli/library/utils"
+	"github.com/wxnacy/wgo/arrays"
 )
 
 type ApiFileInfo struct {
@@ -54,6 +55,9 @@ func doSyncApi(tags []Tag, paths *map[string]map[string]Api) {
 	for path, apis := range *paths {
 		for method, api := range apis {
 			tagName := api.Tags[0]
+			if arrays.Contains([]string{"auth", "rbac"}, tagName) != -1 {
+				continue
+			}
 			structName := apiFileInfo[tagName].StructName
 			apiInfo := getApiInfo(structName, api, path, method)
 			apiFileInfo[tagName].ApiInfos = append(apiFileInfo[tagName].ApiInfos, apiInfo)
@@ -68,6 +72,7 @@ func doSyncApi(tags []Tag, paths *map[string]map[string]Api) {
 			}
 		}
 	}
+
 	syncApiFiles(&apiFileInfo)
 	syncDefineFile(&defineFileInfo)
 }
