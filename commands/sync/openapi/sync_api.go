@@ -72,12 +72,6 @@ func doSyncApi(tags []Tag, paths *map[string]map[string]Api) {
 	syncDefineFile(&defineFileInfo)
 }
 
-func syncDefineFile(fileInfos *map[string]*DefineFileInfo) {
-	for _, fileInfo := range *fileInfos {
-		sync.SyncFileForce("app/system/"+fileInfo.System+"/define", fileInfo.Name+".define.go", sync.DefineTemplate, fileInfo.DefineInfos)
-	}
-}
-
 func syncApiFiles(fileInfos *map[string]*ApiFileInfo) {
 	for _, fileInfo := range *fileInfos {
 		sync.SyncFile("app/system/"+fileInfo.System+"/api", fileInfo.FileName+".api.go", sync.ApiTemplate, fileInfo)

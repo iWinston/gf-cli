@@ -4,6 +4,7 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/iWinston/gf-cli/commands/sync"
 	"github.com/iWinston/gf-cli/library/utils"
 	"github.com/wxnacy/wgo/arrays"
 )
@@ -12,18 +13,61 @@ type DefineFileInfo struct {
 	System      string
 	Name        string
 	DefineInfos []DefineInfo
+	Imports     []string
 }
 
 type DefineInfo struct {
 	System     string
 	Name       string
 	FieldInfos []FieldInfo
+	Imports    []string
 }
 
 type FieldInfo struct {
-	Name string
-	Type string
-	Tag  string
+	Name    string
+	Type    string
+	Tag     string
+	Imports []string
+}
+
+func syncDefineFile(fileInfos *map[string]*DefineFileInfo) {
+	for _, fileInfo := range *fileInfos {
+		imports := []string{}
+		importMap := map[string]string{
+			"model":  "server/app/model",
+			"q":      "github.com/iWinston/qk-library/frame/q",
+			"qfield": "github.com/iWinston/qk-library/frame/qfield",
+		}
+		for _, defineInfo := range fileInfo.DefineInfos {
+			for _, fieldInfo := range defineInfo.FieldInfos {
+				arr := strings.Split(fieldInfo.Type, "[]")
+				if len(arr) > 1 {
+					addImport(&imports, arr[1])
+				} else {
+					addImport(&imports, fieldInfo.Type)
+					// 继承模式
+					addImport(&imports, fieldInfo.Name)
+				}
+			}
+		}
+		if len(imports) > 0 {
+			for i, item := range imports {
+				imports[i] = importMap[item]
+			}
+		}
+		fileInfo.Imports = imports
+
+		sync.SyncFileForce("app/system/"+fileInfo.System+"/define", fileInfo.Name+".define.go", sync.DefineTemplate, fileInfo)
+	}
+}
+
+func addImport(imports *[]string, fieldType string) {
+	arr := strings.Split(fieldType, ".")
+	if len(arr) > 1 {
+		if arrays.ContainsString(*imports, arr[0]) == -1 {
+			*imports = append(*imports, arr[0])
+		}
+	}
 }
 
 func getRefsBySchemas(refs *map[string]DefineInfo, schemas *map[string]Schemas) {

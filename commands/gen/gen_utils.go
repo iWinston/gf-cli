@@ -34,7 +34,7 @@ func getReplaceMap(args g.MapStrStr) g.MapStrStr {
 		"{TplUpperName}":       strings.Title(args["name"]),
 		"{TplDescription}":     args["description"],
 		"{TplSystemName}":      args["systemName"],
-		"{TplSystemUpperName}": strings.Title(args["systemName"]),
+		"{TplUpperSystemName}": strings.Title(args["systemName"]),
 		"{TplFuncName}":        args["systemName"],
 	}
 }
