@@ -4,17 +4,17 @@ const apifoxTemplate = `
 {
 	"apiCollection": [
 	  {
-		"name": "{TplUpperSystemName}",
+		"name": "{CamelSystemName}",
 		"items": [
 		  {
-			"name": "{TplDescription}#{TplUpperName}",
+			"name": "{Description}#{CamelName}",
 			"items": [
 			  {
-				"name": "{TplDescription}详情",
+				"name": "{Description}详情",
 				"api": {
 				  "id": "5036881",
 				  "method": "get",
-				  "path": "/{TplSystemName}/{Name}",
+				  "path": "/{SystemName}/{Name}",
 				  "parameters": {
 					"query": [],
 					"path": []
@@ -38,11 +38,11 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{TplDescription}列表",
+				"name": "{Description}列表",
 				"api": {
 				  "id": "5036910",
 				  "method": "get",
-				  "path": "/{TplSystemName}/{Name}/list",
+				  "path": "/{SystemName}/{Name}/list",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -63,11 +63,11 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "新增{TplDescription}",
+				"name": "新增{Description}",
 				"api": {
 				  "id": "5036916",
 				  "method": "post",
-				  "path": "/{TplSystemName}/{Name}",
+				  "path": "/{SystemName}/{Name}",
 				  "parameters": { "query": [] },
 				  "responses": [
 					{
@@ -88,11 +88,11 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "修改{TplDescription}",
+				"name": "修改{Description}",
 				"api": {
 				  "id": "5096880",
 				  "method": "patch",
-				  "path": "/{TplSystemName}/{Name}",
+				  "path": "/{SystemName}/{Name}",
 				  "parameters": [],
 				  "responses": [
 					{
@@ -113,11 +113,11 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "删除{TplDescription}",
+				"name": "删除{Description}",
 				"api": {
 				  "id": "5096882",
 				  "method": "delete",
-				  "path": "/{TplSystemName}/{Name}",
+				  "path": "/{SystemName}/{Name}",
 				  "parameters": [],
 				  "responses": [
 					{
@@ -148,7 +148,7 @@ const apifoxTemplate = `
 		"name": "Model",
 		"items": [
 		  {
-			"name": "model.{TplUpperName}",
+			"name": "model.{CamelName}",
 			"id": "#/definitions/906753",
 			"schema": {
 			  "jsonSchema": {
@@ -162,18 +162,18 @@ const apifoxTemplate = `
 		]
 	  },
 	  {
-		"name": "{TplSystemName}",
+		"name": "{SystemName}",
 		"items": [
 		  {
-			"name": "{TplDescription}#{TplUpperName}",
+			"name": "{Description}#{CamelName}",
 			"items": [
 			  {
-				"name": "{TplUpperName}PostParam",
+				"name": "{CamelName}PostParam",
 				"id": "#/definitions/902166",
 				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
 			  },
 			  {
-				"name": "{TplUpperName}GetParam",
+				"name": "{CamelName}GetParam",
 				"id": "#/definitions/920500",
 				"schema": {
 					"jsonSchema": {
@@ -188,7 +188,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{TplUpperName}ListParam",
+				"name": "{CamelName}ListParam",
 				"id": "#/definitions/920501",
 				"schema": {
 				  "jsonSchema": {
@@ -205,7 +205,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{TplUpperName}PatchParam",
+				"name": "{CamelName}PatchParam",
 				"id": "#/definitions/928917",
 				"schema": {
 					"jsonSchema": {
@@ -220,7 +220,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{TplUpperName}DeleteParam",
+				"name": "{CamelName}DeleteParam",
 				"id": "#/definitions/928921",
 				"schema": {
 					"jsonSchema": {
@@ -235,7 +235,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{TplUpperName}GetRes",
+				"name": "{CamelName}GetRes",
 				"id": "#/definitions/922387",
 				"schema": {
 					"jsonSchema": {
@@ -250,7 +250,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{TplUpperName}ListRes",
+				"name": "{CamelName}ListRes",
 				"id": "#/definitions/922388",
 				"schema": {
 					"jsonSchema": {

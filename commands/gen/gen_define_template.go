@@ -4,31 +4,31 @@ var defineTemplate = `
 package define
 import "github.com/iWinston/qk-library/frame/q"
 
-type {TplUpperName}PostParam struct {
-	Id *uint {}json:"id" where:""{}
+type {CamelName}PostParam struct {
+	Id *uint {Backtick}where:""{Backtick}
 }
 
-type {TplUpperName}Getaram struct {
+type {CamelName}Getaram struct {
 	
 }
 
-type {TplUpperName}PatchParam struct {
-	Id *uint {}json:"id" where:""{}
+type {CamelName}PatchParam struct {
+	Id *uint {Backtick}where:""{Backtick}
 }
 
-type {TplUpperName}DeleteParam struct {
-	Id *uint {}json:"id" where:""{}
+type {CamelName}DeleteParam struct {
+	Id *uint {Backtick}where:""{Backtick}
 }
 
-type {TplUpperName}ListParam struct {
+type {CamelName}ListParam struct {
 	q.Page
 }
 
-type {TplUpperName}GetRes struct {
-	Id *uint {}json:"id"{}
+type {CamelName}GetRes struct {
+	Id *uint {Backtick}json:"id"{Backtick}
 }
 
-type {TplUpperName}ListRes struct {
-	Id *uint {}json:"id"{}
+type {CamelName}ListRes struct {
+	Id *uint {Backtick}json:"id"{Backtick}
 }
 `

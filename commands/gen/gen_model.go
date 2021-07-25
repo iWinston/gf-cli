@@ -1,6 +1,8 @@
 package gen
 
 import (
+	"strings"
+
 	"github.com/iWinston/gf-cli/library/mlog"
 	"github.com/iWinston/gf-cli/library/utils"
 )
@@ -8,11 +10,13 @@ import (
 // doGenModel implements the "gen model" command.
 func doGenModel() {
 	var (
-		args = getArgs()
-		name = args["name"]
+		args       = getArgs()
+		name       = args["name"]
+		systemName = args["systemName"]
+		fileName   = systemName + strings.Title(name) + ".model.go"
 	)
 
-	genFile(modelTemplate, "./app/model", name+"_model.go", getReplaceMap(args), "", utils.Header)
+	genFile(modelTemplate, "./app/model", fileName, getReplaceMap(args), "", utils.Header)
 
 	mlog.Print("gen model done!")
 }

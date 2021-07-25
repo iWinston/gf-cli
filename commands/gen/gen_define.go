@@ -1,6 +1,8 @@
 package gen
 
 import (
+	"strings"
+
 	"github.com/iWinston/gf-cli/library/mlog"
 	"github.com/iWinston/gf-cli/library/utils"
 )
@@ -11,9 +13,10 @@ func doGenDefine() {
 		args       = getArgs()
 		name       = args["name"]
 		systemName = args["systemName"]
+		fileName   = systemName + strings.Title(name) + ".define.go"
 	)
 
-	genFile(defineTemplate, "./app/system/"+systemName+"/define", name+"_define.go", getReplaceMap(args), "", utils.Header)
+	genFile(defineTemplate, "./app/system/"+systemName+"/define", fileName, getReplaceMap(args), "", utils.Header)
 
 	mlog.Print("gen define done!")
 }

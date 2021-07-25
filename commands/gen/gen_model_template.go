@@ -3,12 +3,12 @@ package gen
 var modelTemplate = `
 package model
 
-type {TplUpperName} struct {
+type {CamelName} struct {
 	Base
 
 }
 
-func (TplUpperName) TableName() string {
-	return "srm_label_suppliers"
+func ({CamelName}) TableName() string {
+	return "{SnakeSystemName}_{SnakeName}"
 }
 `

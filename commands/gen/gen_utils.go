@@ -12,7 +12,6 @@ import (
 )
 
 func genFile(template string, folder string, fileName string, args g.MapStrStr, mode string, header string) {
-	fileName = utils.SnakeString(fileName)
 	if err := gfile.Mkdir(folder); err != nil {
 		mlog.Fatalf("mkdir for generating path '%s' failed: %v", folder, err)
 	}
@@ -30,12 +29,15 @@ func genFile(template string, folder string, fileName string, args g.MapStrStr, 
 
 func getReplaceMap(args g.MapStrStr) g.MapStrStr {
 	return g.MapStrStr{
-		"{Name}":               args["name"],
-		"{TplUpperName}":       strings.Title(args["name"]),
-		"{TplDescription}":     args["description"],
-		"{TplSystemName}":      args["systemName"],
-		"{TplUpperSystemName}": strings.Title(args["systemName"]),
-		"{TplFuncName}":        args["systemName"],
+		"{Backtick}":        "`",
+		"{Name}":            args["name"],
+		"{CamelName}":       strings.Title(args["name"]),
+		"{SnakeName}":       utils.SnakeString(args["name"]),
+		"{Description}":     args["description"],
+		"{SystemName}":      args["systemName"],
+		"{CamelSystemName}": strings.Title(args["systemName"]),
+		"{SnakeSystemName}": utils.SnakeString(args["systemName"]),
+		"{FuncName}":        args["systemName"],
 	}
 }
 

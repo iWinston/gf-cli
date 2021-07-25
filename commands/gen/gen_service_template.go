@@ -5,55 +5,72 @@ package internal
 
 import (
 	"server/app/model"
-	"server/app/system/{TplSystemName}/define"
+	"server/app/system/{SystemName}/define"
 
 	"github.com/iWinston/qk-library/frame/q"
 )
 
-type {TplUpperName}Service struct{}
+type {CamelName}Service struct{}
 
-func (s *{TplUpperName}Service) Create(param *define.{TplUpperName}PostParam) error {
-	{Name} := &model.{TplUpperName}{}
-	return q.CreateOne(model.DB, {Name}, param)
+// Post 新增{Description}
+func (s *{CamelName}Service) Post(param *define.{CamelName}PostParam) error {
+	var (
+		m = &model.{CamelName}{}
+		err = q.Post(model.DB, m, param)
+	)
+	return err
 }
 
-func (s *{TplUpperName}Service) FindOne(id uint, param *define.{TplUpperName}FindOneParam) (*define.{TplUpperName}FindOneRes, error) {
-	res := &define.{TplUpperName}FindOneRes{}
-	tx := model.DB.Model(&model.{TplUpperName}{}).Where(id)
-	err := q.FindOne(tx, param, res)
+// Get {Description}详情
+func (s *{CamelName}Service) Get(param *define.{CamelName}GetParam) (*define.{CamelName}GetRes, error) {
+	var (
+		res = &define.{CamelName}GetRes{}
+		tx = model.DB.Model(&model.{CamelName}{})
+		err = q.Get(tx, param, res)
+	)
 	return res, err
 }
 
-func (s *{TplUpperName}Service) Find(param *define.{TplUpperName}FindParam) (*[]define.{TplUpperName}FindRes, int64, error) {
-	res := &[]define.{TplUpperName}FindRes{}
-	tx := model.DB.Model(&model.{TplUpperName}{})
-	var total int64
-	err := q.Find(tx, param, res, &total)
+// Patch 修改{Description}
+func (s *{CamelName}Service) Patch(param *define.{CamelName}PatchParam) (error) {
+	var (
+		m = &model.{CamelName}{}
+		tx = model.DB.Model(m)
+		err = q.Patch(tx, m, param)
+	)
+	return err
+}
+
+// Delete 删除{Description}
+func (s *{CamelName}Service) Delete(param *define.{CamelName}DeleteParam) (error) {
+	var (
+		m = &model.{CamelName}{}
+		tx = model.DB.Model(m)
+		err = q.Delete(tx, m, param)
+	)
+	return err
+}
+
+// List {Description}列表
+func (s *{CamelName}Service) List(param *define.{CamelName}ListParam) (*[]define.{CamelName}ListRes, int64, error) {
+	var (
+		total int64
+		res   = &[]define.{CamelName}ListRes{}
+		tx    = model.DB.Model(&model.{CamelName}{})
+		err   = q.List(tx, param, res, &total)
+	)
 	return res, total, err
-}
-
-func (s *{TplUpperName}Service) PatchOne(id uint, param *define.{TplUpperName}PatchOneParam) error {
-	{Name} := &model.{TplUpperName}{}
-	tx := model.DB.Model({Name}).Where(id)
-	return q.PatchOne(tx, {Name}, param)
-}
-
-func (s *{TplUpperName}Service) DeleteOne(id uint, param *define.{TplUpperName}DeleteOneParam) error {
-	{Name} := &model.{TplUpperName}{}
-	tx := model.DB.Model({Name}).Where(id)
-	return q.DeleteOne(tx, {Name}, param)
-}
-`
+}`
 
 var serviceIndexTemplate = `
 package service
 
-import "server/app/system/{TplSystemName}/service/internal"
+import "server/app/system/{SystemName}/service/internal"
 
-var {TplUpperName} = &{Name}Service{}
+var {CamelName} = &{Name}Service{}
 
 type {Name}Service struct {
-	*internal.{TplUpperName}Service
+	*internal.{CamelName}Service
 }
 `
 
