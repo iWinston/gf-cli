@@ -37,6 +37,7 @@ func getReplaceMap(args g.MapStrStr) g.MapStrStr {
 		"{SystemName}":      args["systemName"],
 		"{CamelSystemName}": strings.Title(args["systemName"]),
 		"{SnakeSystemName}": utils.SnakeString(args["systemName"]),
+		"{ModelName}":       strings.Title(args["systemName"]) + strings.Title(args["name"]),
 		"{FuncName}":        args["systemName"],
 	}
 }

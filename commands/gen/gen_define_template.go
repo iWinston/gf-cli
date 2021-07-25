@@ -5,19 +5,18 @@ package define
 import "github.com/iWinston/qk-library/frame/q"
 
 type {CamelName}PostParam struct {
-	Id *uint {Backtick}where:""{Backtick}
 }
 
-type {CamelName}Getaram struct {
-	
+type {CamelName}GetParam struct {
+	Id *uint {Backtick}where:"=" example:"1" v:"required|integer#id必填|id必须为整数"{Backtick}
 }
 
 type {CamelName}PatchParam struct {
-	Id *uint {Backtick}where:""{Backtick}
+	Id *uint {Backtick}where:"=" example:"1" v:"required|integer#id必填|id必须为整数"{Backtick}
 }
 
 type {CamelName}DeleteParam struct {
-	Id *uint {Backtick}where:""{Backtick}
+	Id *uint {Backtick}where:"=" example:"1" v:"required|integer#id必填|id必须为整数"{Backtick}
 }
 
 type {CamelName}ListParam struct {

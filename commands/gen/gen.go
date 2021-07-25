@@ -56,13 +56,15 @@ func Run() {
 	case "define":
 		doGenDefine()
 
+	case "router":
+		doGenRouter()
+
 	case "rest":
 		doGenModel()
+		doGenRouter()
 		doGenDefine()
 		doGenService()
 		doGenApi()
 
-		// case "router":
-		// 	doGenRouter()
 	}
 }
