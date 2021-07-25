@@ -13,8 +13,8 @@ import (
 type {TplUpperName}Service struct{}
 
 func (s *{TplUpperName}Service) Create(param *define.{TplUpperName}PostParam) error {
-	{TplName} := &model.{TplUpperName}{}
-	return q.CreateOne(model.DB, {TplName}, param)
+	{Name} := &model.{TplUpperName}{}
+	return q.CreateOne(model.DB, {Name}, param)
 }
 
 func (s *{TplUpperName}Service) FindOne(id uint, param *define.{TplUpperName}FindOneParam) (*define.{TplUpperName}FindOneRes, error) {
@@ -33,15 +33,15 @@ func (s *{TplUpperName}Service) Find(param *define.{TplUpperName}FindParam) (*[]
 }
 
 func (s *{TplUpperName}Service) PatchOne(id uint, param *define.{TplUpperName}PatchOneParam) error {
-	{TplName} := &model.{TplUpperName}{}
-	tx := model.DB.Model({TplName}).Where(id)
-	return q.PatchOne(tx, {TplName}, param)
+	{Name} := &model.{TplUpperName}{}
+	tx := model.DB.Model({Name}).Where(id)
+	return q.PatchOne(tx, {Name}, param)
 }
 
 func (s *{TplUpperName}Service) DeleteOne(id uint, param *define.{TplUpperName}DeleteOneParam) error {
-	{TplName} := &model.{TplUpperName}{}
-	tx := model.DB.Model({TplName}).Where(id)
-	return q.DeleteOne(tx, {TplName}, param)
+	{Name} := &model.{TplUpperName}{}
+	tx := model.DB.Model({Name}).Where(id)
+	return q.DeleteOne(tx, {Name}, param)
 }
 `
 
@@ -50,9 +50,9 @@ package service
 
 import "server/app/system/{TplSystemName}/service/internal"
 
-var {TplUpperName} = &{TplName}Service{}
+var {TplUpperName} = &{Name}Service{}
 
-type {TplName}Service struct {
+type {Name}Service struct {
 	*internal.{TplUpperName}Service
 }
 `

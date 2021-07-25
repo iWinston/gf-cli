@@ -5,30 +5,30 @@ package define
 import "github.com/iWinston/qk-library/frame/q"
 
 type {TplUpperName}PostParam struct {
+	Id *uint {}json:"id" where:""{}
+}
+
+type {TplUpperName}Getaram struct {
 	
 }
 
-type {TplUpperName}FindParam struct {
+type {TplUpperName}PatchParam struct {
+	Id *uint {}json:"id" where:""{}
+}
+
+type {TplUpperName}DeleteParam struct {
+	Id *uint {}json:"id" where:""{}
+}
+
+type {TplUpperName}ListParam struct {
 	q.Page
 }
 
-type {TplUpperName}FindOneParam struct {
-	
+type {TplUpperName}GetRes struct {
+	Id *uint {}json:"id"{}
 }
 
-type {TplUpperName}PatchOneParam struct {
-	
-}
-
-type {TplUpperName}DeleteOneParam struct {
-
-}
-
-type {TplUpperName}FindRes struct {
-
-}
-
-type {TplUpperName}FindOneRes struct {
-
+type {TplUpperName}ListRes struct {
+	Id *uint {}json:"id"{}
 }
 `

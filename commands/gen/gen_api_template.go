@@ -12,18 +12,18 @@ import (
 )
 
 // {TplDescription}API管理对象
-var {TplUpperName} = &{TplName}Api{}
+var {TplUpperName} = &{Name}Api{}
 
-type {TplName}Api struct{}
+type {Name}Api struct{}
 
 // @summary {TplDescription}新增接口
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param   entity  body define.{TplUpperName}PostParam true "新增{TplDescription}"
-// @router  /{TplName} [POST]
+// @router  /{Name} [POST]
 // @success 200 {object} q.JsonResponse "执行结果"
-func (a *{TplName}Api) Post(r *ghttp.Request) {
+func (a *{Name}Api) Post(r *ghttp.Request) {
 	param := &define.{TplUpperName}PostParam{}
 	q.AssignParamFormReq(r, param)
 	err := service.{TplUpperName}.Create(param)
@@ -34,14 +34,12 @@ func (a *{TplName}Api) Post(r *ghttp.Request) {
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
-// @router  /{TplName}/{id} [GET]
-// @Param id path int true "{TplUpperName} ID"
+// @router  /{Name} [GET]
 // @success 200 {object} define.{TplUpperName}FindOneRes "执行结果"
-func (a *{TplName}Api) Get(r *ghttp.Request) {
-	id := q.GetIdFormReq(r)
-	param := &define.{TplUpperName}FindOneParam{}
+func (a *{Name}Api) Get(r *ghttp.Request) {
+	param := &define.{TplUpperName}GetParam{}
 	q.AssignParamFormReq(r, param)
-	res, err := service.{TplUpperName}.FindOne(id, param)
+	res, err := service.{TplUpperName}.Get(param)
 	q.ResponseWithData(r, err, res)
 }
 
@@ -50,12 +48,12 @@ func (a *{TplName}Api) Get(r *ghttp.Request) {
 // @produce  json
 // @security ApiKeyAuth
 // @param entity query define.{TplUpperName}FindParam true "分页"
-// @router  /{TplName} [GET]
+// @router  /{Name} [GET]
 // @success 200 {object} []define.{TplUpperName}FindRes "执行结果"
-func (a *{TplName}Api) Get(r *ghttp.Request) {
+func (a *{Name}Api) List(r *ghttp.Request) {
 	param := &define.{TplUpperName}FindParam{}
 	q.AssignParamFormReq(r, param)
-	res, total, err := service.{TplUpperName}.Find(param)
+	res, total, err := service.{TplUpperName}.List(param)
 	q.ResponseWithMeta(r, err, res, total)
 }
 
@@ -64,14 +62,13 @@ func (a *{TplName}Api) Get(r *ghttp.Request) {
 // @produce  json
 // @security ApiKeyAuth
 // @param entity body define.{TplUpperName}PatchOneParam true "修改内容"
-// @router  /{TplName}/{id} [Patch]
-// @Param id path int true "{TplUpperName} ID"
+// @router  /{Name} [Patch]
 // @success 200 {object} q.JsonResponse "执行结果"
-func (a *{TplName}Api) PatchOne(r *ghttp.Request) {
+func (a *{Name}Api) PatchOne(r *ghttp.Request) {
 	id := q.GetIdFormReq(r)
-	param := &define.{TplUpperName}PatchOneParam{}
+	param := &define.{TplUpperName}PatchParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{TplUpperName}.PatchOne(id, param)
+	err := service.{TplUpperName}.Patch(param)
 	q.Response(r, err)
 }
 
@@ -79,14 +76,13 @@ func (a *{TplName}Api) PatchOne(r *ghttp.Request) {
 // @tags    {TplDescription}管理
 // @produce  json
 // @security ApiKeyAuth
-// @router  /{TplName}/{id} [Delete]
-// @Param id path int true "{TplUpperName} ID"
+// @router  /{Name} [Delete]
 // @success 200 {object} q.JsonResponse "执行结果"
-func (a *{TplName}Api) DeleteOne(r *ghttp.Request) {
+func (a *{Name}Api) Delete(r *ghttp.Request) {
 	id := q.GetIdFormReq(r)
-	param := &define.{TplUpperName}DeleteOneParam{}
+	param := &define.{TplUpperName}DeleteParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{TplUpperName}.DeleteOne(id, param)
+	err := service.{TplUpperName}.Delete(param)
 	q.Response(r, err)
 }
 `
