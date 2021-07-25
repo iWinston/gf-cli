@@ -13,50 +13,50 @@ import (
 type {CamelName}Service struct{}
 
 // Post 新增{Description}
-func (s *{CamelName}Service) Post(param *define.{CamelName}PostParam) error {
+func (s *{CamelName}Service) Post(ctx *qmodel.QContext, param *define.{CamelName}PostParam) error {
 	var (
 		m = &model.{CamelName}{}
-		err = q.Post(model.DB, m, param)
+		err = q.Post(ctx.DB, m, param)
 	)
 	return err
 }
 
 // Get {Description}详情
-func (s *{CamelName}Service) Get(param *define.{CamelName}GetParam) (*define.{CamelName}GetRes, error) {
+func (s *{CamelName}Service) Get(ctx *qmodel.QContext, param *define.{CamelName}GetParam) (*define.{CamelName}GetRes, error) {
 	var (
 		res = &define.{CamelName}GetRes{}
-		tx = model.DB.Model(&model.{CamelName}{})
+		tx = ctx.DB.Model(&model.{CamelName}{})
 		err = q.Get(tx, param, res)
 	)
 	return res, err
 }
 
 // Patch 修改{Description}
-func (s *{CamelName}Service) Patch(param *define.{CamelName}PatchParam) (error) {
+func (s *{CamelName}Service) Patch(ctx *qmodel.QContext, param *define.{CamelName}PatchParam) (error) {
 	var (
 		m = &model.{CamelName}{}
-		tx = model.DB.Model(m)
+		tx = ctx.DB.Model(m)
 		err = q.Patch(tx, m, param)
 	)
 	return err
 }
 
 // Delete 删除{Description}
-func (s *{CamelName}Service) Delete(param *define.{CamelName}DeleteParam) (error) {
+func (s *{CamelName}Service) Delete(ctx *qmodel.QContext, param *define.{CamelName}DeleteParam) (error) {
 	var (
 		m = &model.{CamelName}{}
-		tx = model.DB.Model(m)
+		tx = ctx.DB.Model(m)
 		err = q.Delete(tx, m, param)
 	)
 	return err
 }
 
 // List {Description}列表
-func (s *{CamelName}Service) List(param *define.{CamelName}ListParam) (*[]define.{CamelName}ListRes, int64, error) {
+func (s *{CamelName}Service) List(param *define.{CamelName}ListParam) (ctx *qmodel.QContext, *[]define.{CamelName}ListRes, int64, error) {
 	var (
 		total int64
 		res   = &[]define.{CamelName}ListRes{}
-		tx    = model.DB.Model(&model.{CamelName}{})
+		tx    = ctx.DB.Model(&model.{CamelName}{})
 		err   = q.List(tx, param, res, &total)
 	)
 	return res, total, err

@@ -24,9 +24,10 @@ type {Name}Api struct{}
 // @router  /{SystemName}/{Name} [POST]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{Name}Api) Post(r *ghttp.Request) {
+	ctx := qservice.QContext.Get(r.Context())
 	param := &define.{CamelName}PostParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{CamelName}.Create(param)
+	err := service.{CamelName}.Create(ctx, param)
 	err = q.OptimizeDbErr(err)
 	q.Response(r, err)
 }
@@ -38,9 +39,10 @@ func (a *{Name}Api) Post(r *ghttp.Request) {
 // @router  /{SystemName}/{Name} [GET]
 // @success 200 {object} q.JsonResponse{data=define.{CamelName}GetRes} "执行结果"
 func (a *{Name}Api) Get(r *ghttp.Request) {
+	ctx := qservice.QContext.Get(r.Context())
 	param := &define.{CamelName}GetParam{}
 	q.AssignParamFormReq(r, param)
-	res, err := service.{CamelName}.Get(param)
+	res, err := service.{CamelName}.Get(ctx, param)
 	err = q.OptimizeDbErr(err)
 	q.ResponseWithData(r, err, res)
 }
@@ -53,9 +55,10 @@ func (a *{Name}Api) Get(r *ghttp.Request) {
 // @router  /{SystemName}/{Name} [Patch]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{Name}Api) Patch(r *ghttp.Request) {
+	ctx := qservice.QContext.Get(r.Context())
 	param := &define.{CamelName}PatchParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{CamelName}.Patch(param)
+	err := service.{CamelName}.Patch(ctx, param)
 	err = q.OptimizeDbErr(err)
 	q.Response(r, err)
 }
@@ -67,9 +70,10 @@ func (a *{Name}Api) Patch(r *ghttp.Request) {
 // @router  /{SystemName}/{Name} [Delete]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{Name}Api) Delete(r *ghttp.Request) {
+	ctx := qservice.QContext.Get(r.Context())
 	param := &define.{CamelName}DeleteParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{CamelName}.Delete(param)
+	err := service.{CamelName}.Delete(ctx, param)
 	err = q.OptimizeDbErr(err)
 	q.Response(r, err)
 }
@@ -82,9 +86,10 @@ func (a *{Name}Api) Delete(r *ghttp.Request) {
 // @router  /{Name} [GET]
 // @success 200 {object} q.JsonResponseWithMeta{[]define.{CamelName}ListRes} "执行结果"
 func (a *{Name}Api) List(r *ghttp.Request) {
+	ctx := qservice.QContext.Get(r.Context())
 	param := &define.{CamelName}ListParam{}
 	q.AssignParamFormReq(r, param)
-	res, total, err := service.{CamelName}.List(param)
+	res, total, err := service.{CamelName}.List(ctx, param)
 	err = q.OptimizeDbErr(err)
 	q.ResponseWithMeta(r, err, res, total)
 }`
