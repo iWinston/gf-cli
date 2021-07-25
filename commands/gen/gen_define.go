@@ -16,7 +16,7 @@ func doGenDefine() {
 		fileName   = systemName + strings.Title(name) + ".define.go"
 	)
 
-	genFile(defineTemplate, "./app/system/"+systemName+"/define", fileName, getReplaceMap(args), "", utils.Header)
+	genFile(defineTemplate, "./app/system/"+systemName+"/define", fileName, getReplaceMap(args), "", utils.OnlyOnceHeader)
 
 	mlog.Print("gen define done!")
 }

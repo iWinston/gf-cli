@@ -16,7 +16,7 @@ func doGenModel() {
 		fileName   = systemName + strings.Title(name) + ".model.go"
 	)
 
-	genFile(modelTemplate, "./app/model", fileName, getReplaceMap(args), "", utils.Header)
+	genFile(modelTemplate, "./app/model", fileName, getReplaceMap(args), "", utils.OnlyOnceHeader)
 
 	mlog.Print("gen model done!")
 }
