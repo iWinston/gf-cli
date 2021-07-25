@@ -1,8 +1,6 @@
 package gen
 
 import (
-	"strings"
-
 	"github.com/iWinston/gf-cli/library/mlog"
 	"github.com/iWinston/gf-cli/library/utils"
 )
@@ -13,7 +11,7 @@ func doGenService() {
 		args       = getArgs()
 		name       = args["name"]
 		systemName = args["systemName"]
-		fileName   = systemName + strings.Title(name) + ".service.go"
+		fileName   = name + ".service.go"
 	)
 
 	genFile(serviceTemplateMap["default"], "./app/system/"+systemName+"/service/internal", fileName, getReplaceMap(args), "force", utils.Header)

@@ -1,8 +1,6 @@
 package gen
 
 import (
-	"strings"
-
 	"github.com/iWinston/gf-cli/library/mlog"
 	"github.com/iWinston/gf-cli/library/utils"
 )
@@ -13,7 +11,7 @@ func doGenApi() {
 		args       = getArgs()
 		name       = args["name"]
 		systemName = args["systemName"]
-		fileName   = systemName + strings.Title(name) + ".api.go"
+		fileName   = name + ".api.go"
 	)
 
 	genFile(apiTemplateMap["index"], "./app/system/"+systemName+"/api", fileName, getReplaceMap(args), "", utils.OnlyOnceHeader)
