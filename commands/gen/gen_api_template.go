@@ -15,12 +15,12 @@ import (
 // {Description}API
 type {CamelName}Api struct{}
 
-// @summary {Description}新增接口
+// @summary 新增{Description}
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param   entity  body define.{CamelName}PostParam true "新增{Description}"
-// @router  /{SystemName}/{Name} [POST]
+// @router  /{SystemName}/{Name}/post [POST]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{CamelName}Api) Post(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
@@ -31,13 +31,13 @@ func (a *{CamelName}Api) Post(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary {Description}详情接口
+// @summary {Description}详情
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param   entity  query define.{CamelName}GetParam true "{Description}详情"
-// @router  /{SystemName}/{Name} [GET]
-// @success 200 {object} q.JsonResponse{data=define.{CamelName}GetRes} "执行结果"
+// @param   entity  body define.{CamelName}GetParam true "{Description}详情"
+// @router  /{SystemName}/{Name}/get [POST]
+// @success 200 {object} q.JsonResponseWithData{data=define.{CamelName}GetRes} "执行结果"
 func (a *{CamelName}Api) Get(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
 	param := &define.{CamelName}GetParam{}
@@ -47,12 +47,12 @@ func (a *{CamelName}Api) Get(r *ghttp.Request) {
 	q.ResponseWithData(r, err, res)
 }
 
-// @summary {Description}修改接口
+// @summary 修改{Description}
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param entity body define.{CamelName}PatchParam true "修改内容"
-// @router  /{SystemName}/{Name} [Patch]
+// @router  /{SystemName}/{Name}/patch [POST]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{CamelName}Api) Patch(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
@@ -63,12 +63,12 @@ func (a *{CamelName}Api) Patch(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary {Description}删除接口
+// @summary 删除{Description}
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param   entity  query define.{CamelName}DeleteParam true "删除{Description}"
-// @router  /{SystemName}/{Name} [Delete]
+// @param   entity  body define.{CamelName}DeleteParam true "删除{Description}"
+// @router  /{SystemName}/{Name}.delete [POST]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{CamelName}Api) Delete(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
@@ -79,13 +79,13 @@ func (a *{CamelName}Api) Delete(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary {Description}列表接口
+// @summary {Description}列表
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param entity query define.{CamelName}ListParam true "分页"
-// @router  /{SystemName}/{Name}/list [GET]
-// @success 200 {object} q.JsonResponseWithMeta{[]define.{CamelName}ListRes} "执行结果"
+// @param entity body define.{CamelName}ListParam true "分页"
+// @router  /{SystemName}/{Name}/list [POST]
+// @success 200 {object} q.JsonResponseWithMeta{data=[]define.{CamelName}ListRes} "执行结果"
 func (a *{CamelName}Api) List(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
 	param := &define.{CamelName}ListParam{}
