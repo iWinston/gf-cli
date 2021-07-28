@@ -68,7 +68,7 @@ func (a *{CamelName}Api) Patch(r *ghttp.Request) {
 // @produce  json
 // @security ApiKeyAuth
 // @param   entity  body define.{CamelName}DeleteParam true "删除{Description}"
-// @router  /{SystemName}/{Name}.delete [POST]
+// @router  /{SystemName}/{Name}/delete [POST]
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{CamelName}Api) Delete(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
