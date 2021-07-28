@@ -11,6 +11,10 @@ type {CamelName}GetParam struct {
 	Id *uint {Backtick}where:"=" example:"1" v:"required|integer#id必填|id必须为整数"{Backtick}
 }
 
+type {CamelName}GetRes struct {
+	Id *uint {Backtick}json:"id"{Backtick}
+}
+
 type {CamelName}PatchParam struct {
 	Id *uint {Backtick}where:"=" example:"1" v:"required|integer#id必填|id必须为整数"{Backtick}
 }
@@ -21,10 +25,6 @@ type {CamelName}DeleteParam struct {
 
 type {CamelName}ListParam struct {
 	q.Page
-}
-
-type {CamelName}GetRes struct {
-	Id *uint {Backtick}json:"id"{Backtick}
 }
 
 type {CamelName}ListRes struct {
