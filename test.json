@@ -1,0 +1,20 @@
+{
+  "api": {
+    "pet": [
+      {
+        "name": "cat",
+        "description": "猫"
+      },
+      {
+        "name": "dog",
+        "description": "狗"
+      }
+    ],
+    "test": [
+      {
+        "name": "cat",
+        "description": "猫"
+      }
+    ]
+  }
+}

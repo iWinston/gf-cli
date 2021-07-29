@@ -6,9 +6,8 @@ import (
 )
 
 // doGenDefine implements the "gen define" command.
-func doGenDefine() {
+func doGenDefine(args map[string]string) {
 	var (
-		args       = getArgs()
 		name       = args["name"]
 		systemName = args["systemName"]
 		fileName   = name + ".define.go"

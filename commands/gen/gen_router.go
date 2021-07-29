@@ -6,9 +6,8 @@ import (
 )
 
 // doGenDefine implements the "gen define" command.
-func doGenRouter() {
+func doGenRouter(args map[string]string) {
 	var (
-		args       = getArgs()
 		systemName = args["systemName"]
 		fileName   = systemName + ".go"
 	)

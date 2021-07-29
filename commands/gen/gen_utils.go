@@ -43,28 +43,31 @@ func getReplaceMap(args g.MapStrStr) g.MapStrStr {
 }
 
 func getArgs() (args g.MapStrStr) {
-	name := gcmd.GetArg(3)
-	if name == "" {
+	systemName := gcmd.GetArg(3)
+	if systemName == "" {
 		mlog.Fatalf("Command arguments are not enough")
 	}
 
-	description := gcmd.GetArg(4)
+	name := gcmd.GetArg(4)
+	if name == "" {
+		mlog.Fatalf("Command arguments are not enough, The name argument is needed")
+	}
+
+	description := gcmd.GetArg(5)
 	if description == "" {
 		mlog.Fatalf(`Command arguments are not enough, The description argument is needed`)
 	}
 
 	parser, err := gcmd.Parse(g.MapStrBool{
-		"s,systemName": true,
-		"f,funcName":   true,
+		"f,funcName": true,
 	})
 	if err != nil {
 		mlog.Fatal(err)
 	}
 	args = parser.GetOptAll()
-	if args["systemName"] == "" {
-		args["systemName"] = "Admin"
-	}
+
 	args["name"] = name
 	args["description"] = description
+	args["systemName"] = systemName
 	return
 }

@@ -6,9 +6,8 @@ import (
 )
 
 // doGenApi implements the "gen api" command.
-func doGenApi() {
+func doGenApi(args map[string]string) {
 	var (
-		args       = getArgs()
 		name       = args["name"]
 		systemName = args["systemName"]
 		fileName   = name + ".api.go"

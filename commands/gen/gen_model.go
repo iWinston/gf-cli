@@ -8,9 +8,8 @@ import (
 )
 
 // doGenModel implements the "gen model" command.
-func doGenModel() {
+func doGenModel(args map[string]string) {
 	var (
-		args       = getArgs()
 		name       = args["name"]
 		systemName = args["systemName"]
 		fileName   = systemName + strings.Title(name) + ".model.go"

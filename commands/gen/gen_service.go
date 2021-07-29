@@ -6,9 +6,8 @@ import (
 )
 
 // doGenService implements the "gen service" command.
-func doGenService() {
+func doGenService(args map[string]string) {
 	var (
-		args       = getArgs()
 		name       = args["name"]
 		systemName = args["systemName"]
 		fileName   = name + ".service.go"

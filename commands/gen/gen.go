@@ -39,32 +39,37 @@ func Run() {
 		mlog.Print("generating type cannot be empty")
 		return
 	}
-	switch genType {
+	if genType == "file" {
+		filePath := gcmd.GetArg(3)
+		doGenRest(filePath)
+	} else {
+		args := getArgs()
+		switch genType {
 
-	case "model":
-		doGenModel()
+		case "model":
+			doGenModel(args)
 
-	case "apifox":
-		doGenApifox()
+		case "apifox":
+			doGenApifox()
 
-	case "api":
-		doGenApi()
+		case "api":
+			doGenApi(args)
 
-	case "service":
-		doGenService()
+		case "service":
+			doGenService(args)
 
-	case "define":
-		doGenDefine()
+		case "define":
+			doGenDefine(args)
 
-	case "router":
-		doGenRouter()
+		case "router":
+			doGenRouter(args)
 
-	case "rest":
-		doGenModel()
-		doGenRouter()
-		doGenDefine()
-		doGenService()
-		doGenApi()
-
+		case "rest":
+			doGenModel(args)
+			doGenRouter(args)
+			doGenDefine(args)
+			doGenService(args)
+			doGenApi(args)
+		}
 	}
 }
