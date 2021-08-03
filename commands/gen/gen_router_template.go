@@ -15,8 +15,7 @@ var Cmds = []qcmd.Domain{}
 func InitNormalRouter(group *ghttp.RouterGroup) {
 	group.Group("/{SystemName}", func(group *ghttp.RouterGroup) {
 		group.Group("/{Name}", func(group *ghttp.RouterGroup) {
-			group.REST("/", api.{CamelName})
-			group.GET("/list", api.{CamelName}.List)
+			group.ALL("/", api.{CamelName})
 		})
 	})
 }
