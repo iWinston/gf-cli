@@ -15,9 +15,9 @@ import (
 // {Description}API
 type {CamelName}Api struct{}
 
-// @summary Post
+// @summary 【Post】{Description}
 // @description 新增{Description}
-// @tags    {Description}管理
+// @tags    {SystemName}/{Description}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param   entity  body define.{CamelName}PostParam true "新增{Description}"
@@ -33,9 +33,9 @@ func (a *{CamelName}Api) Post(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary Get
+// @summary 【Get】{Description}
 // @description {Description}详情
-// @tags    {Description}管理
+// @tags    {SystemName}/{Description}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param   entity  body define.{CamelName}GetParam true "{Description}详情"
@@ -50,9 +50,9 @@ func (a *{CamelName}Api) Get(r *ghttp.Request) {
 	q.ResponseWithData(r, err, res)
 }
 
-// @summary Patch
+// @summary 【Patch】{Description}
 // @description 修改{Description}
-// @tags    {Description}管理
+// @tags    {SystemName}/{Description}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param entity body define.{CamelName}PatchParam true "修改内容"
@@ -68,9 +68,9 @@ func (a *{CamelName}Api) Patch(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary Delete
+// @summary 【Delete】{Description}
 // @description 删除{Description}
-// @tags    {Description}管理
+// @tags    {SystemName}/{Description}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param   entity  body define.{CamelName}DeleteParam true "删除{Description}"
@@ -86,9 +86,9 @@ func (a *{CamelName}Api) Delete(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary List
+// @summary 【List】{Description}
 // @description {Description}列表
-// @tags    {Description}管理
+// @tags    {SystemName}/{Description}管理
 // @produce  json
 // @security ApiKeyAuth
 // @param entity body define.{CamelName}ListParam true "分页"
