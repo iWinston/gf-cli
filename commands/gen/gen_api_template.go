@@ -15,7 +15,8 @@ import (
 // {Description}API
 type {CamelName}Api struct{}
 
-// @summary 新增{Description}
+// @summary Post
+// @description 新增{Description}
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
@@ -24,6 +25,7 @@ type {CamelName}Api struct{}
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{CamelName}Api) Post(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
+	ctx.SetActionHistoryTypeAndDesc("{Description}管理", "新增{Description}")
 	param := &define.{CamelName}PostParam{}
 	q.AssignParamFormReq(r, param)
 	err := service.{CamelName}.Post(ctx, param)
@@ -31,7 +33,8 @@ func (a *{CamelName}Api) Post(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary {Description}详情
+// @summary Get
+// @description {Description}详情
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
@@ -47,7 +50,8 @@ func (a *{CamelName}Api) Get(r *ghttp.Request) {
 	q.ResponseWithData(r, err, res)
 }
 
-// @summary 修改{Description}
+// @summary Patch
+// @description 修改{Description}
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
@@ -56,6 +60,7 @@ func (a *{CamelName}Api) Get(r *ghttp.Request) {
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{CamelName}Api) Patch(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
+	ctx.SetActionHistoryTypeAndDesc("{Description}管理", "修改{Description}")
 	param := &define.{CamelName}PatchParam{}
 	q.AssignParamFormReq(r, param)
 	err := service.{CamelName}.Patch(ctx, param)
@@ -63,7 +68,8 @@ func (a *{CamelName}Api) Patch(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary 删除{Description}
+// @summary Delete
+// @description 删除{Description}
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
@@ -72,6 +78,7 @@ func (a *{CamelName}Api) Patch(r *ghttp.Request) {
 // @success 200 {object} q.JsonResponse "执行结果"
 func (a *{CamelName}Api) Delete(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
+	ctx.SetActionHistoryTypeAndDesc("{Description}管理", "删除{Description}")
 	param := &define.{CamelName}DeleteParam{}
 	q.AssignParamFormReq(r, param)
 	err := service.{CamelName}.Delete(ctx, param)
@@ -79,7 +86,8 @@ func (a *{CamelName}Api) Delete(r *ghttp.Request) {
 	q.Response(r, err)
 }
 
-// @summary {Description}列表
+// @summary List
+// @description {Description}列表
 // @tags    {Description}管理
 // @produce  json
 // @security ApiKeyAuth
