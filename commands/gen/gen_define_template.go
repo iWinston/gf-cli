@@ -3,6 +3,7 @@ package gen
 var defineTemplate = `
 package define
 import "github.com/iWinston/qk-library/frame/q"
+import "github.com/iWinston/qk-library/frame/qfield"
 
 type {CamelName}PostParam struct {
 }
