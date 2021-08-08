@@ -38,6 +38,10 @@ type {{$.CamelPrefix}}{{$.CamelName}}ListParam struct {
 type {{$.CamelPrefix}}{{$.CamelName}}ListRes struct {
 	Id *uint
 }
+{{- else}}
+type {{$.CamelPrefix}}{{$.CamelName}}{{Title $method}}Param struct {
+	
+}
 {{end}}
 {{end}}
 `

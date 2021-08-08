@@ -8,7 +8,7 @@ import (
 // doGenModel implements the "gen model" command.
 func doGenModel(args Args) {
 	var (
-		fileName = args.SnakeSystemName + args.SnakeName + ".model.go"
+		fileName = args.SystemName + args.CamelName + ".model.go"
 	)
 
 	genFile(modelTemplate, "./app/model", fileName, args, "", utils.OnlyOnceHeader)

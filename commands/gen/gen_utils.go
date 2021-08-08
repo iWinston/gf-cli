@@ -25,7 +25,11 @@ func genFile(temp string, folder string, fileName string, args Args, mode string
 		// 	mlog.Print("generated:", path)
 		// }
 
-		t, err := template.New(fileName).Parse(header + temp)
+		t, err := template.New(fileName).Funcs(template.FuncMap{
+			"Title": func(str string) string {
+				return strings.Title(str)
+			},
+		}).Parse(header + temp)
 		if err != nil {
 			mlog.Fatalf("template to '%s' failed: %v", path, err)
 		}

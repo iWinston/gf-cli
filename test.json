@@ -5,11 +5,12 @@
         "prefix": "big",
         "name": "cat",
         "description": "猫",
-        "methods": ["post", "get", "patch", "delete", "list"]
+        "methods": ["change"]
       },
       {
         "name": "dog",
-        "description": "狗"
+        "description": "狗",
+        "methods": ["post", "get", "patch", "list"]
       }
     ],
     "test": [
