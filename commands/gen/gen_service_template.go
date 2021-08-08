@@ -14,7 +14,7 @@ import (
 type {{$.CamelName}}Service struct{}
 
 // Post 新增{{$.Description}}
-func (s *{{$.CamelName}}Service) Post(ctx *qmodel.ReqContext, param *define.{{$.CamelName}}PostParam) error {
+func (s *{{$.CamelName}}Service) Post(ctx *qmodel.ReqContext, param interface{}) error {
 	var (
 		m = &model.{{$.ModelName}}{}
 		err = q.Post(ctx.DB.WithContext(ctx.RCtx), m, param)
@@ -23,7 +23,7 @@ func (s *{{$.CamelName}}Service) Post(ctx *qmodel.ReqContext, param *define.{{$.
 }
 
 // Get {{$.Description}}详情
-func (s *{{$.CamelName}}Service) Get(ctx *qmodel.ReqContext, param *define.{{$.CamelName}}GetParam) (*define.{{$.CamelName}}GetRes, error) {
+func (s *{{$.CamelName}}Service) Get(ctx *qmodel.ReqContext, param interface{}) (*define.{{$.CamelName}}GetRes, error) {
 	var (
 		res = &define.{{$.CamelName}}GetRes{}
 		tx = ctx.DB.Model(&model.{{$.ModelName}}{})
@@ -33,7 +33,7 @@ func (s *{{$.CamelName}}Service) Get(ctx *qmodel.ReqContext, param *define.{{$.C
 }
 
 // Patch 修改{{$.Description}}
-func (s *{{$.CamelName}}Service) Patch(ctx *qmodel.ReqContext, param *define.{{$.CamelName}}PatchParam) (error) {
+func (s *{{$.CamelName}}Service) Patch(ctx *qmodel.ReqContext, param interface{}) (error) {
 	var (
 		m = &model.{{$.ModelName}}{}
 		tx = ctx.DB.WithContext(ctx.RCtx).Model(m)
@@ -43,7 +43,7 @@ func (s *{{$.CamelName}}Service) Patch(ctx *qmodel.ReqContext, param *define.{{$
 }
 
 // Delete 删除{{$.Description}}
-func (s *{{$.CamelName}}Service) Delete(ctx *qmodel.ReqContext, param *define.{{$.CamelName}}DeleteParam) (error) {
+func (s *{{$.CamelName}}Service) Delete(ctx *qmodel.ReqContext, param interface{}) (error) {
 	var (
 		m = &model.{{$.ModelName}}{}
 		tx = ctx.DB.WithContext(ctx.RCtx).Model(m)
@@ -53,7 +53,7 @@ func (s *{{$.CamelName}}Service) Delete(ctx *qmodel.ReqContext, param *define.{{
 }
 
 // List {{$.Description}}列表
-func (s *{{$.CamelName}}Service) List(ctx *qmodel.ReqContext, param *define.{{$.CamelName}}ListParam) (*[]define.{{$.CamelName}}ListRes, int64, error) {
+func (s *{{$.CamelName}}Service) List(ctx *qmodel.ReqContext, param interface{}) (*[]define.{{$.CamelName}}ListRes, int64, error) {
 	var (
 		total int64
 		res   = &[]define.{{$.CamelName}}ListRes{}
