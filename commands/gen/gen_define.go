@@ -6,14 +6,13 @@ import (
 )
 
 // doGenDefine implements the "gen define" command.
-func doGenDefine(args map[string]string) {
+func doGenDefine(args Args) {
 	var (
-		name       = args["name"]
-		systemName = args["systemName"]
-		fileName   = name + ".define.go"
+		systemName = args.SystemName
+		fileName   = utils.JoinNotEmptyStr([]string{args.Name, args.Prefix, "define", "go"}, ".")
 	)
 
-	genFile(defineTemplate, "./app/system/"+systemName+"/define", fileName, getReplaceMap(args), "", utils.OnlyOnceHeader)
+	genFile(defineTemplate, "./app/system/"+systemName+"/define", fileName, args, "", utils.OnlyOnceHeader)
 
 	mlog.Print("gen define done!")
 }

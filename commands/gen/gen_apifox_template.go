@@ -7,7 +7,7 @@ const apifoxTemplate = `
 		"name": "{CamelSystemName}",
 		"items": [
 		  {
-			"name": "{Description}#{CamelName}",
+			"name": "{Description}#{{$.CamelName}}",
 			"items": [
 			  {
 				"name": "{Description}详情",
@@ -148,7 +148,7 @@ const apifoxTemplate = `
 		"name": "Model",
 		"items": [
 		  {
-			"name": "model.{CamelName}",
+			"name": "model.{{$.CamelName}}",
 			"id": "#/definitions/906753",
 			"schema": {
 			  "jsonSchema": {
@@ -165,15 +165,15 @@ const apifoxTemplate = `
 		"name": "{SystemName}",
 		"items": [
 		  {
-			"name": "{Description}#{CamelName}",
+			"name": "{Description}#{{$.CamelName}}",
 			"items": [
 			  {
-				"name": "{CamelName}PostParam",
+				"name": "{{$.CamelName}}PostParam",
 				"id": "#/definitions/902166",
 				"schema": { "jsonSchema": { "type": "object", "properties": {} } }
 			  },
 			  {
-				"name": "{CamelName}GetParam",
+				"name": "{{$.CamelName}}GetParam",
 				"id": "#/definitions/920500",
 				"schema": {
 					"jsonSchema": {
@@ -188,7 +188,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{CamelName}ListParam",
+				"name": "{{$.CamelName}}ListParam",
 				"id": "#/definitions/920501",
 				"schema": {
 				  "jsonSchema": {
@@ -205,7 +205,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{CamelName}PatchParam",
+				"name": "{{$.CamelName}}PatchParam",
 				"id": "#/definitions/928917",
 				"schema": {
 					"jsonSchema": {
@@ -220,7 +220,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{CamelName}DeleteParam",
+				"name": "{{$.CamelName}}DeleteParam",
 				"id": "#/definitions/928921",
 				"schema": {
 					"jsonSchema": {
@@ -235,7 +235,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{CamelName}GetRes",
+				"name": "{{$.CamelName}}GetRes",
 				"id": "#/definitions/922387",
 				"schema": {
 					"jsonSchema": {
@@ -250,7 +250,7 @@ const apifoxTemplate = `
 				}
 			  },
 			  {
-				"name": "{CamelName}ListRes",
+				"name": "{{$.CamelName}}ListRes",
 				"id": "#/definitions/922388",
 				"schema": {
 					"jsonSchema": {

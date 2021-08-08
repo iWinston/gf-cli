@@ -42,34 +42,35 @@ func Run() {
 	if genType == "file" {
 		filePath := gcmd.GetArg(3)
 		doGenRest(filePath)
-	} else {
-		args := getArgs()
-		switch genType {
-
-		case "model":
-			doGenModel(args)
-
-		case "apifox":
-			doGenApifox()
-
-		case "api":
-			doGenApi(args)
-
-		case "service":
-			doGenService(args)
-
-		case "define":
-			doGenDefine(args)
-
-		case "router":
-			doGenRouter(args)
-
-		case "rest":
-			doGenModel(args)
-			doGenRouter(args)
-			doGenDefine(args)
-			doGenService(args)
-			doGenApi(args)
-		}
 	}
+	// else {
+	// 	args := getArgs()
+	// 	switch genType {
+
+	// 	case "model":
+	// 		doGenModel(args)
+
+	// 	case "apifox":
+	// 		doGenApifox()
+
+	// 	case "api":
+	// 		doGenApi(args)
+
+	// 	case "service":
+	// 		doGenService(args)
+
+	// 	case "define":
+	// 		doGenDefine(args)
+
+	// 	case "router":
+	// 		doGenRouter(args)
+
+	// 	case "rest":
+	// 		doGenModel(args)
+	// 		doGenRouter(args)
+	// 		doGenDefine(args)
+	// 		doGenService(args)
+	// 		doGenApi(args)
+	// 	}
+	// }
 }

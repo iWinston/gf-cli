@@ -6,15 +6,15 @@ import (
 )
 
 // doGenService implements the "gen service" command.
-func doGenService(args map[string]string) {
+func doGenService(args Args) {
 	var (
-		name       = args["name"]
-		systemName = args["systemName"]
+		name       = args.Name
+		systemName = args.SystemName
 		fileName   = name + ".service.go"
 	)
 
-	genFile(serviceTemplateMap["default"], "./app/system/"+systemName+"/service/internal", fileName, getReplaceMap(args), "force", utils.Header)
-	genFile(serviceTemplateMap["index"], "./app/system/"+systemName+"/service", fileName, getReplaceMap(args), "", utils.OnlyOnceHeader)
+	genFile(serviceTemplateMap["default"], "./app/system/"+systemName+"/service/internal", fileName, args, "force", utils.Header)
+	genFile(serviceTemplateMap["index"], "./app/system/"+systemName+"/service", fileName, args, "", utils.OnlyOnceHeader)
 
 	mlog.Print("gen service done!")
 }

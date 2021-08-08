@@ -5,30 +5,39 @@ package define
 import "github.com/iWinston/qk-library/frame/q"
 import "github.com/iWinston/qk-library/frame/qfield"
 
-type {CamelName}PostParam struct {
+{{range $method := .Methods}}
+{{- if eq $method "post"}}
+// 新增参数
+type {{$.CamelPrefix}}{{$.CamelName}}PostParam struct {
 }
-
-type {CamelName}GetParam struct {
+{{- else if eq $method "get"}}
+// 详情参数
+type {{$.CamelPrefix}}{{$.CamelName}}GetParam struct {
 	qfield.Id
 }
-
-type {CamelName}GetRes struct {
+// 详情
+type {{$.CamelPrefix}}{{$.CamelName}}GetRes struct {
 	Id *uint
 }
-
-type {CamelName}PatchParam struct {
+{{- else if eq $method "patch"}}
+// 修改参数
+type {{$.CamelPrefix}}{{$.CamelName}}PatchParam struct {
 	qfield.Id
 }
-
-type {CamelName}DeleteParam struct {
+{{- else if eq $method "delete"}}
+// 删除参数
+type {{$.CamelPrefix}}{{$.CamelName}}DeleteParam struct {
 	qfield.Id
 }
-
-type {CamelName}ListParam struct {
+{{- else if eq $method "list"}}
+// 列表参数
+type {{$.CamelPrefix}}{{$.CamelName}}ListParam struct {
 	q.Page
 }
-
-type {CamelName}ListRes struct {
+// 列表
+type {{$.CamelPrefix}}{{$.CamelName}}ListRes struct {
 	Id *uint
 }
+{{end}}
+{{end}}
 `

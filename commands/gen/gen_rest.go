@@ -11,8 +11,10 @@ type ApiJson struct {
 type ApiInfos []ApiInfo
 
 type ApiInfo struct {
+	Prefix      string
 	Name        string
 	Description string
+	Methods     []string
 }
 
 func doGenRest(filePath string) {
@@ -22,11 +24,13 @@ func doGenRest(filePath string) {
 	jsonParse.Load(filePath, apiJson)
 	for k, apis := range apiJson.Api {
 		for _, api := range apis {
-			args := map[string]string{
+			apiInfo := map[string]string{
 				"systemName":  k,
 				"name":        api.Name,
 				"description": api.Description,
+				"prefix":      api.Prefix,
 			}
+			args := getReplaceMap(apiInfo, api.Methods)
 			doGenModel(args)
 			doGenRouter(args)
 			doGenDefine(args)

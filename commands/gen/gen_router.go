@@ -6,13 +6,13 @@ import (
 )
 
 // doGenDefine implements the "gen define" command.
-func doGenRouter(args map[string]string) {
+func doGenRouter(args Args) {
 	var (
-		systemName = args["systemName"]
+		systemName = args.SystemName
 		fileName   = systemName + ".go"
 	)
 
-	genFile(routerTemplate, "./app/system/"+systemName+"", fileName, getReplaceMap(args), "", utils.OnlyOnceHeader)
+	genFile(routerTemplate, "./app/system/"+systemName+"", fileName, args, "", utils.OnlyOnceHeader)
 
 	mlog.Print("gen define done!")
 }

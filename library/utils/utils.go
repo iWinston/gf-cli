@@ -1,9 +1,11 @@
 package utils
 
 import (
+	"encoding/json"
 	"fmt"
 	"strings"
 
+	"github.com/gogf/gf/frame/g"
 	"github.com/gogf/gf/os/gproc"
 )
 
@@ -95,6 +97,12 @@ func CamelString(s string) string {
 		data = append(data, d)
 	}
 	return string(data[:])
+}
+
+func StructToMap(s interface{}) (m g.MapStrAny) {
+	j, _ := json.Marshal(&s)
+	_ = json.Unmarshal(j, &m)
+	return
 }
 
 const Header = `// ==========================================================================

@@ -4,113 +4,84 @@ var apiInternalTemplate = `
 package internal
 
 import (
-	"server/app/system/{SystemName}/define"
-	"server/app/system/{SystemName}/service"
+	"server/app/system/{{$.SystemName}}/define"
+	"server/app/system/{{$.SystemName}}/service"
 
 	"github.com/gogf/gf/net/ghttp"
 	"github.com/iWinston/qk-library/frame/q"
 	"github.com/iWinston/qk-library/frame/qservice"
 )
 
-// {Description}API
-type {CamelName}Api struct{}
+// {{$.Description}}API
+type {{$.CamelPrefix}}{{$.CamelName}}Api struct{}
 
-// @summary 【Post】{Description}
-// @description 新增{Description}
-// @tags    {SystemName}/{Description}管理
+{{range $method := .Methods}}
+// @summary 【Post】{{$.Description}}
+// @description 新增{{$.Description}}
+// @tags    /{{$.SystemName}}/{{$.Description}}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param   entity  body define.{CamelName}PostParam true "新增{Description}"
-// @router  /{SystemName}/{Name}/post [POST]
+// @param   entity  body define.{{$.CamelPrefix}}{{$.CamelName}}PostParam true ""
+// @router  /{{$.SystemName}}{{if $.Prefix}}/{{$.Prefix}}{{end}}/{{$.Name}}/{{$method}} [{{$method}}]
+{{- if eq $method "post"}}
 // @success 200 {object} q.JsonResponse "执行结果"
-func (a *{CamelName}Api) Post(r *ghttp.Request) {
+func (a *{{$.CamelPrefix}}{{$.CamelName}}Api) Post(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
-	ctx.SetActionHistoryTypeAndDesc("{Description}管理", "新增{Description}")
-	param := &define.{CamelName}PostParam{}
+	ctx.SetActionHistoryTypeAndDesc("{{$.Description}}管理", "新增{{$.Description}}")
+	param := &define.{{$.CamelPrefix}}{{$.CamelName}}PostParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{CamelName}.Post(ctx, param)
-	err = q.OptimizeDbErr(err)
+	err := service.{{$.CamelName}}.Post(ctx, param)
 	q.Response(r, err)
 }
-
-// @summary 【Get】{Description}
-// @description {Description}详情
-// @tags    {SystemName}/{Description}管理
-// @produce  json
-// @security ApiKeyAuth
-// @param   entity  body define.{CamelName}GetParam true "{Description}详情"
-// @router  /{SystemName}/{Name}/get [POST]
-// @success 200 {object} q.JsonResponseWithData{data=define.{CamelName}GetRes} "执行结果"
-func (a *{CamelName}Api) Get(r *ghttp.Request) {
+{{- else if eq $method "get"}}
+// @success 200 {object} q.JsonResponseWithData{data=define.{{$.CamelPrefix}}{{$.CamelName}}GetRes} "执行结果"
+func (a *{{$.CamelPrefix}}{{$.CamelName}}Api) Get(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
-	param := &define.{CamelName}GetParam{}
+	param := &define.{{$.CamelPrefix}}{{$.CamelName}}GetParam{}
 	q.AssignParamFormReq(r, param)
-	res, err := service.{CamelName}.Get(ctx, param)
-	err = q.OptimizeDbErr(err)
+	res, err := service.{{$.CamelName}}.Get(ctx, param)
 	q.ResponseWithData(r, err, res)
 }
-
-// @summary 【Patch】{Description}
-// @description 修改{Description}
-// @tags    {SystemName}/{Description}管理
-// @produce  json
-// @security ApiKeyAuth
-// @param entity body define.{CamelName}PatchParam true "修改内容"
-// @router  /{SystemName}/{Name}/patch [POST]
+{{- else if eq $method "patch"}}
 // @success 200 {object} q.JsonResponse "执行结果"
-func (a *{CamelName}Api) Patch(r *ghttp.Request) {
+func (a *{{$.CamelPrefix}}{{$.CamelName}}Api) Patch(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
-	ctx.SetActionHistoryTypeAndDesc("{Description}管理", "修改{Description}")
-	param := &define.{CamelName}PatchParam{}
+	ctx.SetActionHistoryTypeAndDesc("{{$.Description}}管理", "修改{{$.Description}}")
+	param := &define.{{$.CamelPrefix}}{{$.CamelName}}PatchParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{CamelName}.Patch(ctx, param)
-	err = q.OptimizeDbErr(err)
+	err := service.{{$.CamelName}}.Patch(ctx, param)
 	q.Response(r, err)
 }
-
-// @summary 【Delete】{Description}
-// @description 删除{Description}
-// @tags    {SystemName}/{Description}管理
-// @produce  json
-// @security ApiKeyAuth
-// @param   entity  body define.{CamelName}DeleteParam true "删除{Description}"
-// @router  /{SystemName}/{Name}/delete [POST]
+{{- else if eq $method "delete"}}
 // @success 200 {object} q.JsonResponse "执行结果"
-func (a *{CamelName}Api) Delete(r *ghttp.Request) {
+func (a *{{$.CamelPrefix}}{{$.CamelName}}Api) Delete(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
-	ctx.SetActionHistoryTypeAndDesc("{Description}管理", "删除{Description}")
-	param := &define.{CamelName}DeleteParam{}
+	ctx.SetActionHistoryTypeAndDesc("{{$.Description}}管理", "删除{{$.Description}}")
+	param := &define.{{$.CamelPrefix}}{{$.CamelName}}DeleteParam{}
 	q.AssignParamFormReq(r, param)
-	err := service.{CamelName}.Delete(ctx, param)
-	err = q.OptimizeDbErr(err)
+	err := service.{{$.CamelName}}.Delete(ctx, param)
 	q.Response(r, err)
 }
-
-// @summary 【List】{Description}
-// @description {Description}列表
-// @tags    {SystemName}/{Description}管理
-// @produce  json
-// @security ApiKeyAuth
-// @param entity body define.{CamelName}ListParam true "分页"
-// @router  /{SystemName}/{Name}/list [POST]
-// @success 200 {object} q.JsonResponseWithMeta{data=[]define.{CamelName}ListRes} "执行结果"
-func (a *{CamelName}Api) List(r *ghttp.Request) {
+{{- else if eq $method "list"}}
+// @success 200 {object} q.JsonResponseWithMeta{data=[]define.{{$.CamelName}}ListRes} "执行结果"
+func (a *{{$.CamelPrefix}}{{$.CamelName}}Api) List(r *ghttp.Request) {
 	ctx := qservice.ReqContext.Get(r.Context())
-	param := &define.{CamelName}ListParam{}
+	param := &define.{{$.CamelPrefix}}{{$.CamelName}}ListParam{}
 	q.AssignParamFormReq(r, param)
-	res, total, err := service.{CamelName}.List(ctx, param)
-	err = q.OptimizeDbErr(err)
+	res, total, err := service.{{$.CamelName}}.List(ctx, param)
 	q.ResponseWithMeta(r, err, res, total)
-}`
+}
+{{end}}
+{{end}}`
 
 var apiIndexTemplate = `package api
 
-import "server/app/system/{SystemName}/api/internal"
+import "server/app/system/{{$.SystemName}}/api/internal"
 
-var {CamelName} = &{Name}Api{}
+var {{$.CamelName}} = &{{$.Name}}Api{}
 
-type {Name}Api struct {
-	*internal.{CamelName}Api
+type {{$.Name}}Api struct {
+	*internal.{{$.CamelName}}Api
 }`
 
 var apiTemplateMap = map[string]string{
