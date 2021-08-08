@@ -83,7 +83,7 @@ import "server/app/system/{{$.SystemName}}/api/internal"
 var {{$.CamelPrefix}}{{$.CamelName}} = &{{if $.Prefix}}{{$.Prefix}}{{$.CamelName}}{{else}}{{$.Name}}{{end}}Api{}
 
 type {{if $.Prefix}}{{$.Prefix}}{{$.CamelName}}{{else}}{{$.Name}}{{end}}Api struct {
-	*internal.{{$.CamelName}}Api
+	*internal.{{if $.Prefix}}{{$.CamelPrefix}}{{$.CamelName}}{{else}}{{$.CamelName}}{{end}}Api
 }
 {{- range $method := .Methods}}
 {{- if eq $method "get" "post" "patch" "delete" "list"}}
