@@ -22,7 +22,7 @@ type {{$.CamelPrefix}}{{$.CamelName}}Api struct{}
 // @tags    {{$.SystemName}}/{{$.Description}}管理
 // @produce  json
 // @security ApiKeyAuth
-// @param   entity  body define.{{$.CamelPrefix}}{{$.CamelName}}PostParam true "新增{{$.Description}}"
+// @param   entity  body define.{{$.CamelPrefix}}{{$.CamelName}}{{Title $method}}Param true "新增{{$.Description}}"
 // @router  {{if $.Prefix}}/{{$.Prefix}}{{end}}/{{$.SystemName}}/{{$.Name}}/{{$method}} [Post]
 {{- if eq $method "post"}}
 // @success 200 {object} q.JsonResponse "执行结果"
