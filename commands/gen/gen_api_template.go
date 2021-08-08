@@ -17,7 +17,7 @@ type {{$.CamelPrefix}}{{$.CamelName}}Api struct{}
 
 {{range $method := .Methods}}
 {{if eq $method "get" "post" "patch" "delete" "list"}}
-// @summary 【{{Title $method }}】{{$.Description}}
+// @summary 【{{Title $method }}】{{if $.CamelPrefix}}{{$.CamelPrefix}}/{{end}}{{$.Description}}
 // @description 新增{{$.Description}}
 // @tags    {{$.SystemName}}/{{$.Description}}管理
 // @produce  json
@@ -88,7 +88,7 @@ type {{if $.Prefix}}{{$.Prefix}}{{$.CamelName}}{{else}}{{$.Name}}{{end}}Api stru
 {{- range $method := .Methods}}
 {{- if eq $method "get" "post" "patch" "delete" "list"}}
 {{- else}}
-// @summary 【{{Title $method}}】{{$.CamelPrefix}}-{{$.Description}}
+// @summary 【{{Title $method}}】{{if $.CamelPrefix}}{{$.CamelPrefix}}/{{end}}{{$.Description}}
 // @tags    {{$.SystemName}}/{{$.Description}}管理
 // @produce  json
 // @security ApiKeyAuth

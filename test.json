@@ -5,7 +5,7 @@
         "prefix": "big",
         "name": "cat",
         "description": "猫",
-        "methods": ["change"]
+        "methods": ["change", "get"]
       },
       {
         "name": "dog",
