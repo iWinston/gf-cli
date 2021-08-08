@@ -85,10 +85,9 @@ var {{$.CamelPrefix}}{{$.CamelName}} = &{{if $.Prefix}}{{$.Prefix}}{{$.CamelName
 type {{if $.Prefix}}{{$.Prefix}}{{$.CamelName}}{{else}}{{$.Name}}{{end}}Api struct {
 	*internal.{{$.CamelName}}Api
 }
-
 {{range $method := .Methods}}
-{{if eq $method "get" "post" "patch" "delete" "list"}}
-{{else}}
+{{- if eq $method "get" "post" "patch" "delete" "list"}}
+{{- else}}
 // @summary 【{{Title $method}}】{{$.CamelPrefix}}-{{$.Description}}
 // @tags    {{$.SystemName}}/{{$.Description}}管理
 // @produce  json
