@@ -9,7 +9,7 @@ import (
 func doGenDefine(args Args) {
 	var (
 		systemName = args.SystemName
-		fileName   = utils.JoinNotEmptyStr([]string{args.Name, args.Prefix, "define", "go"}, ".")
+		fileName   = utils.JoinNotEmptyStr([]string{args.Name, "define", "go"}, ".")
 	)
 
 	genFile(defineTemplate, "./app/system/"+systemName+"/define", fileName, args, "", utils.OnlyOnceHeader)

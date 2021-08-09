@@ -16,8 +16,7 @@ type {{$.CamelName}}Service struct{}
 // Post 新增{{$.Description}}
 func (s *{{$.CamelName}}Service) Post(ctx *qmodel.ReqContext, param interface{}) error {
 	var (
-		m = &model.{{$.ModelName}}{}
-		err = q.Post(ctx.DB.WithContext(ctx.RCtx), m, param)
+		err = q.Post(ctx.TX.Model(&model.{{$.ModelName}}{}).WithContext(ctx.RCtx), param)
 	)
 	return err
 }
@@ -36,8 +35,8 @@ func (s *{{$.CamelName}}Service) Get(ctx *qmodel.ReqContext, param interface{}) 
 func (s *{{$.CamelName}}Service) Patch(ctx *qmodel.ReqContext, param interface{}) (error) {
 	var (
 		m = &model.{{$.ModelName}}{}
-		tx = ctx.DB.WithContext(ctx.RCtx).Model(m)
-		err = q.Patch(tx, m, param)
+		tx = ctx.TX.WithContext(ctx.RCtx).Model(m)
+		err = q.Patch(tx, param)
 	)
 	return err
 }
@@ -46,8 +45,8 @@ func (s *{{$.CamelName}}Service) Patch(ctx *qmodel.ReqContext, param interface{}
 func (s *{{$.CamelName}}Service) Delete(ctx *qmodel.ReqContext, param interface{}) (error) {
 	var (
 		m = &model.{{$.ModelName}}{}
-		tx = ctx.DB.WithContext(ctx.RCtx).Model(m)
-		err = q.Delete(tx, m, param)
+		tx = ctx.TX.WithContext(ctx.RCtx).Model(m)
+		err = q.Delete(tx, param)
 	)
 	return err
 }
