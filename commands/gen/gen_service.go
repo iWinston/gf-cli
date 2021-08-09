@@ -13,7 +13,7 @@ func doGenService(args Args) {
 		fileName   = name + ".service.go"
 	)
 
-	genFile(serviceTemplateMap["default"], "./app/system/"+systemName+"/service/internal", fileName, args, "force", utils.Header)
+	// genFile(serviceTemplateMap["default"], "./app/system/"+systemName+"/service/internal", fileName, args, "force", utils.Header)
 	genFile(serviceTemplateMap["index"], "./app/system/"+systemName+"/service", fileName, args, "", utils.OnlyOnceHeader)
 
 	mlog.Print("gen service done!")

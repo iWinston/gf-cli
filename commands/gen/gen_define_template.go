@@ -5,6 +5,12 @@ package define
 import "github.com/iWinston/qk-library/frame/q"
 import "github.com/iWinston/qk-library/frame/qfield"
 
+{{- range $method := .Methods}}
+{{- if eq $method "post"}}
+// 新增参数
+type {{$.CamelPrefix}}{{$.CamelName}}PostParam struct {
+}
+{{- else if eq $method "get"}}
 // 详情参数
 type {{$.CamelPrefix}}{{$.CamelName}}GetParam struct {
 	qfield.Id
@@ -13,12 +19,6 @@ type {{$.CamelPrefix}}{{$.CamelName}}GetParam struct {
 type {{$.CamelPrefix}}{{$.CamelName}}GetRes struct {
 	Id *uint
 }
-{{- range $method := .Methods}}
-{{- if eq $method "post"}}
-// 新增参数
-type {{$.CamelPrefix}}{{$.CamelName}}PostParam struct {
-}
-{{- else if eq $method "get"}}
 {{- else if eq $method "patch"}}
 // 修改参数
 type {{$.CamelPrefix}}{{$.CamelName}}PatchParam struct {
@@ -30,12 +30,6 @@ type {{$.CamelPrefix}}{{$.CamelName}}DeleteParam struct {
 	qfield.Id
 }
 {{- else if eq $method "list"}}
-{{- else}}
-type {{$.CamelPrefix}}{{$.CamelName}}{{Title $method}}Param struct {
-	
-}
-{{- end}}
-{{- end}}
 // 列表参数
 type {{$.CamelPrefix}}{{$.CamelName}}ListParam struct {
 	q.Page
@@ -44,4 +38,10 @@ type {{$.CamelPrefix}}{{$.CamelName}}ListParam struct {
 type {{$.CamelPrefix}}{{$.CamelName}}ListRes struct {
 	Id *uint
 }
+{{- else}}
+type {{$.CamelPrefix}}{{$.CamelName}}{{Title $method}}Param struct {
+	
+}
+{{- end}}
+{{- end}}
 `

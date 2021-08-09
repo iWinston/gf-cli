@@ -66,13 +66,9 @@ func (s *{{$.CamelName}}Service) List(ctx *qmodel.ReqContext, param interface{})
 var serviceIndexTemplate = `
 package service
 
-import "server/app/system/{{$.SystemName}}/service/internal"
-
 var {{$.CamelName}} = &{{$.Name}}Service{}
 
-type {{$.Name}}Service struct {
-	*internal.{{$.CamelName}}Service
-}
+type {{$.Name}}Service struct {}
 `
 
 var serviceTemplateMap = map[string]string{
