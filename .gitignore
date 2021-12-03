@@ -18,6 +18,4 @@ config/config.toml
 .vscode
 go.sum
 buildgf.bat
-*.exe
-*.exe~
 app/

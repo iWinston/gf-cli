@@ -27,7 +27,8 @@
                                                                                                                   
 1. `Windows`
 
-    下载后执行，随后根据提示执行安装。
+   下载链接：github.com/iWinston/gf-cli/raw/v0/bin/windows_amd64/qk
+   下载后执行，随后根据提示执行安装。
 
 
 
