@@ -55,10 +55,10 @@ OPTION
     -/--swagger  auto parse and pack swagger into packed/data-swagger.go before running. 
 
 EXAMPLES
-    gf run main.go
-    gf run main.go --swagger
-    gf run main.go --args "server -p 8080"
-    gf run main.go -mod=vendor
+    gf run qk.go
+    gf run qk.go --swagger
+    gf run qk.go --args "server -p 8080"
+    gf run qk.go -mod=vendor
 
 DESCRIPTION
     The "run" command is used for running go codes with hot-compiled-like feature,

@@ -12,11 +12,9 @@ log/
 composer.lock
 gitpush.sh
 pkg/
-bin/
 cbuild
 */.DS_Store
 config/config.toml
-main
 .vscode
 go.sum
 buildgf.bat

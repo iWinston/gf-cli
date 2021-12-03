@@ -81,14 +81,14 @@ OPTION
     --swagger        auto parse and pack swagger into packed/swagger.go before building.
 
 EXAMPLES
-    gf build main.go
-    gf build main.go --swagger
-    gf build main.go --pack public,template
-    gf build main.go --cgo
-    gf build main.go -m none 
-    gf build main.go -n my-app -a all -s all
-    gf build main.go -n my-app -a amd64,386 -s linux -p .
-    gf build main.go -n my-app -v 1.0 -a amd64,386 -s linux,windows,darwin -p ./docker/bin
+    gf build qk.go
+    gf build qk.go --swagger
+    gf build qk.go --pack public,template
+    gf build qk.go --cgo
+    gf build qk.go -m none 
+    gf build qk.go -n my-app -a all -s all
+    gf build qk.go -n my-app -a amd64,386 -s linux -p .
+    gf build qk.go -n my-app -v 1.0 -a amd64,386 -s linux,windows,darwin -p ./docker/bin
 
 DESCRIPTION
     The "build" command is most commonly used command, which is designed as a powerful wrapper for 
@@ -128,9 +128,9 @@ func Run() {
 	}
 	file := parser.GetArg(2)
 	if len(file) < 1 {
-		// Check and use the main.go file.
-		if gfile.Exists("main.go") {
-			file = "main.go"
+		// Check and use the qk.go file.
+		if gfile.Exists("qk.go") {
+			file = "qk.go"
 		} else {
 			mlog.Fatal("build file path cannot be empty")
 		}

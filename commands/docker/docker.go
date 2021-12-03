@@ -19,7 +19,7 @@ USAGE
     gf docker [FILE] [OPTION]
 
 ARGUMENT
-    FILE      file path for "gf build", it's "main.go" in default.
+    FILE      file path for "gf build", it's "qk.go" in default.
     OPTION    the same options as "docker build" except some options as follows defined
 
 OPTION
@@ -29,10 +29,10 @@ EXAMPLES
     gf docker 
     gf docker -t hub.docker.com/john/image:tag
     gf docker -p -t hub.docker.com/john/image:tag
-    gf docker main.go
-    gf docker main.go -t hub.docker.com/john/image:tag
-    gf docker main.go -t hub.docker.com/john/image:tag
-    gf docker main.go -p -t hub.docker.com/john/image:tag
+    gf docker qk.go
+    gf docker qk.go -t hub.docker.com/john/image:tag
+    gf docker qk.go -t hub.docker.com/john/image:tag
+    gf docker qk.go -p -t hub.docker.com/john/image:tag
 
 DESCRIPTION
     The "docker" command builds the GF project to a docker images.
@@ -55,7 +55,7 @@ func Run() {
 		array.Remove(index)
 		autoPush = true
 	}
-	file := "main.go"
+	file := "qk.go"
 	extraOptions := ""
 	if array.Len() > 2 {
 		v, _ := array.Get(2)
